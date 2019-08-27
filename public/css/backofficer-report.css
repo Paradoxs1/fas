@@ -1,0 +1,537 @@
+@import url("cashier-report.css");
+
+/*---------------------tenant report total sales---------------------*/
+
+.tenant-report-total-sales{
+    margin-bottom: 10px;
+}
+
+.tenant-report-sales-footer{
+    margin-top: 20px;
+    padding-top: 16px;
+}
+
+.tenant-report-sales-footer .approval-section{
+    margin-top: -36px;
+}
+
+/*------------------------tenant report dues------------------------*/
+
+#dues-cash{
+    width: 140px;
+}
+
+.tenant-report-dues-footer{
+    background-color: #FAFAFA !important;
+}
+
+.tenant-report-dues-footer .approval-section {
+    padding-bottom: 20px;
+}
+
+.tenant-report-dues-footer p{
+    color: #3F4F5E;
+}
+
+.tenant-report-dues-footer .approval-section{
+    margin-top: -36px;
+}
+
+.tenant-report-dues-footer .total-count-currency{
+    min-width: auto;
+}
+
+.tenant-report-dues-footer .total-count-value-section{
+    width: 205px;
+    text-align: right;
+}
+
+.tenant-report-dues-cash-calculate-link{
+    margin-left: 40px;
+    color: #07D;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 14px;
+    -webkit-transition: color 0.4s ease;
+    -moz-transition: color 0.4s ease;
+    -ms-transition: color 0.4s ease;
+    -o-transition: color 0.4s ease;
+    transition: color 0.4s ease;
+}
+
+.tenant-report-dues-cash-calculate-link:hover{
+    color: #059;
+}
+
+.tenant-report-dues-cash-calculate-link+.approval-section{
+    display: inline-block;
+    float: right;
+}
+
+.dues-table input{
+    font-weight: 600;
+}
+
+.sales-report-section-footer .facility-report-dues-footer{
+    background-color: #FAFAFA;
+    padding-bottom: 20px;
+}
+
+.sales-report-dues .total-count-currency{
+    text-align: left;
+}
+
+/*----------------------tenant report summary-----------------------*/
+
+.sales-report-summary .sales-report-section-footer{
+    padding: 20px 0 10px 0 !important;
+}
+
+
+.success-footer {
+    background-color: #417505;
+}
+
+.error-footer {
+    background-color: #D0021B;
+}
+
+.success-footer .total-count-title,
+.error-footer .total-count-title,
+.success-footer .total-count-value-section,
+.error-footer .total-count-value-section{
+    color: #FFFFFF !important;
+}
+
+.success-footer,
+.error-footer{
+    padding-top: 16px;
+    padding-bottom: 4px;
+}
+
+/*----------------------dues popup calculate total and approve sales popup-----------------------*/
+
+.dues-popup-section-calculate-total.not-active,
+.approve-sales.not-active{
+    display: none !important;
+}
+
+.dues-popup-section-calculate-total .overlay,
+.approve-sales .overlay{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.dues-popup-calculate-total,
+.approve-sales-popup{
+    margin: 10px auto;
+    width: 600px;
+    position: absolute;
+    color: #3F4F5E;
+    background-color: #fff;
+    left: 50%;
+
+    -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+
+.dues-popup-calculate-total{
+    top: 10%;
+}
+
+.dues-popup-calculate-total .currency{
+    top: 0;
+}
+
+.approve-sales-popup{
+    top: 2%;
+}
+
+.dues-popup-calculate-total-header{
+    padding: 15px;
+}
+
+.approve-sales-popup-header{
+    padding: 30px 20px 5px 20px;
+}
+
+.dues-popup-calculate-total-header h4,
+.approve-sales-popup-header h4{
+    font-size: 16px;
+    color: #444;
+    display: inline-block;
+}
+
+.approve-sales-popup-header h4{
+    font-weight: 600;
+}
+
+.dues-popup-calculate-total-content,
+.approve-sales-popup-content{
+    font-size: 14px;
+}
+
+.dues-popup-calculate-total-content{
+    padding: 5px 15px;
+}
+
+.approve-sales-popup-content{
+    padding: 10px 20px;
+}
+
+.approve-sales-popup-content p{
+    font-weight: 300;
+    padding-right: 50px;
+}
+
+.approve-sales-message span{
+    font-weight: 700;
+}
+
+.approve-sales-table{
+    padding-top: 10px;
+}
+
+.approve-sales h5{
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.approve-sales-payments-table table{
+    margin-bottom: 3px !important;
+}
+
+.approve-sales-popup h5{
+    margin-bottom: 20px;
+}
+
+.approve-sales-popup table{
+    margin-bottom: 30px;
+}
+
+.approve-sales-popup td:first-child{
+    width: 150px;
+}
+
+.approve-sales-payments-missing-income{
+    margin-right: 8px;
+}
+
+.approve-sales-payments-missing-income+.currency{
+    font-weight: 300;
+    margin-left: -45px;
+    padding-right: 5px;
+}
+
+.approve-sales table{
+    width: 100%;
+}
+
+.approve-sales td{
+    font-weight: 300;
+    padding-bottom: 15px;
+}
+
+.approve-sales td:last-child{
+    text-align: right;
+    font-weight: 700;
+}
+
+.approve-sales-payments-table input{
+    width: 100%;
+}
+
+.approve-sales-popup-text-input{
+    margin-bottom: 40px;
+}
+
+.approve-sales-payments-table table input{
+    max-width: 117px;
+}
+
+.dues-popup-calculate-total-content label{
+    color: #3F4F5E;
+    font-weight: normal;
+}
+
+.dues-popup-calculate-total-content tr{
+    line-height: 36px;
+}
+
+.dues-calculation-cash-label{
+    width: 65px;
+}
+
+.dues-calculation-cash-img{
+    width: 98px;
+}
+
+.dues-calculation-cash-number{
+    width: 94px;
+}
+
+.dues-calculation-cash-number .report-input{
+    width: 80px;
+}
+
+.dues-calculation-cash-result{
+    width: 250px;
+}
+
+#coins+.currency{
+    top: 7px;
+}
+
+.dues-calculation-cash-result .report-input{
+    width: 180px;
+}
+
+.dues-calculation-cash-coins{
+    padding: 6px 0;
+}
+
+.dues-calculation-cash-coins div{
+    display: inline-block;
+}
+
+.dues-calculation-cash-coins .report-input{
+    width: 274px;
+}
+
+.dues-calculation-cash-coins .dues-calculation-cash-result{
+    width: 280px;
+}
+
+.dues-calculation-cash-coins .dues-calculation-cash-img{
+    width: 92px;
+}
+
+.dues-table-labels{
+    width: 20%;
+}
+
+.calculation-cash-coins-container{
+    display: none;
+}
+
+.enter-coins-amount-link{
+    cursor: pointer;
+    color: #07D;
+    margin: 4px auto;
+    display: block;
+    max-width: 200px;
+}
+
+.enter-coins-amount-link span{
+    vertical-align: top;
+}
+
+.enter-coins-amount-link:hover{
+    color: #059;
+}
+
+.enter-coins-amount-link .fa-angle-down{
+    font-size: 24px;
+    -webkit-transition: transform 0.5s ease;
+    -moz-transition: transform 0.5s ease;
+    -ms-transition: transform 0.5s ease;
+    -o-transition: transform 0.5s ease;
+    transition: transform 0.5s ease;
+}
+
+.enter-coins-amount-link.active .fa-angle-down{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.dues-popup-calculate-total-footer,
+.approve-sales-popup-footer{
+    background-color: #FAFAFA;
+    border-top: 1px solid #EBEBEB;
+}
+
+.dues-popup-calculate-total-footer{
+    padding: 15px;
+    text-align: right;
+}
+
+.approve-sales-popup-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px 20px 20px;
+}
+
+.approve-sales-popup-btn,
+.approve-sales-popup-checkbox,
+.approve-sales-popup-footer-additional-content{
+    vertical-align: top;
+    display: inline-block;
+}
+
+.dues-popup-total-count{
+    display: inline-block;
+}
+
+.dues-popup-total-count p{
+    margin-bottom: 0;
+}
+
+.dues-popup-total-count .total-count-title{
+    width: 120px;
+    text-align: left;
+}
+
+.dues-popup-total-count .total-count-val{
+    width: 173px;
+}
+
+.dues-popup-btn,
+.approve-sales-popup-btn{
+    display: inline-block;
+}
+
+.dues-popup-btn{
+    width: 141px;
+}
+
+.dues-popup-btn .btn-submit,
+.approve-sales-popup-btn .btn-submit{
+    width: 105px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 5px 0;
+    cursor: pointer;
+    display: inline-block;
+    -webkit-transition: background-color 0.5s ease;
+    -moz-transition: background-color 0.5s ease;
+    -ms-transition: background-color 0.5s ease;
+    -o-transition: background-color 0.5s ease;
+    transition: background-color 0.5s ease;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.approve-sales-popup-btn.not-active .btn-submit{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.approve-sales-popup-btn .btn-submit{
+    line-height: 34px;
+}
+
+.dues-popup-calculate-total-footer .btn-submit:hover,
+.approve-sales-popup-footer .btn-submit:hover{
+    background-color: #FFFFFF;
+}
+
+.CHF-currency.not-active{
+    display: none;
+}
+
+.EUR-currency.not-active{
+    display: none;
+}
+
+#approve-sales-popup-checkbox{
+    display: none;
+}
+
+#approve-sales-popup-checkbox:not(checked) + label .fa-check-square{
+    display: none;
+}
+
+#approve-sales-popup-checkbox:checked + label .fa-check-square{
+    display: block;
+}
+
+#approve-sales-popup-checkbox:checked + label .fa-square{
+    display: none;
+}
+
+.approve-sales-popup-checkbox label{
+    vertical-align: top;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+}
+
+.approve-sales-popup-checkbox .far{
+    font-size: 22px;
+}
+
+.approve-sales-popup-checkbox .checkbox-title{
+    font-weight: 300;
+    margin-left: 4px;
+    background-color: inherit;
+}
+
+.approve-sales-popup-checkbox{
+    padding-left: 20px;
+    display: inline-block;
+    margin-top: 12px;
+    background-color: inherit !important;
+}
+
+.approve-sales-popup-footer-additional-content{
+    /*float: right;*/
+    display: inline-block;
+    text-align: right;
+}
+
+.approve-sales-popup-footer-additional-content:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.approve-sales-popup-footer-additional-content p{
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.approve-sales-popup-btn{
+    min-width: 100px;
+}
+
+.approve-sales-popup-btn .button-submit.not-allow {
+    color: #FFF;
+    background-color: #D8DCDF;
+    cursor: default;
+}
+
+.approve-sales-popup-btn .button-submit{
+    background-color: #2E80CA;
+    color: #FFF;
+    border-style: none;
+    font-size: 16px;
+    font-weight: bold;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    width: 100%;
+    line-height: 46px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}

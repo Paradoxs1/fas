@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}Tenant Users{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/tenants-list.css">
+{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {% set current_tenant = app.user.tenant %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block menu %}
+        {% set current_tenant = app.user.tenant %}
+        {{ parent() }}
+    {% endblock %}
+    <div class="site-content">
+        <div class="container">
+            <p>
+                {{ 'error_page.info'|trans }}
+            </p>
+            <p>
+                {{ 'error_page.contact_us'|trans }}
+            </p>
+            <p>
+                {{ 'error_page.thank_you'|trans }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

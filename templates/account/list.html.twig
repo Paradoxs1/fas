@@ -1,0 +1,105 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'list_account.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/users-list.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+
+        {% block header %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% include 'common/pop-up.html.twig' %}
+
+        <div class="users-list">
+            <div class="container">
+                <div class="row fas-header">
+                    <div class="col-md-6 fas-title">
+                        <h1>{{ 'list_account.title'|trans }}</h1>
+                    </div>
+                    <div class="col-md-6 fas-add-search-nav">
+                        <div class="fas-add-item">
+                            <a href="{{ url('admin_account_new') }}">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>{{ 'list_account.add_tenant_manager'|trans }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row fas-section">
+                    <div class="col-12">
+                        <table class="fas-section-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>{{ 'list_account.name'|trans }}</th>
+                                    <th>{{ 'list_account.email'|trans }}</th>
+                                    <th>{{ 'list_account.tenant_name'|trans }}</th>
+                                    <th>{{ 'list_account.actions'|trans }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if paginated_data.currentPageResults  %}
+                                     {% for user in paginated_data.currentPageResults %}
+                                         <tr>
+                                             <td>{{ user.id }}</td>
+                                             <td>{{ user.fullName }}</td>
+                                             <td>
+                                                 {% if user.accountEmail.email is defined %}
+                                                    {{ user.accountEmail.email }}
+                                                 {% endif %}
+                                             </td>
+                                             <td>
+                                                 {% if user.tenant %}
+                                                    {{ user.tenant.name }}
+                                                 {% endif %}
+                                             </td>
+                                             <td>
+                                                 <a>
+                                                     <i class="fas fa-trash-alt" data-delete-route="{{ path('tenant_account_delete', {'id': user.id }) }}"  data-popup-header="Delete User {{ user.person.firstName }} {{ user.person.lastName }}" data-popup-text="Are you sure you want to delete this user? This action cannot be undone."></i>
+                                                 </a>
+                                                 <a href="{{ url('admin_user_edit', {'id' : user.id}) }}">
+                                                     <i class="fas fa-pencil-alt"></i>
+                                                 </a>
+                                             </td>
+                                         </tr>
+                                     {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">{{ 'list_account.no_tenant_managers'|trans }}</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <div class="row pagination">
+                            <div class="col-md-6 pagination-left-content">
+                                <p>
+                                    {{ 'tenant.users.show'|trans }}
+                                    <span class="pagination-pages-values">
+                                        {{ paginated_data.getCurrentPageOffsetStart }}-{{ paginated_data.getCurrentPageOffsetEnd }}
+                                    </span>
+                                    {{ 'tenant.users.of'|trans }}
+                                    <span class="pagination-pages-values">{{ paginated_data.count }}</span> {{ 'tenant.users.rows'|trans }}.
+                                </p>
+                            </div>
+                            <div class="col-md-6 pagination-right-content">
+                                {{ pagerfanta(paginated_data, 'fas_pager', { 'omitFirstPage': true}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

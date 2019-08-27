@@ -1,0 +1,189 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'facility_add.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/add-edit-entity.css">
+{% endblock %}
+
+{% block body %}
+
+    <div class="site-content">
+
+        {% block header %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="user-add-edit">
+            <div class="container">
+                <form id="user-edit-form" action="">
+
+                    <div class="row fas-header">
+                        <div class="col-10 fas-title">
+                            <h1>{{ 'create_facility.title'|trans }}</h1>
+                        </div>
+                        <div class="col-2 fas-required-message">
+                            <p><span class="red-color">*</span> {{ 'report.required'|trans }}</p>
+                        </div>
+                    </div>
+
+                    {#todo div with class = "tenant-add-edit-content" like in tenant/add.html.twig except last tr with chekboxes ( in this template this tr is absent)#}
+
+                    <div class="row fas-section user-add-edit-personal-data">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'facility_details.title'|trans }}</h2>
+                        </div>
+                        <div class="col-12 tenant-add-edit-content">
+                            <table>
+                                <tr>
+                                    <td id="title-name">
+                                        {{ form_label(form.name) }}
+                                    </td>
+                                    <td>
+                                        {{ form_widget(form.name, {'id' : 'form-name', 'attr': {'class': 'fas-input'}}) }}
+                                    </td>
+                                    <td class="error-message" >
+                                        <span id="error-name-message-required" class="not-active">{{ 'tenant_name.required'|trans }}</span>
+                                        <span id="error-name-message-must-contain" class="not-active">{{ 'tenant_name.min_length'|trans }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="title-street">
+                                        {{ form_label(form.address.street) }}
+                                    </td>
+                                    <td>
+                                        {{ form_widget(form.address.street, {'id' : 'form-street', 'attr': {'class': 'fas-input'}}) }}
+                                    </td>
+                                    <td class="error-message" >
+                                        <span id="error-street-message-required" class="not-active">{{ 'street.required'|trans }}</span>
+                                        <span id="error-street-message-must-contain" class="not-active">{{ 'street.min_length'|trans }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="title-zip">
+                                        {{ form_label(form.address.zip) }}
+                                    </td>
+                                    <td>
+                                        {{ form_widget(form.address.zip, {'id' : 'form-zip', 'attr': {'class': 'fas-input'}}) }}
+                                    </td>
+                                    <td class="error-message" >
+                                        <span id="error-zip-message-required" class="not-active">{{ 'zip.required'|trans }}</span>
+                                        <span id="error-zip-message-must-contain" class="not-active">{{ 'zip.min_length'|trans }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="title-city">
+                                        {{ form_label(form.address.city) }}
+                                    </td>
+                                    <td>
+                                        {{ form_widget(form.address.city, {'id' : 'form-city', 'attr': {'class': 'fas-input'}}) }}
+                                    </td>
+                                    <td class="error-message" >
+                                        <span id="error-city-message-required" class="not-active">{{ 'city.required'|trans }}</span>
+                                        <span id="error-city-message-must-contain" class="not-active">{{ 'city.min_length'|trans }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="title-country">
+                                        {{ form_label(form.address.country) }}
+                                    </td>
+                                    <td>
+                                        {{ form_widget(form.address.country, {'id' : 'country-select', 'attr': {'class': 'fas-select'}}) }}
+                                    </td>
+                                    <td class="error-message" id="error-country-message"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="row fas-section user-add-edit-association">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'user_assignment.title'|trans }}</h2>
+                        </div>
+                        <table class="facility-assignment">
+                            <tr>
+                                <th></th>
+                                <th><p>{{ 'role.tenant_manager.title'|trans }}</p></th>
+                                <th><p>{{ 'role.tenant_user.title'|trans }}</p></th>
+                                <th><p>{{ 'role.stakeholder.title'|trans }}</p></th>
+                                <th><p>{{ 'role.facility_manager.title'|trans }}</p></th>
+                                <th><p>{{ 'role.facility_user.title'|trans }}</p></th>
+                                <th></th>
+                            </tr>
+                            <tr class="basic-facility-line">
+                                <td>
+                                    <select class="fas-select tenant-select" name="restaurant-select-line-1">
+                                        <option value="1">{{ 'user.title'|trans }} 1</option>
+                                        <option value="2">{{ 'user.title'|trans }} 2</option>
+                                        <option value="3">{{ 'user.title'|trans }} 3</option>
+                                    </select>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="checkbox-line-1-value-1" type="checkbox" name="facility-checkbox-line-1-value-1">
+                                    <label for="checkbox-line-1-value-1">
+                                        <i class="far fa-square"></i>
+                                        <i class="far fa-check-square"></i>
+                                    </label>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="checkbox-line-1-value-2" type="checkbox" name="facility-checkbox-line-1-value-2">
+                                    <label for="checkbox-line-1-value-2">
+                                        <i class="far fa-square"></i>
+                                        <i class="far fa-check-square"></i>
+                                    </label>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="checkbox-line-1-value-3" type="checkbox" name="facility-checkbox-line-1-value-3">
+                                    <label for="checkbox-line-1-value-3">
+                                        <i class="far fa-square"></i>
+                                        <i class="far fa-check-square"></i>
+                                    </label>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="radio-line-1-value-1" type="radio" name="facility-radio-line-1" value="1">
+                                    <label for="radio-line-1-value-1">
+                                        <i class="far fa-circle"></i>
+                                        <i class="far fa-check-circle"></i>
+                                    </label>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="radio-line-1-value-2" type="radio" name="facility-radio-line-1" value="1">
+                                    <label for="radio-line-1-value-2">
+                                        <i class="far fa-circle"></i>
+                                        <i class="far fa-check-circle"></i>
+                                    </label>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <div class="col-12 btn-add-line">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>{{ 'tenant.users.add_user'|trans }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row user-add-edit-buttons save-cancel-buttons">
+                        <button type="submit" class="btn-submit">{{ 'report.save'|trans }}</button>
+                        <button class="btn-cancel">{{ 'cancel_button.title'|trans }}</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/validation/user-edit.js"></script>
+    <script src="/js/user-assignment.js"></script>
+{% endblock %}

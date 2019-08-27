@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Password expired{% endblock %}
+
+{% block body %}
+    <div class="login">
+        <div class="container">
+            <div class="row">
+                <div class="login-logo">
+                    <a href="{{ path('index') }}">
+                        <img src="/img/CashUpLogo.png" alt="Logo">
+                    </a>
+                </div>
+            </div>
+            <div class="login-container">
+                <div class="site-login">
+                    <h1 class="form-title">{{ 'security.login.blocked'|trans }}</h1>
+                        <p class="password-message">
+                            {{ 'security.login.blocked_message'|trans }}
+                        </p>
+                        <p class="password-message password-attempts">
+                            {{ 'security.login.blocked_remaining_time'|trans }}
+                        </p>
+                        <div class="password-attempts-timer">
+                            <p class="attempts-timer">
+                                {{ interval }} min
+                            </p>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

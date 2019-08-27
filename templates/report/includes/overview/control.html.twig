@@ -1,0 +1,51 @@
+<tr class="cashiers-table-control">
+    <td class="payment-column">{{ 'report_overview.control'|trans }}</td>
+    {% set cashDiffTotal = 0 %}
+    {% set cashDiff = 0 %}
+    {% set cashDiffExists = false %}
+    {% for report in data.reports %}
+        {% if data.dues.backofficer_data[report.id] is defined and data.dues.cash_income[report.id] is defined %}
+            {% set cashDiff = data.dues.backofficer_data[report.id] - data.dues.cash_income[report.id] %}
+            {% if data.dues.cashier_data is defined %}
+                {% for item in data.dues.cashier_data[report.id] %}
+                    {% set cashDiff = cashDiff - item.value %}
+                {% endfor %}
+            {% endif %}
+            {% set cashDiffTotal = cashDiffTotal + cashDiff %}
+        {% endif %}
+        <td class="cashier-column shift-1">
+            {% if cashDiff != 0 %}
+                <p class="error-name">{{ cashDiff | number_format(2, ".", "'") }} {{ currency }}</p>
+                {% set cashDiffExists = true %}
+            {% else %}
+                <p>{{ cashDiff | number_format(2, ".", "'") }} {{ currency }}</p>
+            {% endif %}
+        </td>
+    {% endfor %}
+    <td class="total-difference-column"></td>
+    <td class="total-all-column">
+        {% if cashDiffExists == true %}
+            <p class="error-name">{{ cashDiffTotal | number_format(2, ".", "'") }} {{ currency }}</p>
+        {% else %}
+            <p>{{ cashDiffTotal | number_format(2, ".", "'") }} {{ currency }}</p>
+        {% endif %}
+    </td>
+    <td class="approval-column"></td>
+</tr>
+{% if approved != true %}
+    <tr class="cashiers-table-footer">
+        <td class="payment-column"></td>
+        {% for report in data.reports %}
+            <td class="cashier-column shift-1">
+                <a class="button-edit" href="{{ path('edit_cashier_report', {'reportId': report.id,'id': report.facilityLayout.facility.id, 'date': checkDate|date('Y-m-d')}) }}">{{ 'report_overview.edit'|trans }}</a>
+            </td>
+        {% endfor %}
+
+        <td class="total-difference-column"></td>
+        <td class="total-all-column" colspan="2">
+            <button id="approve-and-book" type="{% if overlayTemplate != null %}button{% else %}submit{% endif %}" disabled class="button-submit not-allow">
+                {{ 'report_overview.approve'|trans }}
+            </button>
+        </td>
+    </tr>
+{% endif %}

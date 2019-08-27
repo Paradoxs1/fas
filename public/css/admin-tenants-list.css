@@ -1,0 +1,197 @@
+/*---------------------setup---------------------*/
+
+.tenants-list a,
+.tenants-list a:hover{
+    text-decoration: none;
+}
+
+/*---------------------tenants list---------------------*/
+
+.tenants-list .container{
+    padding: 30px;
+}
+
+/*---------------------tenants list header---------------------*/
+
+.tenants-list-title{
+    text-align: left;
+}
+
+.tenants-list-header{
+    padding: 10px 25px 40px 9px;
+}
+
+.tenants-list-header-nav{
+    text-align: right;
+    padding-top: 10px;
+}
+
+.tenants-list-title h1{
+    color: #444;
+    font-size: 32px;
+    line-height: 43px;
+}
+
+.tenants-list-add-report,
+.tenants-list-search{
+    display: inline-block;
+}
+
+.tenants-list-search{
+    margin-left: 20px;
+    border: 1px solid #D8D8D8;
+    background-color: #FFFFFF;
+    position: relative;
+}
+
+.tenants-list-search:after{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-image: url('../img/search-icon.png');
+    background-size: cover;
+    left: 10px;
+    top: 8px;
+}
+
+.tenants-list-search input{
+    border: none;
+    padding-left: 35px;
+    max-width: 200px;
+    height: 33px;
+    font-size: 14px;
+}
+
+::-webkit-input-placeholder{
+    color: #D8D8D8;
+}
+::-moz-placeholder{
+    color: #D8D8D8;
+}
+:-ms-input-placeholder{
+    color: #D8D8D8;
+}
+:-moz-placeholder {
+    color: #D8D8D8;
+}
+
+.tenants-list-add-report a{
+    color: #2A81CB;
+    font-size: 15px;
+    line-height: 19px;
+}
+
+.tenants-list-add-report .fas{
+    font-size: 18px;
+    vertical-align: top;
+    padding-top: 4px;
+}
+
+.tenants-list-add-report span{
+    vertical-align: center;
+}
+
+/*---------------------tenants list table---------------------*/
+
+.tenants-list-table{
+    margin-left: 13px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 0 4px 0 rgba(0,0,0,0.1);
+    -moz-box-shadow: 0 0 4px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.1);
+    font-size: 14px;
+    color: #3F4F5E;
+    font-weight: 300;
+    max-width: 1180px;
+}
+
+.tenants-list-table .col{
+    padding: 0 23px;
+}
+
+.tenants-list-table table{
+    width: 100%;
+    margin-top: 26px;
+}
+
+.tenants-list-table th{
+    font-weight: bold;
+}
+
+.tenants-list-table tr{
+    line-height: 36px;
+}
+
+.tenants-list-table tr:nth-child(even){
+    background-color: #FAFAFA;
+}
+
+.tenants-list-table thead{
+    border-bottom: 1px solid #3F4F5E;
+}
+
+.tenants-list-table th:nth-child(1),
+.tenants-list-table td:nth-child(1){
+    width: 9%;
+    padding-left: 10px;
+}
+
+.tenants-list-table th:nth-child(2),
+.tenants-list-table td:nth-child(2){
+    width: 31%;
+}
+
+.tenants-list-table th:nth-child(3),
+.tenants-list-table td:nth-child(3){
+    width: 56%;
+}
+
+.tenants-list-table th:nth-child(4),
+.tenants-list-table td:nth-child(4){
+    width: 4%;
+}
+
+.tenants-list-table .fas{
+    font-size: 14px;
+    color: #2A81CB;
+    padding-right: 10px;
+}
+
+/*---------------------tenants list pagination---------------------*/
+
+.tenants-list-pagination{
+    padding: 40px 0;
+    font-weight: normal;
+
+}
+
+.tenants-list-pagination-right-content{
+    text-align: right;
+}
+
+.pagination-pages-values{
+    font-weight: 700;
+}
+
+.pagination-nav a,
+.pagination-nav span{
+    padding-left: 5px;
+    margin-left: 5px;
+    padding-bottom: 2px;
+    color: #2A81CB;
+    font-size: 14px;
+    line-height: 19px;
+}
+
+.pagination-nav a.active,
+.pagination-nav a:hover,
+.pagination-nav span.active,
+.pagination-nav span:hover{
+    border-bottom: 1px solid #3f4f5e;
+    color: #3f4f5e;
+}

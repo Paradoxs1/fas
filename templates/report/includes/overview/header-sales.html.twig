@@ -1,0 +1,27 @@
+{% if sales %}
+    <div class="row cash-report-earnings-content">
+        <div class="col-12 title-with-line-box">
+            <div class="sales-report-title-with-line">
+                <p>{{ 'report_overview.cash'|trans }}</p>
+            </div>
+        </div>
+
+        <div class="col-12 cash-report-earnings">
+            <div class="cash-report-title">
+                <h3>{{ 'report_overview.earnings'|trans }}</h3>
+            </div>
+            {% for key, data in sales %}
+                <div class="cash-report-item">
+                    <p class="cash-items-name">{{ data.name }}</p>
+                    <p class="cash-items-value">{{ data.value  | number_format(2, ".", "'") }}</p>
+                    <span>{{ currency }}</span>
+                </div>
+            {% endfor %}
+            <div class="cash-report-item cash-total">
+                <p class="cash-count-title">{{ 'report_overview.total'|trans }}</p>
+                <p class="cash-count-val"></p>
+                <span>{{ currency }}</span>
+            </div>
+        </div>
+    </div>
+{% endif %}

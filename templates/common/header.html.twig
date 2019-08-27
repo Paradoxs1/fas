@@ -1,0 +1,85 @@
+{% block header %}
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 header-left-content">
+                    <div class="logo">
+                        <a href="{{ path('index') }}">
+                            <img src="/img/CashUpLogo.png" alt="Logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-10 header-right-content">
+                    {% set _route = app.request.get('_route')%}
+                    <nav class="header-nav">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ url('admin_users') }}" class="{{ _route == 'admin_users' ? 'active' }}">
+                                {{ 'list_account.title'|trans }}
+                            </a>
+                            <a href="{{ url('admin_tenants') }}" class="{{ _route == 'admin_tenants' ? 'active' }}">
+                                {{ 'tenants.title'|trans }}
+                            </a>
+                        {% elseif is_granted('ROLE_TENANT_MANAGER') %}
+                            <a href="{{ url('tenant_configuration') }}" class="{{ _route == 'tenant_configuration' ? 'active' }}">
+                                {{ 'default_config.title'|trans }}
+                            </a>
+                            <a href="{% if _route != 'tenant_facility_new' and _route != 'tenant_facility_edit' %}{{ url('tenant_facility') }}{% endif %}" class="{{ _route == 'tenant_facility' ? 'active': _route == 'tenant_facility_new' or _route == 'tenant_facility_edit' ? 'not-active-tenant-user'}}">
+                                {{ 'facilities.title'|trans }}
+                            </a>
+                            <a href="{{ url('tenant_accounts') }}" class="{{ _route == 'tenant_accounts' or _route == 'tenant_account_edit' or _route == 'tenant_account_new' ? 'active' }}">
+                                {{ 'tenant.users'|trans }}
+                            </a>
+                        {% elseif is_granted('ROLE_TENANT_USER') %}
+                            <a href="{% if _route != 'tenant_account_new' and _route != 'tenant_account_edit' %}{{ url('tenant_accounts') }}{% endif %}" class="{{ _route == 'tenant_accounts' ? 'active': _route == 'tenant_account_new' or _route == 'tenant_account_edit' ? 'not-active-tenant-user'  }}">
+                                {{ 'tenant.users'|trans }}
+                            </a>
+                        {% endif %}
+                    </nav>
+
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <p>TG</p>
+                        </div>
+                        <div class="user-meta">
+                            <p class="user-meta-name">{{ app.user.fullName }}</p>
+                            <p class="user-credentials">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {{ 'users.admin'|trans }}
+                                {% elseif
+                                    is_granted('ROLE_TENANT_MANAGER')  or
+                                    is_granted('ROLE_TENANT_USER')  or
+                                    is_granted('ROLE_FACILITY_STAKEHOLDER')
+                                %}
+                                    {% if current_tenant is defined and current_tenant is not null %}
+                                        {{ current_tenant.name }}
+                                    {% endif %}
+                                {% elseif
+                                    is_granted('ROLE_FACILITY_MANAGER')  or
+                                    is_granted('ROLE_FACILITY_USER')
+                                %}
+                                    {% if current_facility is defined and current_facility is not null %}
+                                        {{ current_facility.name }}
+                                    {% endif %}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="dropdown-arrow">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                        <div class="user-profile-submenu">
+                            <ul>
+                                <li>
+                                    <a href="{{ path('account_profile') }}">{{ 'profile.title'|trans }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('logout') }}">{{'security.logout'|trans }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+

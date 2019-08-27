@@ -1,0 +1,980 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ 'report.sales.report'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/cashier-report.css">
+    <link rel="stylesheet" href="/css/date-picker.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+        {% include 'common/header.html.twig' with {'current_facility' : facility, 'current_tenant' : facility.tenant } %}
+
+        {% include 'common/pop-up.html.twig' with {
+            'title'           : 'report.send.report'|trans,
+            'message'         : 'report.send.report.message'|trans,
+            'button_continue' : 'report.button.send'|trans,
+            'button_cancel'   : 'report.button.cancel'|trans,
+            'form_data'       : true
+        } %}
+
+        <div class="facility-sales-report">
+            <div class="container">
+                <form id="sales-report-form" data-view-mode="{% if report %} 1 {% endif %} {% if not report %} 0 {% endif %}">
+
+                    <div class="row fas-header">
+                        <div class="col-10 fas-title">
+                            <h1>
+                                {{ 'report.add.sales.report'|trans }}
+                            </h1>
+                        </div>
+                        <div class="col-2 fas-required-message">
+                            <p><span class="red-color">*</span> {{ 'report.required'|trans }}</p>
+                        </div>
+                        <div class="data-saved-message not-active">
+                            <div class="success-data-saved-message">
+                                <i class="fas fa-check-circle"></i>
+                                <span>{{ 'report.data.successfully.saved'|trans }}</span>
+                            </div>
+                            <div class="close-icon"></div>
+                        </div>
+                    </div>
+
+                    <div class="row fas-section sales-report-details">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'report.report.details'|trans }}</h2>
+                        </div>
+                        <div class="col-12 sales-report-details-date">
+                            <label for="date-pick" id="date-pick-title">{{ 'report.date'|trans }} <span class="red-color"><span class="red-color">*</span></span></label>
+                            <input
+                                type="text"
+                                {% if report %} data-report="true" {% endif %}
+                                name="date"
+                                id="date-pick"
+                                class="fas-input report-input"
+                            >
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+
+                        {% if facilityLayout.shifts %}
+                            <div class="col-12 sales-report-details-shifts">
+                                <label for="shifts-select">{{ 'report.shifts'|trans }} <span class="red-color">*</span></label>
+                                <select {% if report %} disabled="disabled" {% endif %}
+                                        name="shifts"
+                                        id="shifts-select"
+                                        class="fas-select report-select"
+                                >
+                                    {% for i in 1..facilityLayout.shifts %}
+                                        <option
+                                                {% if report and report.shifts == i %} selected="selected" {% endif %}
+                                                {% if report %} disabled="disabled" {% endif %}
+                                                value="{{ i }}">
+                                            {{ i }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row fas-section total-sales">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'report.sales'|trans }}</h2>
+                        </div>
+                        <div class="col-12 sales-report-total-sales">
+                            <label for="total-sales" id="total-sales-title">{{ 'report.total.pos'|trans }} *</label>
+                            <div class="currency-input-wrapper">
+                                <input
+                                        type="text"
+                                        {% if totalSales %} disabled="disabled"{% endif %}
+                                        id="total-sales"
+                                        name="total-sales"
+                                        class="fas-input report-input currency-input"
+                                        {% if totalSales %}value="{{ totalSales.value | number_format(2, ".", "'") }}"{% endif %}
+                                >
+                                <span class="currency">{{ currency }}</span>
+                            </div>
+                        </div>
+                        <div class="col-12 approval-section">
+                            <div class="approved-message {% if not report %}not-active{% endif %}">
+                                <i class="fas fa-check"></i>
+                                <span>{{ 'report.approved'|trans }}</span>
+                            </div>
+                            <div class="not-approved-message {% if report %}not-active{% endif %}">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>{{ 'report.not.approved'|trans }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if paymentMethods %}
+                        {% set cigarettesDues = 0.00 %}
+                        {% set bills = [] %}
+
+                        {% for category, paymentMethodData in paymentMethods %}
+
+                            {% if 'creditCards' == category %}
+
+                                <div class="row fas-section sales-report-credit-cards">
+                                    <div class="col-12 fas-section-title">
+                                        <h2>{{ 'report.credit.cards'|trans }}</h2>
+                                        <div class="link-add-terminal">
+                                            <div class="btn-add-line {% if report %} not-active {% endif %}">
+                                                <i class="fas fa-plus-circle"></i>
+                                                <span>{{ 'report.add.terminal'|trans }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 terminals-container">
+                                        {% set creditCards = paymentMethodData %}
+                                        {% set allTerminalSum = 0 %}
+
+                                        {% for terminal, data in creditCards %}
+
+                                            {% set numberTerminal = loop.index %}
+
+                                            {% if report %}
+                                                {% set terminalSum = 0.00 %}
+                                            {% endif %}
+
+                                            <div class="sales-report-credit-cards-terminal" id="terminal-1">
+                                                <div class="link-delete-terminal not-active">
+                                                    <div class="btn-remove-line">
+                                                        <i class="fas fa-minus-circle"></i>
+                                                        <span>Delete Terminal</span>
+                                                    </div>
+                                                </div>
+                                                <div class="terminal-content">
+
+                                                    <div class="sales-report-title-with-line">
+                                                        <p>{{ 'report.terminal'|trans }} {{ numberTerminal }}</p>
+                                                    </div>
+
+                                                    {% for accountingPositionId, creditCard in data %}
+
+                                                        <div class="credit-cards-terminal">
+                                                            <label for="credit-card-{{ accountingPositionId }}" id="credit-card-{{ accountingPositionId }}-title">{{ creditCard['name'] }} <span class="red-color">*</span></label>
+
+                                                            {% if creditCard['data'] is defined %}
+                                                                {% for value in creditCard['data'] %}
+
+                                                                    {% set numberCreditCard = loop.index %}
+
+                                                                    {% set allTerminalSum = allTerminalSum + value  %}
+
+                                                                    <div class="credit-cards-input currency-input-wrapper"
+                                                                         data-number="{{ numberCreditCard }}"
+                                                                         data-terminal="{{ terminal }}"
+                                                                         data-accounting-position="{{ accountingPositionId }}"
+                                                                    >
+                                                                        <input
+                                                                            type="text"
+                                                                            id="credit-card-{{ terminal }}-{{ accountingPositionId }}-{{ numberCreditCard }}"
+                                                                            class="fas-input report-input currency-input"
+                                                                            name="credit-cards[{{ terminal }}][{{ accountingPositionId }}][{{ numberCreditCard }}]"
+
+                                                                            {% if report %}
+                                                                                disabled="disabled"
+                                                                                value="{{ value | number_format(2, ".", "'") }}"
+                                                                            {% endif %}
+                                                                        >
+                                                                        <span class="currency">{{ currency }}</span>
+                                                                    </div>
+
+                                                                    {% set terminalSum = terminalSum + value  %}
+
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <div class="credit-cards-input currency-input-wrapper"
+                                                                     data-number="1"
+                                                                     data-terminal="{{ terminal }}"
+                                                                     data-accounting-position="{{ accountingPositionId }}"
+                                                                >
+                                                                    <input
+                                                                        type="text"
+                                                                        id="credit-card-{{ terminal }}-{{ accountingPositionId }}-1"
+                                                                        class="fas-input report-input currency-input"
+                                                                        name="credit-cards[{{ terminal }}][{{ accountingPositionId }}][1]"
+                                                                    >
+                                                                    <span class="currency">{{ currency }}</span>
+                                                                </div>
+                                                            {% endif %}
+
+                                                            {% if not report %}
+                                                                <div class="add-remove-buttons">
+                                                                    <div
+                                                                        class="btn-remove-line not-active"
+                                                                        data-block-number="{{ accountingPositionId }}"
+                                                                    >
+                                                                        <i class="fas fa-minus-circle"></i>
+                                                                    </div>
+                                                                    <div class="btn-add-line {% if report %} not-active {% endif %}">
+                                                                        <i class="fas fa-plus-circle"></i>
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+
+                                                    {% endfor %}
+
+                                                    <div class="credit-cards-terminal-total-count">
+                                                        <p class="total-count-title">{{ 'report.total'|trans }}</p>
+                                                        <p class="total-count-value-terminal-section">
+                                                            <span class="total-count-val">
+                                                                {% if terminalSum is defined %}
+                                                                    {{ terminalSum | number_format(2, ".", "'") }}
+                                                                {% else %}
+                                                                    0.00
+                                                                {% endif %}
+                                                            </span>
+                                                            <span class="total-count-currency">{{ currency }}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        {% endfor %}
+                                    </div>
+                                    <div class="col-12 sales-report-section-footer">
+                                        <div class="credit-cards-total-count">
+                                            <p class="total-count-title">{{ 'report.total.all.cards'|trans }}</p>
+                                            <p class="total-count-value-section">
+                                                <span id="total-cards-sales" class="total-count-val">{{ allTerminalSum | number_format(2, ".", "'") }}</span>
+                                                <span class="total-count-currency">{{ currency }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="approval-section">
+                                            <div class="approved-message {% if not report %}not-active{% endif %}">
+                                                <i class="fas fa-check"></i>
+                                                <span>{{ 'report.approved'|trans }}</span>
+                                            </div>
+                                            <div class="not-approved-message {% if report %}not-active{% endif %}">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span>{{ 'report.not.approved'|trans }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% elseif 'acceptedVouchers' == category %}
+                                {% set acceptedVouchers = paymentMethodData %}
+
+                                <div class="row fas-section sales-report-voucher">
+                                        <div class="col-12 fas-section-title">
+                                            <h2>{{ 'report.accepted.vouchers'|trans }}</h2>
+                                        </div>
+                                        <div class="col-12 accepted-vouchers-section">
+                                            <div class="vouchers-section-labels {% if acceptedVouchers['data'] is not defined %}not-active{% endif %}">
+                                                {% for key in acceptedVouchers['settings'] %}
+                                                    <label for="accepted-vouchers-{{ key }}" id="accepted-vouchers-{{ key }}-title">{{ ('report.'~key)|trans }} <span class="red-color">*</span></label>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="vouchers-section-content">
+
+                                                {% if acceptedVouchers['data'] is defined %}
+                                                    {% for reportPosition, data in  acceptedVouchers['data'] %}
+                                                        <div class="new-voucher">
+                                                            {% for key, item in data %}
+                                                                <div class="currency-input-wrapper">
+                                                                    <input
+                                                                            name="accepted-vouchers[][{{ key }}]"
+                                                                            type="text"
+                                                                            id="accepted-vouchers-{{ key }}-line-1"
+                                                                            class="fas-input report-input accepted-vouchers-{{ key }}-input"
+                                                                            value="{% if 'amount' == key %}{{ item | number_format(2, ".", "'") }}{% else %}{{ item }}{% endif %}"
+                                                                            disabled="disabled"
+                                                                    >
+                                                                    {% if 'amount' == key %}
+                                                                        <span class="currency">{{ currency }}</span>
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+
+                                            {% if acceptedVouchers['data'] is not defined %}
+                                                <div class="link-add-accepted-voucher">
+                                                    <div class="btn-add-line {% if report %} not-active {% endif %}" id="add-accepted-voucher">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                        <span>{{ 'report.new.voucher'|trans }}</span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+
+                                        <div class="col-12 sales-report-section-footer">
+                                            <div class="voucher-accepted-total-count">
+                                                <p class="total-count-title">{{ 'report.accepted.vouchers.total'|trans }}</p>
+                                                <p class="total-count-value-section">
+                                                    <span id="total-accepted-vouchers" class="total-count-val">{{ acceptedVouchers['sum'] | number_format(2, ".", "'") }}</span>
+                                                    <span class="total-count-currency">{{ currency }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-12 approval-section">
+                                                <div class="approved-message">
+                                                    <i class="fas fa-check"></i>
+                                                    <span>{{ 'report.approved'|trans }}</span>
+                                                </div>
+                                                <div class="not-approved-message not-active">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                    <span>{{ 'report.not.approved'|trans }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                            {% elseif 'issuedVouchers' == category %}
+                                {% set issuedVouchers = paymentMethodData %}
+
+                                <div class="row fas-section sales-report-voucher">
+                                        <div class="col-12 fas-section-title">
+                                            <h2>{{ 'report.issued.vouchers'|trans }}</h2>
+                                        </div>
+                                        <div class="col-12 issued-vouchers-section">
+                                            <div class="vouchers-section-labels  {% if issuedVouchers['data'] is not defined %}not-active{% endif %}">
+                                                {% for key in issuedVouchers['settings'] %}
+                                                    <label for="issued-vouchers-{{ key }}" id="issued-vouchers-{{ key }}-title">{{ ('report.'~key)|trans }} <span class="red-color">*</span></label>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="vouchers-section-content">
+
+                                                {% if issuedVouchers['data'] is defined %}
+                                                    {% for reportPosition, data in issuedVouchers['data'] %}
+                                                        <div class="new-voucher">
+                                                            {% for key, item in data %}
+                                                                <div class="currency-input-wrapper">
+                                                                    {% if key != 'addToTotalSalesAmount' %}
+                                                                        <input
+                                                                                name="issued-vouchers[][{{ key }}]"
+                                                                                type="text"
+                                                                                id="issued-vouchers-{{ key }}-line-1"
+                                                                                class="fas-input report-input issued-vouchers-{{ key }}-input"
+                                                                                value="{% if 'amount' == key %}{{ item | number_format(2, ".", "'") }}{% else %}{{ item }}{% endif %}"
+                                                                                disabled="disabled"
+                                                                        >
+                                                                    {% endif %}
+                                                                    {% if 'amount' == key %}
+                                                                        <span class="currency">{{ currency }}</span>
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+
+                                            {% if issuedVouchers['data'] is not defined %}
+                                                <div class="link-add-issued-voucher">
+                                                    <div class="btn-add-line {% if report %} not-active {% endif %}" id="add-issued-voucher">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                        <span>{{ 'report.new.voucher'|trans }}</span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+
+                                        <div class="col-12 sales-report-section-footer">
+                                            <div class="voucher-issued-total-count">
+                                                <p class="total-count-title">{{ 'report.issued.vouchers.total'|trans }}</p>
+                                                <p class="total-count-value-section">
+                                                    <span id="total-issued-vouchers" class="total-count-val">{{ issuedVouchers['sum'] | number_format(2, ".", "'") }}</span>
+                                                    <span class="total-count-currency">{{ currency }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-12 approval-section">
+                                                <div class="approved-message">
+                                                    <i class="fas fa-check"></i>
+                                                    <span>{{ 'report.approved'|trans }}</span>
+                                                </div>
+                                                <div class="not-approved-message not-active">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                    <span>{{ 'report.not.approved'|trans }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            {% elseif 'bills' == category %}
+                                {% set bills = paymentMethodData %}
+
+                                <div class="row fas-section sales-report-bills">
+                                        <div class="col-12 fas-section-title">
+                                            <h2>{{ 'report.bills'|trans }}</h2>
+                                        </div>
+                                        <div class="col-12 bills-section">
+                                            <div class="bills-section-labels {% if bills['data'] is not defined %}not-active{% endif %}">
+
+                                                {% for key in bills['settings'] %}
+                                                    <label for="bills-{{ key }}" id="bills-{{ key }}-title">{{ ('report.'~key)|trans }} <span class="red-color">*</span></label>
+                                                {% endfor %}
+
+                                            </div>
+
+                                            <div class="bills-section-content">
+                                                {% if bills['data'] is defined %}
+                                                    {% for key, bill in bills['data'] %}
+                                                        <div class="new-bills">
+                                                            <input
+                                                                disabled="disabled"
+                                                                name="bills[{{ key }}][receiver]"
+                                                                type="text"
+                                                                id="bills-name-line-{{ key }}"
+                                                                class="fas-input report-input bills-name-input"
+                                                                value="{{ bill['receiver'] }}"
+                                                            >
+                                                            <div class="currency-input-wrapper">
+                                                                <input
+                                                                        disabled="disabled"
+                                                                        name="bills[{{ key }}][amount]"
+                                                                        type="text"
+                                                                        id="bills-amount-line-{{ key }}"
+                                                                        class="fas-input report-input bills-amount-input currency-input"
+                                                                        value="{{ bill['amount'] | number_format(2, ".", "'") }}"
+                                                                >
+                                                                <span class="currency">{{ currency }}</span>
+                                                            </div>
+                                                            <div class="currency-input-wrapper">
+                                                                <input
+                                                                        disabled="disabled"
+                                                                        name="bills[{{ key }}][tip]"
+                                                                        type="text"
+                                                                        id="bills-tip-line-{{ key }}"
+                                                                        class="fas-input report-input bills-tip-input currency-input"
+                                                                        value="{{ bill['tip'] | number_format(2, ".", "'") }}"
+                                                                >
+                                                                <span class="currency">{{ currency }}</span>
+                                                            </div>
+                                                            {% if bills['selectNames'] is defined and bills['data'] is defined%}
+                                                                <select
+                                                                    disabled="disabled"
+                                                                    name="bills[{{ key }}][name]"
+                                                                    id="bills-select-line-{{ key }}"
+                                                                    class="fas-select report-select bills-select"
+                                                                >
+                                                                    {% for accountingPosition, name in bills['selectNames'] %}
+                                                                        <option {{ bill['name'] }}-{{ accountingPosition }}
+                                                                                value="{{ accountingPosition }}"
+                                                                                {% if bill['name'] == accountingPosition %}selected="selected"{% endif %}
+                                                                        >{{ name }}
+                                                                        </option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                            {% endif %}
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+
+                                            {% if bills['selectNames'] is defined and bills['data'] is not defined%}
+                                                <div id="bills-options-data" style="display: none;">
+                                                    {% for accountingPosition, name in bills['selectNames'] %}
+                                                        <option value="{{ accountingPosition }}">{{ name }}</option>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if bills['data'] is not defined %}
+                                                <div class="link-add-bills">
+                                                    <div class="btn-add-line {% if report %} not-active {% endif %}" id="add-bills">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                        <span>{{ 'report.new.bill'|trans }}</span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+                                        <div class="col-12 sales-report-section-footer">
+                                            <div class="bills-total-count">
+                                                <p class="total-count-title">{{ 'report.total.accepted.bills'|trans }}</p>
+                                                <p class="total-count-value-section" id="bills-count-amount">
+                                                    <span id="total-bills-amount" class="total-count-val">{{ bills['sum']['amount'] | number_format(2, ".", "'") }}</span>
+                                                    <span class="total-count-currency">{{ currency }}</span>
+                                                </p>
+                                                <p class="total-count-value-section" id="bills-count-tip">
+                                                    <span id="total-bills-tip" class="total-count-val">{{ bills['sum']['tip'] | number_format(2, ".", "'") }}</span>
+                                                    <span class="total-count-currency">{{ currency }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-12 approval-section">
+                                                <div class="approved-message">
+                                                    <i class="fas fa-check"></i>
+                                                    <span>{{ 'report.approved'|trans }}</span>
+                                                </div>
+                                                <div class="not-approved-message not-active">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                    <span>{{ 'report.not.approved'|trans }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            {% elseif 'expenses' == category %}
+                                {% set expenses = paymentMethodData %}
+
+                                <div class="row fas-section sales-report-expenses">
+                                        <div class="col-12 fas-section-title">
+                                            <h2>{{ 'report.expenses'|trans }}</h2>
+                                        </div>
+
+                                        <div class="col-12 expenses-section">
+                                            <div class="expenses-section-labels  {% if expenses['data'] is not defined %}not-active{% endif %}">
+                                                {% for key in expenses['settings'] %}
+                                                    <label for="expenses-{{ key }}" id="expenses-{{ key }}-title">{{ ('report.'~key)|trans }} <span class="red-color">*</span></label>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="expenses-section-content">
+
+                                                {% if expenses['data'] is defined %}
+                                                    {% for reportPosition, data in  expenses['data'] %}
+                                                        <div class="new-expenses">
+                                                            {% for key, item in data %}
+                                                                <div class="currency-input-wrapper">
+                                                                    <input
+                                                                            name="expenses[][{{ key }}]"
+                                                                            type="text"
+                                                                            id="expenses-{{ key }}-line-1"
+                                                                            class="fas-input report-input expenses-{{ key }}-input"
+                                                                            value="{% if 'amount' == key %}{{ item | number_format(2, ".", "'") }}{% else %}{{ item }}{% endif %}"
+                                                                            disabled="disabled"
+                                                                    >
+                                                                    {% if 'amount' == key %}
+                                                                        <span class="currency">{{ currency }}</span>
+                                                                    {% endif %}
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                            </div>
+
+                                            {% if expenses['data'] is not defined %}
+                                                <div class="link-add-expenses">
+                                                    <div class="btn-add-line {% if report %} not-active {% endif %}" id="add-expenses">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                        <span>{{ 'report.new.expense'|trans }}</span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="col-12 sales-report-section-footer">
+                                            <div class="expenses-total-count">
+                                                <p class="total-count-title">{{ 'report.total.expenses'|trans }}</p>
+                                                <p class="total-count-value-section">
+                                                    <span id="total-expenses" class="total-count-val">{{ expenses['sum'] | number_format(2, ".", "'") }}</span>
+                                                    <span class="total-count-currency">{{ currency }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-12 approval-section">
+                                                <div class="approved-message">
+                                                    <i class="fas fa-check"></i>
+                                                    <span>{{ 'report.approved'|trans }}</span>
+                                                </div>
+                                                <div class="not-approved-message not-active">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                    <span>{{ 'report.not.approved'|trans }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            {% elseif 'cigarettes' == category %}
+                                {% set cigarettes = paymentMethodData %}
+
+                                <div class="row fas-section sales-report-cigarettes">
+                                        <div class="col-12 fas-section-title">
+                                            <h2>{{ 'report.cigarettes'|trans }}</h2>
+                                        </div>
+                                        <div class="col-12 sales-report-cigarettes-content">
+                                            <label for="cigarettes" id="cigarettes-title">{{ cigarettes['name'] }} <span class="red-color">*</span></label>
+                                            <div class="currency-input-wrapper">
+                                                <input
+                                                        name="cigarettes"
+                                                        type="text"
+                                                        id="cigarettes"
+                                                        class="fas-input report-input currency-input"
+
+                                                        {% if cigarettes['value'] is defined %}
+                                                            {% set cigarettesDues = cigarettes['value'] %}
+                                                            value="{{ cigarettes['value'] | number_format(2, ".", "'") }}"
+                                                        {% endif %}
+
+                                                        {% if report %}
+                                                            disabled="disabled"
+                                                        {% endif %}
+                                                >
+                                                <span class="currency">{{ currency }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 sales-report-section-footer">
+                                            <div class="cigarettes-total-count">
+                                                <p class="total-count-title">{{ 'report.total'|trans }}</p>
+                                                <p class="total-count-value-section">
+                                                    <span class="total-count-val">
+                                                        {% if cigarettes['value'] is defined %}{{ cigarettes['value'] | number_format(2, ".", "'") }}{% endif %}
+                                                    </span>
+                                                    <span class="total-count-currency">{{ currency }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-12 approval-section">
+                                                <div class="approved-message {% if not report %}not-active{% endif %}">
+                                                    <i class="fas fa-check"></i>
+                                                    <span>{{ 'report.approved'|trans }}</span>
+                                                </div>
+                                                <div class="not-approved-message {% if report %}not-active{% endif %}">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                    <span>{{ 'report.not.approved'|trans }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            {% endif %}
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                    <div class="row fas-section sales-report-summary">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'report.summary'|trans }}</h2>
+                        </div>
+                        <div class="col-12 summary-content">
+                            <table class="summary-table">
+                                <tr>
+                                    <td class="summary-table-labels">{{ 'report.sales'|trans }}</td>
+                                    <td class="summary-cash-counting-fields">
+                                        <span id="summary-sales" class="summary-val">
+                                            0.00
+                                        </span>
+                                        <span class="summary-currency">{{ currency }}</span>
+                                    </td>
+                                    <td id="summary-sales-approval" class="approval-section">
+                                        <div class="approved-message not-active">
+                                            <i class="fas fa-check"></i>
+                                            <span>{{ 'report.approved'|trans }}</span>
+                                        </div>
+                                        <div class="not-approved-message">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            <span>{{ 'report.not.approved'|trans }}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                {% if paymentMethods %}
+                                    {% set vouchersDisplayed = false %}
+
+                                    {% for category, paymentMethodData in paymentMethods %}
+
+                                        {% if 'creditCards' == category %}
+                                            {% set creditCards = paymentMethodData %}
+
+                                            <tr>
+                                                <td class="summary-table-labels">{{ 'report.card.payments'|trans }}</td>
+                                                <td class="summary-cash-counting-fields">
+                                                    <span id="summary-card-payments" class="summary-val">
+                                                        0.00
+                                                    </span>
+                                                    <span class="summary-currency">{{ currency }}</span>
+                                                </td>
+                                                <td id="summary-cards-approval" class="approval-section">
+                                                    <div class="approved-message not-active">
+                                                        <i class="fas fa-check"></i>
+                                                        <span>{{ 'report.approved'|trans }}</span>
+                                                    </div>
+                                                    <div class="not-approved-message">
+                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                        <span>{{ 'report.not.approved'|trans }}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        {% elseif ('acceptedVouchers' == category or 'issuedVouchers' == category) and not vouchersDisplayed %}
+
+                                            {% set vouchersDisplayed = true %}
+
+                                            <tr>
+                                                <td class="summary-table-labels">{{ 'report.vouchers'|trans }}</td>
+                                                <td class="summary-cash-counting-fields">
+                                                    <span id="summary-vouchers" class="summary-val">
+                                                        0.00
+                                                    </span>
+                                                    <span class="summary-currency">{{ currency }}</span>
+                                                </td>
+                                                <td id="summary-voucher-approval" class="approval-section">
+                                                    <div class="approved-message not-active">
+                                                        <i class="fas fa-check"></i>
+                                                        <span>{{ 'report.approved'|trans }}</span>
+                                                    </div>
+                                                    <div class="not-approved-message">
+                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                        <span>{{ 'report.not.approved'|trans }}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        {% elseif 'bills' == category %}
+
+                                            {% set bills = paymentMethodData %}
+
+                                            <tr>
+                                                <td class="summary-table-labels">{{ 'report.bills'|trans }}</td>
+                                                <td class="summary-cash-counting-fields">
+                                                    <span id="summary-bills" class="summary-val">0.00</span>
+                                                    <span class="summary-currency">{{ currency }}</span>
+                                                </td>
+                                                <td class="summary-bills-approval approval-section">
+                                                    <div class="approved-message not-active">
+                                                        <i class="fas fa-check"></i>
+                                                        <span>{{ 'report.approved'|trans }}</span>
+                                                    </div>
+                                                    <div class="not-approved-message">
+                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                        <span>{{ 'report.not.approved'|trans }}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            {% if bills is defined and bills is not empty %}
+                                                <tr>
+                                                    <td class="dues-table-labels">{{ 'report.tip.bill'|trans }}</td>
+                                                    <td class="dues-cash-counting-fields">
+                                                        <span id="dues-bill-tip" class="dues-val">0.00</span>
+                                                        <span class="dues-currency">{{ currency }}</span>
+                                                    </td>
+                                                    <td class="summary-bills-approval approval-section">
+                                                        <div class="approved-message not-active">
+                                                            <i class="fas fa-check"></i>
+                                                            <span>{{ 'report.approved'|trans }}</span>
+                                                        </div>
+                                                        <div class="not-approved-message">
+                                                            <i class="fas fa-exclamation-triangle"></i>
+                                                            <span>{{ 'report.not.approved'|trans }}</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+
+                                        {% elseif 'expenses' == category %}
+
+                                            {% set expenses = paymentMethodData %}
+
+                                            <tr>
+                                                <td class="summary-table-labels">{{ 'report.expenses'|trans }}</td>
+                                                <td class="summary-cash-counting-fields">
+                                                    <span id="summary-expenses" class="summary-val">
+                                                        0.00
+                                                    </span>
+                                                    <span class="summary-currency">{{ currency }}</span>
+                                                </td>
+                                                <td id="summary-expenses-approval" class="approval-section">
+                                                    <div class="approved-message not-active">
+                                                        <i class="fas fa-check"></i>
+                                                        <span>{{ 'report.approved'|trans }}</span>
+                                                    </div>
+                                                    <div class="not-approved-message">
+                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                        <span>{{ 'report.not.approved'|trans }}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                {% endif %}
+
+                            </table>
+                        </div>
+                        <div class="col-12 sales-report-section-footer">
+                            <div class="summary-total-count">
+                                <p class="total-count-title">{{ 'report.cash.income'|trans }}</p>
+                                <p class="total-count-value-section">
+                                    <span id="total-summary" class="total-count-val">0.00</span>
+                                    <span class="total-count-currency">{{ currency }}</span>
+                                    <input type="hidden" value="" id="cash-income" name="cash-income">
+                                </p>
+                            </div>
+                            <div class="approval-section" id="summary-cash-income-approval">
+                                <div class="approved-message not-active">
+                                    <i class="fas fa-check"></i>
+                                    <span>{{ 'report.approved'|trans }}</span>
+                                </div>
+                                <div class="not-approved-message">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span>{{ 'report.not.approved'|trans }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row fas-section sales-report-dues">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'report.dues'|trans }}</h2>
+                        </div>
+                        <div class="col-12 dues-content">
+                            <table class="dues-table">
+                                <tr>
+                                    <td class="dues-table-labels">{{ 'report.cash.income'|trans }}</td>
+                                    <td class="dues-cash-counting-fields">
+                                        <span id="dues-cash-income" class="dues-val">0.00</span>
+                                        <span class="dues-currency">{{ currency }}</span>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                {% if tips is defined and tips is not empty %}
+                                    {% for key, tip in tips %}
+                                        <tr>
+                                            <td class="dues-table-labels">
+                                                <label for="dues-kitchen-tip">
+                                                    {{ tip['name'] }} {{ 'report.tip.sales'|trans({ '%percent%': tip['percent'] }) }}
+                                                </label>
+                                            </td>
+                                            <td class="dues-cash-counting-fields">
+                                                <div class="dues-val">
+                                                    <div class="currency-input-wrapper">
+                                                        <input
+                                                                data-percent="{{ tip['percent'] }}"
+                                                                name=tips[{{ key }}]
+                                                                type="text"
+                                                                id="dues-{{ key }}-tip"
+                                                                class="fas-input report-input currency-input dues-tips"
+                                                                {% if tip['value'] is defined %}
+                                                                    value="{{ tip['value'] | number_format(2, ".", "'") }}"
+                                                                {% endif %}
+
+                                                                {% if report %}
+                                                                    disabled="disabled"
+                                                                {% endif %}
+                                                        >
+                                                        <span class="currency">{{ currency }}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div id="dues-kitchen-tip-approval" class="approval-section">
+                                                    <div class="approved-message {% if not report %} not-active {% endif %}">
+                                                        <i class="fas fa-check"></i>
+                                                        <span>{{ 'report.approved'|trans }}</span>
+                                                    </div>
+                                                    <div class="not-approved-message {% if report %} not-active {% endif %}">
+                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                        <span>{{ 'report.not.approved'|trans }}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if paymentMethods['cigarettes'] is defined %}
+                                    <tr>
+                                        <td class="dues-table-labels">{{ 'report.cigarettes'|trans }}</td>
+                                        <td class="dues-cash-counting-fields">
+                                            <span id="dues-cigarettes" class="dues-val">0.00</span>
+                                            <span class="dues-currency">{{ currency }}</span>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                        <div class="col-12 sales-report-section-footer">
+                            <div class="dues-total-count">
+                                <p class="total-count-title">{{ 'report.total.dues'|trans }}</p>
+                                <p class="total-count-value-section">
+                                    <span id="total-dues" class="total-count-val">0.00</span>
+                                    <span class="total-count-currency">{{ currency }}</span>
+                                    <input type="hidden" name="total-dues" id="total-dues-input" class="hidden" value="0.00">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row fas-section sales-report-comment">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'report.comment'|trans }}</h2>
+                        </div>
+                        <div class="col-12">
+                            <textarea
+                                    name="comment"
+                                    id="report-comment"
+                                    placeholder="{{ 'report.enter.comment.shift'|trans }}"
+                                    {% if report %}disabled="disabled"{% endif %}
+                                >{% if comment %}{{ comment.value }}{% endif %}</textarea>
+                        </div>
+                    </div>
+
+                    {% if questions is defined and questions is not empty %}
+                        <div class="row fas-section sales-report-questionnaire">
+                            <div class="col-12 fas-section-title">
+                                <h2>{{ 'report.questionnaire'|trans }}</h2>
+                            </div>
+                            <div class="col-12 questionnaire-content">
+
+                                {% for id, question in questions %}
+
+                                    <div class="question-row">
+                                        <div class="col-12">
+                                            <label for="question-{{ id }}">{{ question['name'] }}</label>
+                                        </div>
+                                        <div class="col-12">
+                                            <input
+                                                name=question-answer[{{ id }}]
+                                                id="question-{{ id }}"
+                                                type="text"
+                                                class="fas-input report-input"
+                                                {% if question['answer'] is defined %}
+                                                    value="{{ question['answer'] }}"
+                                                {% endif %}
+
+                                                {% if report %}
+                                                    disabled="disabled"
+                                                {% endif %}
+                                            >
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if not report %}
+                        <div class="row sales-report-buttons save-cancel-buttons">
+                            <button type="button" class="btn-submit not-active">{{ 'report.save'|trans }}</button>
+                            <div class="not-approved-transact">
+                                <div class="btn-not-approved ">{{ 'report.transact.anyway'|trans }}</div>
+                                <div class="not-approved-transact-message">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span>{{ 'report.some.entries.incorrect'|trans }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <input type="hidden" name="date-changed" id="date-changed" value=""/>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/jquery-ui-datepicker.min.js"></script>
+    <script src="/js/jquery.formatCurrency.min.js"></script>
+    <script src="/js/cashier-report.js"></script>
+
+    <script>
+        var global_days_in_past = '{{ daysInPast }}';
+        var global_number_of_hours_to_shift = {{ numberOfHoursToShift }};
+        var global_dates_disabled = '{{ datesDisabled|raw }}';
+        var global_translations = '{{ translationsForJS|raw }}';
+        var global_date = '{{ date }}';
+        var global_currency = '{{ currency }}';
+        var global_issued_total_sales = '{% if paymentMethods['issuedVouchers'] is defined %}{{ paymentMethods['issuedVouchers']['addToTotalSalesAmount'] }}{% endif %}';
+    </script>
+{% endblock %}

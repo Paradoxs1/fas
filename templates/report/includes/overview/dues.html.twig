@@ -1,0 +1,136 @@
+<tr class="cashiers-table-dues">
+    <td class="payment-column">
+        <div class="action-table-item">
+            <p>
+                <span class="payment-title-arrow">
+                    <i class="fas fa-angle-down"></i>
+                </span>
+                <span>{{ 'report_overview.dues'|trans }}</span>
+            </p>
+        </div>
+    </td>
+    {% set backofficerTotal = 0 %}
+    {% set cashDiff = 0 %}
+    {% for report in data.reports %}
+        <td class="cashier-column shift-1">
+            {% if data.dues.backofficer_data[report.id] is defined %}
+                {% set backofficerTotal = backofficerTotal + data.dues.backofficer_data[report.id] %}
+                <div class="table-dues-cashiers-values action-table-item">
+                    {% set cashDiff = data.dues.backofficer_data[report.id] - data.dues.cash_income[report.id] %}
+                    {% if data.dues.cashier_data is defined %}
+                        {% for item in data.dues.cashier_data[report.id]%}
+                            {% set cashDiff = cashDiff - item.value %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if cashDiff != 0 %}
+                        <p class="error-name">{{ data.dues.backofficer_data[report.id] | number_format(2, ".", "'") }} {{ currency }}</p>
+                    {% else %}
+                        <p>{{ data.dues.backofficer_data[report.id] | number_format(2, ".", "'") }} {{ currency }}</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </td>
+    {% endfor %}
+    <td class="total-difference-column">
+        <div class="table-dues-total-values action-table-item">
+
+        </div>
+    </td>
+    <td class="total-all-column">
+        <div class="table-dues-total-values action-table-item">
+            {% if cashDiff != 0  %}
+                <p class="error-name">{{ backofficerTotal | number_format(2, ".", "'") }} {{ currency }}</p>
+            {% else %}
+                <p>{{ backofficerTotal | number_format(2, ".", "'") }} {{ currency }}</p>
+            {% endif %}
+        </div>
+    </td>
+    <td class="approval-column">
+        <div class="main-approval">
+
+        </div>
+    </td>
+</tr>
+<tr class="cashiers-table-dues-collapse">
+    <td colspan="{{ data.reports|length + 4 }}">
+        <div class="table-collapse">
+            <table>
+                <tr>
+                    <td class="payment-column">
+                        <div class="collapse-table-item">
+                            <p>{{ 'report_overview.income_cash'|trans }}</p>
+                        </div>
+                    </td>
+                    {% set incomeCashTotal = 0 %}
+                    {% for report in data.reports %}
+                        <td class="cashier-column shift-1">
+                            {% set incomeCashTotal = incomeCashTotal + data.dues.cash_income[report.id] %}
+                            <div class="collapse-table-item table-dues-cashiers-values">
+                                <p>{{ data.dues.cash_income[report.id] | number_format(2, ".", "'") }} {{ currency }}</p>
+                            </div>
+                        </td>
+                    {% endfor %}
+                    <td class="total-difference-column">
+                        <div class="collapse-table-item table-dues-total-values income-cash">
+                        </div>
+                    </td>
+                    <td class="total-all-column">
+                        <div class="collapse-table-item table-dues-total-values">
+                            <p>{{ incomeCashTotal | number_format(2, ".", "'") }} {{ currency }}</p>
+                        </div>
+                    </td>
+                    <td class="approval-column">
+                        <div class="collapse-table-item dues-additional-approval">
+                        </div>
+                    </td>
+                </tr>
+                {% if  data.dues.cashier_data is defined %}
+                    {% set dueNames = data.dues.cashier_data|first|keys %}
+                    {% for dueName in dueNames %}
+                        {% set dueTotal = 0 %}
+                        <tr>
+                            <td class="payment-column">
+                                <div class="collapse-table-item">
+                                    <p>{{ dueName }}</p>
+                                </div>
+                            </td>
+                            {% for report in data.reports %}
+                                <td class="cashier-column shift-1">
+                                    {% if data.dues.cashier_data[report.id][dueName] is defined %}
+                                        <div class="collapse-table-item table-dues-cashiers-values">
+                                            {% set dueTotal = dueTotal + data.dues.cashier_data[report.id][dueName]['value'] %}
+                                            <p>{{ data.dues.cashier_data[report.id][dueName]['value'] | number_format(2, ".", "'") }} {{ currency }}</p>
+                                            {% if data.dues.cashier_data[report.id][dueName]['old_value'] is defined %}
+                                                <div class="tooltip-point">
+                                                    <span class="point"></span>
+                                                    <div class="tooltip-point-message">
+                                                        <span>{{ data.dues.cashier_data[report.id][dueName]['old_value'] | number_format(2, ".", "'") }} {{ currency }}</span>
+                                                        <span><i class="fas fa-arrow-right"></i></span>
+                                                        <span class="point-current-value">{{ data.dues.cashier_data[report.id][dueName]['value'] | number_format(2, ".", "'") }} {{ currency }}</span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                            <td class="total-difference-column">
+                                <div class="collapse-table-item table-dues-total-values income-cash">
+                                </div>
+                            </td>
+                            <td class="total-all-column">
+                                <div class="collapse-table-item table-dues-total-values">
+                                    <p>{{ dueTotal | number_format(2, ".", "'") }} {{ currency }}</p>
+                                </div>
+                            </td>
+                            <td class="approval-column">
+                                <div class="collapse-table-item dues-additional-approval">
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </table>
+        </div>
+    </td>
+</tr>

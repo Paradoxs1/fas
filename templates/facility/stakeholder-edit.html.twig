@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'stakeholder.users_edit_title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/add-edit-entity.css">
+{% endblock %}
+
+{% block body %}
+
+    <div class="site-content">
+
+        {% block header %}
+            {% set current_tenant = facility.tenant %}
+            {% set current_facility = facility %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {% set current_tenant = facility.tenant %}
+            {% set current_facility = facility %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="user-add-edit">
+            <div class="container">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id' : 'user-edit-form'}}) }}
+                <div class="row fas-header">
+                    <div class="col-10 fas-title">
+                        <h1>
+                            {{ 'stakeholder.users_edit_title'|trans }}: {{ account.person.firstName }} {{ account.person.lastName }}
+                        </h1>
+                    </div>
+                    <div class="col-2 fas-required-message">
+                        <p><span class="red-color">*</span> {{ 'tenant.users_edit_required_fields'|trans }}</p>
+                    </div>
+                </div>
+
+                {% include 'includes/person-form.html.twig' with {'form' : form } %}
+                {% include 'includes/username-password-form.html.twig' with {'form' : form, 'required': false} %}
+
+                <div class="row user-add-edit-buttons save-cancel-buttons">
+                    {{ form_widget(form.save, {'id' : 'btn-submit'}) }}
+                    <button onclick=location.href='{{ path('stakeholder_accounts', {'id': facility.id}) }}' type="button" class="btn-cancel">{{ 'tenant.users_edit_cancel'|trans }}</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/validation/user-edit.js"></script>
+{% endblock %}

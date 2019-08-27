@@ -1,0 +1,1341 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+
+msgid "security.registration"
+msgstr "Anmeldung"
+
+msgid "security.login"
+msgstr "Benutzername"
+
+msgid "security.logout"
+msgstr "Ausloggen"
+
+msgid "security.password"
+msgstr "Passwort"
+
+msgid "security.enter"
+msgstr "Einloggen"
+
+msgid "security.forgot.password"
+msgstr "Passwort vergessen?"
+
+msgid "tenant.users"
+msgstr "Benutzer"
+
+msgid "tenant.users.add_user"
+msgstr "Benutzer hinzufügen"
+
+msgid "tenant.users.search"
+msgstr "Suchen"
+
+msgid "tenant.users.name"
+msgstr "Name"
+
+msgid "tenant.users.username"
+msgstr "Benutzername"
+
+msgid "tenant.users.facilities"
+msgstr "Restaurants"
+
+msgid "tenant.users.actions"
+msgstr "Aktionen"
+
+msgid "tenant.users.no_users"
+msgstr "Keine Benutzer vorhanden"
+
+msgid "tenant.users.show"
+msgstr "Zeige"
+
+msgid "tenant.users.of"
+msgstr "von"
+
+msgid "tenant.users.rows"
+msgstr "Einträgen"
+
+msgid "tenant.users_edit_title"
+msgstr "Benutzer bearbeiten"
+
+msgid "tenant.users_add_title"
+msgstr "Benutzer erstellen"
+
+msgid "tenant.users_edit_required_fields"
+msgstr "Benötigte Felder"
+
+msgid "tenant.users_edit_personal_data"
+msgstr "Personalien"
+
+msgid "tenant.users_edit_first_name_not_blank"
+msgstr "Bitte geben Sie einen Vornamen ein."
+
+msgid "tenant.users_edit_first_name_min_length"
+msgstr "Muss mindestens 2 Zeichen enthalten."
+
+msgid "tenant.users_edit_last_name_not_blank"
+msgstr "Bitte geben Sie einen Nachnamen ein."
+
+msgid "tenant.users_edit_last_name_min_length"
+msgstr "Muss mindestens 2 Zeichen enthalten."
+
+msgid "tenant.users_edit_email_not_blank"
+msgstr "Bitte geben Sie eine E-mail-Adresse ein."
+
+msgid "tenant.users_edit_valid_email"
+msgstr "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+
+msgid "tenant.users_edit_valid_phone"
+msgstr "Bitte geben Sie eine gültige Telefonnummer ein."
+
+msgid "tenant.users_edit_username_not_blank"
+msgstr "Bitte geben Sie einen Benutzernamen ein."
+
+msgid "tenant.users_edit_username_length"
+msgstr "Muss mindestens 2 Zeichen enthalten."
+
+msgid "tenant.users_edit_password_not_blank"
+msgstr "Bitte geben Sie ein Passwort ein."
+
+msgid "tenant.users_edit_password_length"
+msgstr "Das Passwort muss mindestens 6 Zeichen enthalten."
+
+msgid "tenant.users_edit_password_confirm_not_blank"
+msgstr "Bitte geben Sie die Passwortbestätigung ein."
+
+msgid "tenant.users_edit_password_not_identical"
+msgstr "Das Passwort ist nicht identisch."
+
+msgid "tenant.users_edit_required_assigment"
+msgstr "Bitte weisen Sie dem Restaurant mindestens einen Benutzer zu"
+
+msgid "tenant.users_edit_facility_assignment"
+msgstr "Zugewiesene Restaurants"
+
+msgid "tenant.users_edit_remove_facility"
+msgstr "Restaurant entfernen"
+
+msgid "tenant.users_edit_add_facility"
+msgstr "Restaurant hinzufügen"
+
+msgid "tenant.users_edit_cancel"
+msgstr "Abbrechen"
+
+msgid "tenant.tips"
+msgstr "Trinkgelder"
+
+msgid "tenant.last_month"
+msgstr "Letzter Monat"
+
+msgid "tenant.current_month"
+msgstr "Aktueller Monat"
+
+msgid "tenant.statistic_title"
+msgstr "Umsatzstatistik"
+
+msgid "tenant.statistic_date_title"
+msgstr "Letzte 7 Tage"
+
+msgid "account.first_name"
+msgstr "Vorname"
+
+msgid "account.last_name"
+msgstr "Nachname"
+
+msgid "account.email"
+msgstr "Email"
+
+msgid "account.telephone"
+msgstr "Telefon"
+
+msgid "account.password"
+msgstr "Passwort"
+
+msgid "account.password_confirm"
+msgstr "Passwort bestätigen"
+
+msgid "account.username"
+msgstr "Benutzername"
+
+msgid "security.forgot_password_title"
+msgstr "Passwort vergessen"
+
+msgid "security.forgot_password_text"
+msgstr "Geben Sie Ihren Benutzername ein und Ihnen wird ein Link an die hinterlegte E-Mail-Adresse gesendet. Mit dem Link können Sie dann Ihr Passwort zurücksetzen."
+
+msgid "security.account.username"
+msgstr "Benutzername *"
+
+msgid "security.account.username_not_blank"
+msgstr "Bitte geben Sie einen Benutzernamen ein."
+
+msgid "security.account.username_min_length"
+msgstr "Muss mindestens 2 Zeichen enthalten."
+
+msgid "security.send_button.title"
+msgstr "Senden"
+
+msgid "security.account.username_placeholder"
+msgstr "Benutzername"
+
+msgid "security.account.login"
+msgstr "Anmelden"
+
+msgid "security.forgot_password_link"
+msgstr "Der Link zum zurücksetzten des vergessenen Passworts wurde an die hinterlegte E-Mail-Adresse gesendet."
+
+msgid "security.forgot_password_inbox"
+msgstr "Es kann einige Minuten dauern, bis die E-Mail in Ihrem Posteingang erscheint."
+
+msgid "security.back_to_login"
+msgstr "Zurück zur Anmeldung"
+
+msgid "security.invalid_token_title"
+msgstr "Ungültiger Link"
+
+msgid "security.invalid_token_message"
+msgstr "Der Link zum zurücksetzen Ihres Passwors ist nicht mehr gültig. Bitte beantragen Sie einen neuen Link."
+
+msgid "security.request_new_token"
+msgstr "Neuen Link beantragen"
+
+msgid "security.set_password_title"
+msgstr "Neues Passwort setzen"
+
+msgid "security.set_password_tip"
+msgstr "Bitte geben Sie Ihr neues Passwort ein und bestätigen Sie es."
+
+msgid "security.enter_new_password_placeholder"
+msgstr "Neues Passwort"
+
+msgid "security.new_password_not_blank"
+msgstr "Bitte geben Sie ein Passwort ein."
+
+msgid "security.new_password_min_length"
+msgstr "Das Passwort muss mindestens 6 Zeichen enthalten."
+
+msgid "security.password_required_label"
+msgstr "Passwort *"
+
+msgid "security.confirm_password_required_label"
+msgstr "Passwort bestätigen *"
+
+msgid "security.enter_new_confirm_password_placeholder"
+msgstr "Passwort bestätigen"
+
+msgid "security.new_confirm_password_not_blank"
+msgstr "Bitte geben Sie die Passwortbestätigung ein."
+
+msgid "security.new_confirm_password_not_identical"
+msgstr "Das Passwort ist nicht identisch."
+
+msgid "security.reset_password_button_title"
+msgstr "Passwort zurücksetzen"
+
+msgid "security.new_password_set_title"
+msgstr "Neues Passwort gesetzt"
+
+msgid "security.new_password_set_message"
+msgstr "Ihr neues Passwort wurde erfolgreich gesetzt."
+
+msgid "security.password_expired"
+msgstr "Passwort abgelaufen"
+
+msgid "security.password_reset"
+msgstr "Passwort zurücksetzen"
+
+msgid "security.login.blocked"
+msgstr "Anmeldung blockiert"
+
+msgid "security.login.blocked_message"
+msgstr "Aufgrund zu vieler Login-Versuche wurde die Anmeldung blockiert. Bitte versuchen Sie es später erneut."
+
+msgid "security.login.blocked_remaining_time"
+msgstr "Verbleibende Zeit:"
+
+msgid "report.add.sales.report"
+msgstr "Tagesabschluss erfassen"
+
+msgid "report.edit.sales.report"
+msgstr "Tagesabschluss bearbeiten"
+
+msgid "report.required"
+msgstr "Benötigte Felder"
+
+msgid "report.data.successfully.saved"
+msgstr "Daten erfolgreich gespeichert"
+
+msgid "report.report.details"
+msgstr "Report Details"
+
+msgid "report.approved"
+msgstr "Bestätigt"
+
+msgid "report.not.approved"
+msgstr "Unbestätigt"
+
+msgid "report.send.report"
+msgstr "Tagesabschluss absenden"
+
+msgid "report.send.report.message"
+msgstr "Wollen Sie wirklich den Report absenden. Diese Aktion kann weder Rückgängig gemacht noch wiederholt werden."
+
+msgid "report.button.send"
+msgstr "Senden"
+
+msgid "report.button.cancel"
+msgstr "Abbrechen"
+
+msgid "report.questionnaire"
+msgstr "Fragebogen"
+
+msgid "report.save"
+msgstr "Speichern"
+
+msgid "report.transact.anyway"
+msgstr "Speicherung nicht möglich"
+
+msgid "report.some.entries.incorrect"
+msgstr "Gewisse Eingaben sind unbestätigt"
+
+msgid "report.comment"
+msgstr "Kommentar (optional)"
+
+msgid "report.enter.comment.shift"
+msgstr "Kommentar zur Schicht eingeben"
+
+msgid "report.total.dues"
+msgstr "TOTAL BARGELD ABZUGEBEN"
+
+msgid "report.shifts"
+msgstr "Schicht"
+
+msgid "report.date"
+msgstr "Datum"
+
+msgid "report.sales"
+msgstr "Umsatz"
+
+msgid "report.sales.report"
+msgstr "Tagesabschluss"
+
+msgid "report.total.sales"
+msgstr "Total Umsatz"
+
+msgid "report.total.pos"
+msgstr "Total Umsatz von POS"
+
+msgid "report.credit.cards"
+msgstr "Kreditkarten"
+
+msgid "report.add.terminal"
+msgstr "Terminal hinzufügen"
+
+msgid "report.delete.terminal"
+msgstr "Terminal entfernen"
+
+msgid "report.terminal"
+msgstr "Terminal"
+
+msgid "report.visa"
+msgstr "Visa"
+
+msgid "report.mastercard"
+msgstr "Mastercard"
+
+msgid "report.postcard"
+msgstr "Postcard"
+
+msgid "report.total"
+msgstr "Total"
+
+msgid "report.total.all.cards"
+msgstr "Total aller Kartenzahlungen"
+
+msgid "report.accepted.voucher"
+msgstr "Eingelöste Gutscheine"
+
+msgid "report.accepted.vouchers"
+msgstr "Eingelöste Gutscheine"
+
+msgid "report.issued.voucher"
+msgstr "Ausgestellte Gutscheine"
+
+msgid "report.issued.vouchers"
+msgstr "Ausgestellte Gutscheine"
+
+msgid "report.new.voucher"
+msgstr "Neuer Gutschein"
+
+msgid "report.issued.vouchers.total"
+msgstr "Total ausgestellter Gutscheine"
+
+msgid "report.accepted.vouchers.total"
+msgstr "Total eingelöster Gutscheine"
+
+msgid "report.expenses"
+msgstr "Auslagen/Spesen"
+
+msgid "report.new.expense"
+msgstr "Neue Auslage/Spesen"
+
+msgid "report.total.expenses"
+msgstr "Total Auslagen/Spesen"
+
+msgid "report.bills"
+msgstr "Debitoren"
+
+msgid "report.new.bill"
+msgstr "Neue Rechung"
+
+msgid "report.total.accepted.bills"
+msgstr "Total akzeptierter Rechnungen"
+
+msgid "report.cigarettes"
+msgstr "Zigaretten"
+
+msgid "report.summary"
+msgstr "Zusammenfassung"
+
+msgid "report.card.payments"
+msgstr "Kartenzahlungen"
+
+msgid "report.vouchers"
+msgstr "Gutscheine"
+
+msgid "report.cash.income"
+msgstr "Bargeld Zwischentotal"
+
+msgid "report.dues"
+msgstr "Abgaben"
+
+msgid "report.number"
+msgstr "Nummer"
+
+msgid "report.amount"
+msgstr "Betrag"
+
+msgid "report.name"
+msgstr "Beschrieb"
+
+msgid "report.receiver"
+msgstr "Empfänger"
+
+msgid "report.calculate.total"
+msgstr "Total berechnen"
+
+msgid "report.tip.bill"
+msgstr "Rechnung Trinkgeld"
+
+msgid "report.tip.sales"
+msgstr "(%percent%% des Umsatzes)"
+
+msgid "report.calculating.cash"
+msgstr "Bargeld berechnen"
+
+msgid "report.coins"
+msgstr "Münzen"
+
+msgid "report.enter.amount.coins"
+msgstr "Münzbetrag berechnen"
+
+msgid "report.total.cash"
+msgstr "Total Bargeld"
+
+msgid "report.approve.sales"
+msgstr "Abschlüsse bestätigen"
+
+msgid "report.payments"
+msgstr "Zahlungen"
+
+msgid "report.missing.income"
+msgstr "Fehlbetrag Einnahmen"
+
+msgid "report.book"
+msgstr "Buchen"
+
+msgid "report.know.what.doing"
+msgstr "Ich weiss was ich mache"
+
+msgid "report.kitchen.tip"
+msgstr "Kitchen Tip"
+
+msgid "report.add.edit.sales.report"
+msgstr "Tagesabschluss erstellen/bearbeiten"
+
+msgid "report.tip"
+msgstr "Trinkgeld"
+
+msgid "report.cash"
+msgstr "Bargeld"
+
+msgid "report.difference"
+msgstr "./."
+
+msgid "report.cash.bill.1000"
+msgstr "Note 1000"
+
+msgid "report.cash.bill.500"
+msgstr "Note 500"
+
+msgid "report.cash.bill.200"
+msgstr "Note 200"
+
+msgid "report.cash.bill.100"
+msgstr "Note 100"
+
+msgid "report.cash.bill.50"
+msgstr "Note 50"
+
+msgid "report.cash.bill.20"
+msgstr "Note 20"
+
+msgid "report.cash.bill.10"
+msgstr "Note 10"
+
+msgid "report.cash.bill.5"
+msgstr "Note 5"
+
+msgid "report.cash.coins"
+msgstr "Münzen"
+
+msgid "report.cash.coin.5"
+msgstr "Münze 5"
+
+msgid "report.cash.coin.2"
+msgstr "Münze 2"
+
+msgid "report.cash.coin.1"
+msgstr "Münze 1"
+
+msgid "report.cash.coin.0.50"
+msgstr "Münze 0.50"
+
+msgid "report.cash.coin.0.20"
+msgstr "Münze 0.20"
+
+msgid "report.cash.coin.0.10"
+msgstr "Münze 0.10"
+
+msgid "report.cash.coin.0.05"
+msgstr "Münze 0.05"
+
+msgid "report.cash.coin.0.02"
+msgstr "Münze 0.02"
+
+msgid "report.cash.coin.0.01"
+msgstr "Münze 0.01"
+
+msgid "report.you.are.going.approve.sales"
+msgstr ""
+    "Sie sind dran die Tagesabschlüsse vom\n"
+    "<span class='approve-sales-data'>%date%</span>\n"
+    "wie unten aufgefürt für das Restaurant „<span>%facilityName%</span>“\n"
+    "zu bestätigen und zu verbuchen. Da diese Aktion nicht rückgängig gemacht\n"
+    "werden kann, müssen sie ihre Absicht nochmals bestätigen."
+
+msgid "report.unsaved.data.getting.lost"
+msgstr "Ungesicherte Daten gehen verloren"
+
+msgid "report.load.new.report"
+msgstr ""
+    "Sie sind dran einen anderen Abschluss zu laden. Nicht gespeicherte Daten gehen somit verloren.\n"
+    "Wollen Sie fortfahren?"
+
+msgid "report.button.yes"
+msgstr "Ja"
+
+msgid "facility.users.name"
+msgstr "Name"
+
+msgid "facility.users.username"
+msgstr "Benutzername"
+
+msgid "facility.users.service_chef"
+msgstr "Chef de Service"
+
+msgid "facility.users.actions"
+msgstr "Aktionen"
+
+msgid "facility.delete"
+msgstr "Löschen: "
+
+msgid "tenant.users.show"
+msgstr "Zeige"
+
+msgid "tenant.users.of"
+msgstr "von"
+
+msgid "tenant.users.rows"
+msgstr "Einträgen"
+
+msgid "facility.users"
+msgstr "Service-Mitarbeiter"
+
+msgid "facility.users.no_users"
+msgstr "Noch keine Tagesabschlüsse erfasst"
+
+msgid "facility.users.add_user"
+msgstr "Service-Mitarbeiter hinzufügen"
+
+msgid "facility.users.search"
+msgstr "Suchen"
+
+msgid "facility.users_add_title"
+msgstr "Service-Mitarbeiter hinzufügen"
+
+msgid "facility.users_edit_required_fields"
+msgstr "Benötigte Felder"
+
+msgid "facility.users_edit_title"
+msgstr "Service-Mitarbeiter bearbeiten"
+
+msgid "stakeholder.users"
+msgstr "Stakeholders"
+
+msgid "stakeholder.users.name"
+msgstr "Name"
+
+msgid "stakeholder.users.username"
+msgstr "Benutzername"
+
+msgid "stakeholder.users.actions"
+msgstr "Aktionen"
+
+msgid "stakeholder.users.add_user"
+msgstr "Stakeholder hinzufügen"
+
+msgid "stakeholder.users.search"
+msgstr "Suchen"
+
+msgid "stakeholder.users_add_title"
+msgstr "Stakeholder hinzufügen"
+
+msgid "stakeholder.users_edit_required_fields"
+msgstr "Benötigte Felder"
+
+msgid "stakeholder.users_edit_title"
+msgstr "Stakeholder bearbeiten"
+
+msgid "account.users_edit_title"
+msgstr "Profil bearbeiten"
+
+msgid "accounting_interface.configuration.label"
+msgstr "Konfiguration"
+
+msgid "accounting_interface.accounting_provider.label"
+msgstr "Schnittstellen Anbieter"
+
+msgid "address.street_label"
+msgstr "Strasse"
+
+msgid "address.zip_label"
+msgstr "PLZ"
+
+msgid "address.city_label"
+msgstr "Stadt"
+
+msgid "country.street_label"
+msgstr "Strasse"
+
+msgid "country.iso_code_label"
+msgstr "ISO Code"
+
+msgid "default_facility_layout.enable_shifts"
+msgstr "Schichten aktivieren"
+
+msgid "facility_layout.days_in_past"
+msgstr "Tage in Vergangenheit"
+
+msgid "facility_layout.count"
+msgstr "Anzahl Schichten"
+
+msgid "facility_layout.different_reporting_window"
+msgstr "Abweichendes Reportingfenster ('X' Tage)"
+
+msgid "facility_layout.different_reporting_window_short"
+msgstr "Abweichendes Reportingfenster"
+
+msgid "facility_layout.enable_shifts"
+msgstr "Schichten aktivieren"
+
+msgid "facility_layout.enable_interface"
+msgstr "Schnittstelle aktivieren"
+
+msgid "facility.name"
+msgstr "Name"
+
+msgid "facility.routine_template"
+msgstr "Schnittstelle"
+
+msgid "facility.country"
+msgstr "Land"
+
+msgid "tenant.name"
+msgstr "Name"
+
+msgid "add_account.title"
+msgstr "Account bearbeiten"
+
+msgid "add_account.create_tenant_manager"
+msgstr "Tenant Manager erstellen"
+
+msgid "add_account.required"
+msgstr "Benötigte Felder"
+
+msgid "add_account.association"
+msgstr "Assoziation"
+
+msgid "add_account.cancel"
+msgstr "Abbrechen"
+
+msgid "edit_account.title"
+msgstr "Benutzer bearbeiten"
+
+msgid "edit_account.required"
+msgstr "Benötigte Felder"
+
+msgid "edit_account.association"
+msgstr "Assoziation"
+
+msgid "edit_account.cancel"
+msgstr "Abbrechen"
+
+msgid "list_account.title"
+msgstr "Benutzer"
+
+msgid "list_account.add_tenant_manager"
+msgstr "Tenant Manager hinzufügen"
+
+msgid "list_account.search"
+msgstr "Suchen"
+
+msgid "list_account.name"
+msgstr "Name"
+
+msgid "list_account.email"
+msgstr "Email"
+
+msgid "list_account.tenant_name"
+msgstr "Tenant Name"
+
+msgid "list_account.actions"
+msgstr "Aktionen"
+
+msgid "list_account.no_tenant_managers"
+msgstr "Keine Tenant Manager vorhanden"
+
+msgid "error_page.info"
+msgstr "Der Fehler (404) trat auf, während der Webserver Ihre Anforderung verarbeitete."
+
+msgid "error_page.contact_us"
+msgstr "Bitte kontaktieren Sie uns, wenn Sie der Meinung sind, dass dieser Fehler weiterhin besteht."
+
+msgid "error_page.thank_you"
+msgstr "Vielen Dank"
+
+msgid "tenants.title"
+msgstr "Tenants"
+
+msgid "default_config.title"
+msgstr "Grundkonfiguration"
+
+msgid "facilities.title"
+msgstr "Restaurants"
+
+msgid "users.admin"
+msgstr "Admin"
+
+msgid "profile.title"
+msgstr "Profil"
+
+msgid "facility.menu_name"
+msgstr "Restaurants"
+
+msgid "dropdown.select_placeholder"
+msgstr "Bitte wählen"
+
+msgid "dashboard.title"
+msgstr "Dashboard"
+
+msgid "reports.title"
+msgstr "Abschlüsse"
+
+msgid "statistics.title"
+msgstr "Statistiken"
+
+msgid "popup.default_content"
+msgstr "Möchten Sie diesen Datensatz wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+
+msgid "delete_button.title"
+msgstr "Löschen"
+
+msgid "cancel_button.title"
+msgstr "Abbrechen"
+
+msgid "reopen_button.title"
+msgstr "Öffnen"
+
+msgid "facility_add.title"
+msgstr "Restaurant hinzufügen"
+
+msgid "create_facility.title"
+msgstr "Restaurant hinzufügen"
+
+msgid "facility_details.title"
+msgstr "Restaurant Details"
+
+msgid "facility.currency"
+msgstr "Währung"
+
+msgid "tenant_name.required"
+msgstr "Bitte geben Sie einen Tenant-Namen ein."
+
+msgid "tenant_name.min_length"
+msgstr "Muss mindestens 2 Zeichen enthalten."
+
+msgid "street.required"
+msgstr "Bitte geben Sie eine Strasse ein."
+
+msgid "street.min_length"
+msgstr "Muss mindestens 3 Zeichen enthalten."
+
+msgid "zip.required"
+msgstr "Bitte geben Sie eine PLZ ein."
+
+msgid "zip.min_length"
+msgstr "Muss zwischen 4 und 8 Zeichen enthalten."
+
+msgid "city.required"
+msgstr "Bitte geben Sie eine Stadt ein."
+
+msgid "city.min_length"
+msgstr "Muss mindestens 2 Zeichen enthalten."
+
+msgid "user_assignment.title"
+msgstr "Benutzer zuweisen"
+
+msgid "role.tenant_manager.title"
+msgstr "Tenant Manager"
+
+msgid "role.tenant_user.title"
+msgstr "Tenant User"
+
+msgid "role.stakeholder.title"
+msgstr "Stakeholder"
+
+msgid "role.facility_manager.title"
+msgstr "Facility Manager"
+
+msgid "role.facility_user.title"
+msgstr "Facility User"
+
+msgid "popup.delete_content"
+msgstr "Sind Sie sicher, dass Sie diesen Datensatz löschen wollen? Diese Aktion kann nicht rückgängig gemacht werden."
+
+msgid "general.title"
+msgstr "Allgemein"
+
+msgid "report.window.days"
+msgstr "{1} 1 Tag|]1,Inf] %count% Tage"
+
+msgid "json_not_valid"
+msgstr "JSON ist ungültig"
+
+msgid "json_chars_limit"
+msgstr "Sie haben die Anzahl der zulässigen Zeichen überschritten. Bitte passen Sie das JSON an"
+
+msgid "test_connection.title"
+msgstr "Verbindung testen"
+
+msgid "estimated_cost_day.title"
+msgstr "Geschätzte Kosten pro Tag"
+
+msgid "personal_cost.title"
+msgstr "Personalkosten"
+
+msgid "operating_cost.title"
+msgstr "Betriebskosten"
+
+msgid "ware_costs.title"
+msgstr "Warenkosten"
+
+msgid "sales_category.title"
+msgstr "Kategorien"
+
+msgid "new_category.title"
+msgstr "Neue Kategorie"
+
+msgid "account_no.title"
+msgstr "Konto/Artikel-Nummer"
+
+msgid "payment_methods.title"
+msgstr "Zahlungsmethoden"
+
+msgid "payment_methods.new_method"
+msgstr "Neue Zahlungsmethode"
+
+msgid "payment_methods.credit_card"
+msgstr "Kreditkarte"
+
+msgid "payment_methods.new_credit_card"
+msgstr "Neue Kreditkarte"
+
+msgid "tip.title"
+msgstr "Trinkgeld"
+
+msgid "tip_percent.title"
+msgstr "Trinkgeld in % des Umsatzes"
+
+msgid "tip.new_tip"
+msgstr "Trinkgeld hinzufügen"
+
+msgid "add_total_amount.text"
+msgstr "Zum Umsatz dazurechnen"
+
+msgid "tip_account_no.title"
+msgstr "Trinkgeldkonto-Nummer"
+
+msgid "questions.title"
+msgstr "Fragen"
+
+msgid "questions.new_question"
+msgstr "Neue Frage"
+
+msgid "questions.question"
+msgstr "Frage"
+
+msgid "facility_edit.title"
+msgstr "Restaurant bearbeiten"
+
+msgid "facility_edit_reverse.title"
+msgstr "Restaurant bearbeiten"
+
+msgid "remove_user.title"
+msgstr "Benutzer entfernen"
+
+msgid "address.title"
+msgstr "Adresse"
+
+msgid "delete_facility.text"
+msgstr "Sind Sie sicher, dass Sie dieses Restaurant löschen wollen? Durch das Löschen, werden alle Benutzer aus dem Restaurant entfernt. Diese Aktion kann nicht rückgängig gemacht werden."
+
+msgid "no_facilities.text"
+msgstr "Keine Restaurants vorhanden"
+
+msgid "steakholders.title"
+msgstr "Steakholders"
+
+msgid "sales_report.title"
+msgstr "Abschlüsse"
+
+msgid "report_check.title"
+msgstr "Abschluss überprüfen"
+
+msgid "sales_reports.title"
+msgstr "Tagesabschlüsse"
+
+msgid "report.earnings"
+msgstr "Umsatz"
+
+msgid "report.beverages"
+msgstr "Beverages"
+
+msgid "report.food"
+msgstr "Food"
+
+msgid "report.alcoholic_beverages"
+msgstr "Alcoholic Beverages"
+
+msgid "report.received_cash"
+msgstr "Erhaltenes Bargeld (vom Serivce-Mitarbeiter)"
+
+msgid "report.next"
+msgstr "Weiter"
+
+msgid "report.yes"
+msgstr "Ja"
+
+msgid "report.no"
+msgstr "Nein"
+
+msgid "tenant_users.title"
+msgstr "Tenant Users"
+
+msgid "user.title"
+msgstr "User"
+
+msgid "mail.title"
+msgstr "Mail"
+
+msgid "login_information.title"
+msgstr "Login-Informationen"
+
+msgid "add_tenant.title"
+msgstr "Tenant hinzufügen"
+
+msgid "delete_tenant.text"
+msgstr "Sind Sie sicher, dass Sie diesen Tenant löschen wollen? Durch das Löschen, werden auch alle Restaurants und Benutzer von diesem Tenant gelöscht. Diese Aktion kann nicht rückgängig gemacht werden."
+
+msgid "no_tenants.title"
+msgstr "Keine Tenants vorhanden"
+
+msgid "tenants_edit.title"
+msgstr "Tenant bearbeiten"
+
+msgid "edit_tenant.title"
+msgstr "Tenant bearbeiten"
+
+msgid "facility.name.required"
+msgstr "Bitte geben Sie einen Namen ein."
+
+msgid "country.required"
+msgstr "Bitte wählen Sie ein Land aus."
+
+msgid "tenant_managers.title"
+msgstr "Tenant Managers"
+
+msgid "tenants_add.title"
+msgstr "Tenant hinzufügen"
+
+msgid "create_tenant.title"
+msgstr "Tenant hinzufügen"
+
+msgid "report.reopen_header"
+msgstr "Tagesabschluss vom %date% öffnen?"
+
+msgid "report.reopen_text"
+msgstr "Wollen Sie den Tagesabschluss vom %date% wirklich wieder öffnen?"
+
+msgid "report.add_title"
+msgstr "Report hinzufügen"
+
+msgid "report.show_only_approved"
+msgstr "Zeige nur nicht bestätigte Abschlüsse"
+
+msgid "reopen.restaurant"
+msgstr "Restaurant"
+
+msgid "report.cashier_reports"
+msgstr "Anzahl Service-Mitarbeiter Abschlüsse"
+
+msgid "report_overview.title"
+msgstr "Report Übersicht"
+
+msgid "report_overview.sales_reports"
+msgstr "Umsatz Report"
+
+msgid "report_overview.cash_report"
+msgstr "Cash Report"
+
+msgid "report_overview.edit"
+msgstr "Bearbeiten"
+
+msgid "report_overview.cash"
+msgstr "Bargeld"
+
+msgid "report_overview.earnings"
+msgstr "Umsatz"
+
+msgid "report_overview.total"
+msgstr "Total"
+
+msgid "report_overview.credit_cards"
+msgstr "Kreditkarten"
+
+msgid "report_overview.terminal"
+msgstr "Terminal"
+
+msgid "report_overview.received_cash"
+msgstr "Erhaltenes Bargeld (vom Serivce-Mitarbeiter)"
+
+msgid "report_overview.cashier_reports"
+msgstr "Abschlüsse vom Serivce-Mitarbeiter"
+
+msgid "report_overview.backofficer_reports"
+msgstr "Abschlüsse vom Backofficer"
+
+msgid "report_overview.shift"
+msgstr "Schicht"
+
+msgid "report_overview.comment"
+msgstr "Kommentar von"
+
+msgid "report_overview.difference"
+msgstr "./."
+
+msgid "report_overview.all"
+msgstr "Alle"
+
+msgid "report_overview.sales"
+msgstr "Umsatz"
+
+msgid "report_overview.card_payments"
+msgstr "Kartenzahlungen"
+
+msgid "report_overview.vouchers"
+msgstr "Gutscheine"
+
+msgid "report_overview.issued_voucher"
+msgstr "Ausgestellte Gutscheine (#"
+
+msgid "report_overview.accepted_voucher"
+msgstr "Eingelöste Gutscheine (#"
+
+msgid "report_overview.bills"
+msgstr "Debitoren"
+
+msgid "report_overview.tip"
+msgstr "Trinkgeld"
+
+msgid "report_overview.expenses"
+msgstr "Auslagen/Spesen"
+
+msgid "report_overview.dues"
+msgstr "Abgaben"
+
+msgid "report_overview.income_cash"
+msgstr "Einkommen Bargeld"
+
+msgid "report_overview.control"
+msgstr "Control"
+
+msgid "report_overview.approve"
+msgstr "Bestätigen & Buchen"
+
+msgid "report_overview.question_by"
+msgstr "Fragen von"
+
+msgid "report_overview.chef_service"
+msgstr "(CHEF DE SERVICE)"
+
+msgid "report_overview.included_issued"
+msgstr "davon ausgestellte Gutscheine:"
+
+msgid "report_reopen_error.not_data"
+msgstr "Fehler beim öffnen des Abschlusses"
+
+msgid "report_reopen_error.database"
+msgstr "Verbindung zur Datenbank ist fehlgeschlagen"
+
+msgid "gelf_logger.login"
+msgstr "User '%name%' successfully logged in"
+
+msgid "gelf_logger.failed_login"
+msgstr "User '%name%' failed to login"
+
+msgid "gelf_logger.logout"
+msgstr "User '%name%' successfully logged out"
+
+msgid "gelf_logger.create"
+msgstr "User '%username%' successfully created %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.failed_create"
+msgstr "User '%username%' failed to create a new %entity%"
+
+msgid "gelf_logger.edit"
+msgstr "User '%username%' updated %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.failed_edit"
+msgstr "User '%username%' failed to update %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.delete"
+msgstr "User '%username%' deleted %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.facility_configuration"
+msgstr "User '%username%' updated configuration of %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.tenant_configuration"
+msgstr "User '%username%' updated default configuration of %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.cashier_report_create"
+msgstr "User '%username%' created new cashier report (#%id%) on facility '%name%' (#%facility_id%) for '%date%'"
+
+msgid "gelf_logger.exception"
+msgstr "User '%username%' has an error on the page '%url%'"
+
+msgid "user.required"
+msgstr "Bitte wählen Sie einen Benutzer aus."
+
+msgid "report_api.voucher_no"
+msgstr "Gutschein Nr."
+
+msgid "report_api.bill"
+msgstr "Rechnung"
+
+msgid "report_api.bill_tip"
+msgstr "Rechnung Trinkgeld"
+
+msgid "report_api.success"
+msgstr "Die Daten wurden im Buchhaltungsservice gespeichert."
+
+msgid "report_api.forbidden"
+msgstr "Sie haben keinen Zugriff auf diese Ressource."
+
+msgid "report_api.test_call_success"
+msgstr "Verbindung erfolgreich. Code: "
+
+msgid "report_api.test_call_trouble"
+msgstr "Die Verbindung konnte nicht hergestellt werden. Bitte überprüfen Sie Ihre Eingaben. Code: "
+
+msgid "report_api.test_popup_button"
+msgstr "Schliessen"
+
+msgid "report_api.test_popup_title"
+msgstr "Verbindung testen mit "
+
+msgid "report_period_closed_title"
+msgstr "Kein Tagesabschluss mehr möglich"
+
+msgid "report_period_closed_text"
+msgstr "Der heutige Tagesabschluss wurde bereits bestätigt und abgeschlossen. Keine weitere Abschlüsse können über diese Applikation mehr hinzugefügt werden. Bitte füllen Sie das Papierformular aus und reichen Sie es mit dem Bargeld und den Quittungen ein."
+
+msgid "kind_regards"
+msgstr "Mit freundlichen Grüssen"
+
+msgid "bbc_team"
+msgstr "Das CashUp Team"
+
+msgid "report_created_successful_title"
+msgstr "Bericht erfolgreich erstellt"
+
+msgid "report_created_successful_text"
+msgstr "Vielen Dank, der Tagesabschluss wurde erfasst. Bitte gib alle Quittungen und Rechnungen zusammen mit den %total% %currency% ab."
+
+msgid "report_created_kind_regards"
+msgstr "Vielen Dank und einen schönen Feierabend"
+
+msgid "cashup_team"
+msgstr "Das CashUp Team"
+
+msgid "button.save"
+msgstr "Speichern"
+
+msgid "dashboard.monday"
+msgstr "Montag"
+
+msgid "dashboard.tuesday"
+msgstr "Dienstag"
+
+msgid "dashboard.wednesday"
+msgstr "Mittwoch"
+
+msgid "dashboard.thursday"
+msgstr "Donnerstag"
+
+msgid "dashboard.friday"
+msgstr "Freitag"
+
+msgid "dashboard.saturday"
+msgstr "Samstag"
+
+msgid "dashboard.sunday"
+msgstr "Sonntag"
+
+msgid "category.credit_cards"
+msgstr "Kreditkarten"
+
+msgid "category.accepted_voucher"
+msgstr "Eingelöste Gutscheine"
+
+msgid "category.issued_voucher"
+msgstr "Ausgestellte Gutscheine"
+
+msgid "category.bills"
+msgstr "Debitoren"
+
+msgid "category.expenses"
+msgstr "Auslagen/Spesen"
+
+msgid "category.tip"
+msgstr "Trinkgeld"
+
+msgid "category.cash"
+msgstr "Bargeld"
+
+msgid "category.cigarettes"
+msgstr "Zigaretten"
+
+msgid "button.check_report.delete"
+msgstr "Service-Mitarbeiter löschen"
+
+msgid "month.january"
+msgstr "Januar"
+
+msgid "month.february"
+msgstr "Februar"
+
+msgid "month.march"
+msgstr "März"
+
+msgid "month.april"
+msgstr "April"
+
+msgid "month.may"
+msgstr "Mai"
+
+msgid "month.june"
+msgstr "Juni"
+
+msgid "month.july"
+msgstr "Juli"
+
+msgid "month.august"
+msgstr "August"
+
+msgid "month.september"
+msgstr "September"
+
+msgid "month.october"
+msgstr "Oktober"
+
+msgid "month.november"
+msgstr "November"
+
+msgid "month.december"
+msgstr "Dezember"
+
+msgid "creditCard"
+msgstr "Kreditkarten"
+
+msgid "acceptedVoucher"
+msgstr "Eingelöste Gutscheine"
+
+msgid "issuedVoucher"
+msgstr "Ausgestellte Gutscheine"
+
+msgid "bill"
+msgstr "Debitoren"
+
+msgid "expenses"
+msgstr "Auslagen/Spesen"
+
+msgid "tip"
+msgstr "Trinkgelder"
+
+msgid "cash"
+msgstr "Bargeld"
+
+msgid "cigarettes"
+msgstr "Zigaretten"
+
+msgid "name"
+msgstr "Name"
+
+msgid "addToTotalSalesAmount"
+msgstr "Zum Umsatz dazurechnen"
+
+msgid "tipInPercentage"
+msgstr "Trinkgeld in Prozent des Umsatzes"
+
+msgid "questionName"
+msgstr "Frage"
+
+msgid "new"
+msgstr "Neue"
+
+msgid "accountNo"
+msgstr "Konto Nr"
+
+msgid "report_api_abaninja.success"
+msgstr "The report has been approved and is ready to be fetched by AbaNinja"

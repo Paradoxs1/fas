@@ -1,0 +1,37 @@
+{% if questionsAnswers %}
+    {% for item in questionsAnswers if item.values is defined %}
+        <div class="row fas-section question-section">
+            <div class="col-12 fas-section-title">
+                <h2>{{ 'report_overview.question_by'|trans }} <span>{{ item.account.person.firstName }} {{ item.account.person.lastName }} {{ 'report_overview.chef_service'|trans }}</span></h2>
+            </div>
+            <div class="col-12 question-content">
+                {% if item.values is defined %}
+                    {% for value in item.values %}
+                        <div class="question-item">
+                            <p class="question-item-name">{{ value.questionName }}</p>
+                            <label for=""class="question-items-value">{{ value.answer }}</label>
+                            {% if value.old_answer is defined %}
+                                <div class="tooltip-point">
+                                    <span class="point"></span>
+                                    <div class="tooltip-point-message">
+                                        <span>{{ value.old_answer }}</span>
+                                        <span><i class="fas fa-arrow-right"></i></span>
+                                        <span class="point-current-value">{{ value.answer  }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if value.new is defined %}
+                                <div class="tooltip-point">
+                                    <span class="point"></span>
+                                    <div class="tooltip-point-message">
+                                        <span>new</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

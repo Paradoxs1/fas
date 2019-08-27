@@ -1,0 +1,106 @@
+<tr class="cashiers-table-sales">
+    <td class="payment-column">
+        <div class="action-table-item">
+            <p>
+                <span class="payment-title-arrow">
+                    <i class="fas fa-angle-down"></i>
+                </span>
+                <span>{{ 'report_overview.sales'|trans }}</span>
+            </p>
+        </div>
+    </td>
+    {% if data.sales.data is defined %}
+        {% for reportId, amount in data.sales.data %}
+            <td class="cashier-column shift-1">
+                <div class="table-sales-cashiers-values action-table-item">
+                    <p>{{ amount | number_format(2, ".", "'") }} {{ currency }}</p>
+                    {% if data.sales.old_data[reportId] is defined %}
+                        <div class="tooltip-point">
+                            <span class="point"></span>
+                            <div class="tooltip-point-message">
+                                <span>{{ data.sales.old_data[reportId] | number_format(2, ".", "'") }} {{ currency }}</span>
+                                <span><i class="fas fa-arrow-right"></i></span>
+                                <span class="point-current-value">{{ amount | number_format(2, ".", "'") }} {{ currency }}</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </td>
+        {% endfor %}
+    {% else %}
+        <td class="cashier-column shift-1">
+            <div class="table-sales-cashiers-values action-table-item">
+                <p>{{ data.sales.backofficer_total | number_format(2, ".", "'") }} {{ currency }}</p>
+            </div>
+        </td>
+    {% endif %}
+    <td class="total-difference-column">
+        <div class="table-sales-total-values action-table-item">
+            <p>{% if data.sales.difference is defined and data.sales.difference != 0 %}{{ data.sales.difference | number_format(2, ".", "'") }} {{ currency }}{% endif %}</p>
+        </div>
+    </td>
+    <td class="total-all-column">
+        <div class="table-sales-total-values action-table-item">
+            {% if data.sales.cashier_total is defined and data.sales.backofficer_total != data.sales.cashier_total %}
+                <p class="error-name">{{ data.sales.backofficer_total | number_format(2, ".", "'") }} {{ currency }}</p>
+            {% else %}
+                <p>{{ data.sales.backofficer_total | number_format(2, ".", "'") }} {{ currency }}</p>
+            {% endif %}
+            <span class="included-issued-vouchers">({{ 'report_overview.included_issued' | trans }} <span></span> )</span>
+        </div>
+    </td>
+    <td class="approval-column">
+        <div class="main-approval">
+
+        </div>
+    </td>
+</tr>
+
+<tr class="cashiers-table-sales-collapse">
+    <td colspan="{% if data.sales.data is defined %}{{ 4 + data.sales.data|length }}{% else %}5{% endif %}">
+        <div class="table-collapse">
+            <table>
+                {% for accountingPositionId, backofficerReportData in data.sales.names %}
+                    <tr>
+                        <td class="payment-column">
+                            <div class="collapse-table-item">
+                                <p>{{ backofficerReportData.name }}</p>
+                            </div>
+                        </td>
+                        {% if data.sales.data is defined %}
+                            {% for reportId, amount in data.sales.data %}
+                                <td class="cashier-column shift-1">
+                                    <div class="table-sales-cashiers-values action-table-item">
+                                        <p>-</p>
+                                    </div>
+                                </td>
+                            {% endfor %}
+                        {% else %}
+                            <td class="cashier-column shift-1">
+                                <div class="table-sales-cashiers-values action-table-item">
+                                    <p>-</p>
+                                </div>
+                            </td>
+                        {% endif %}
+
+                        <td class="total-difference-column">
+                            <div class="collapse-table-item table-sales-total-values">
+                                <p>-</p>
+                            </div>
+                        </td>
+                        <td class="total-all-column">
+                            <div class="collapse-table-item table-sales-total-values">
+                                <p>{{ backofficerReportData.amount | number_format(2, ".", "'") }} {{ currency }}</p>
+                            </div>
+                        </td>
+                        <td class="approval-column">
+                            <div class="collapse-table-item sales-additional-approval">
+
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </td>
+</tr>

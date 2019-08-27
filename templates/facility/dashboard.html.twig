@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block stylesheets_additional %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+        {% block header %}
+            {% set current_facility = facility %}
+            {% set current_tenant = facility.tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {% set current_facility = facility %}
+            {% set current_tenant = facility.tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="chart-container">
+            <div class="container">
+                <div class="row fas-header">
+                    <div class="col-md-12 fas-title">
+                        <h1>{{ 'tenant.statistic_title'|trans }}</h1>
+                    </div>
+                    <div class="col-md-12 chart-container-inner">
+                        <p>{{ 'tenant.statistic_date_title'|trans }}</p>
+                        <canvas id="chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts_additional %}
+    {% include 'includes/chart-dashboard.html.twig' %}
+{% endblock %}

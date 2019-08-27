@@ -1,0 +1,253 @@
+{% if data.issued_vouchers is defined and data.accepted_vouchers is defined %}
+    <tr class="cashiers-table-vouchers">
+        <td class="payment-column">
+            <div class="action-table-item">
+                <p>
+                    <span class="payment-title-arrow">
+                        <i class="fas fa-angle-down {% if data.issued_vouchers.numbers is not defined and data.accepted_vouchers.numbers is not defined %} icon-blue{% endif %}"></i>
+                    </span>
+                    <span>{{ 'report_overview.vouchers'|trans }}</span>
+                </p>
+            </div>
+        </td>
+
+        {% for report in data.reports %}
+            {% if data.issued_vouchers.data[report.id].total is defined
+            or data.issued_vouchers.removedData[report.id] is defined
+            or data.accepted_vouchers.data[report.id].total is defined
+            or data.accepted_vouchers.removedData[report.id] is defined
+            %}
+                <td class="cashier-column shift-1">
+                    <div class="table-vouchers-cashiers-values action-table-item">
+                        {% if data.vouchers.total[report.id] is defined %}
+                            <label for="">{{ data.vouchers.total[report.id] | number_format(2, ".", "'") }} {{ currency }}</label>
+                        {% endif %}
+                        {% if data.issued_vouchers.removedData[report.id] is defined or data.accepted_vouchers.removedData[report.id] is defined %}
+                            <div class="tooltip-point">
+                                <span class="point"></span>
+                                <div class="tooltip-point-message">Removed:
+                                    {%- if data.issued_vouchers.removedData[report.id] is defined -%}
+                                        {%- for positionId, removedData in data.issued_vouchers.removedData[report.id] -%}
+                                            <span>Issued Voucher (#{{ removedData.number }}): <span>{{ removedData.amount | number_format(2, ".", "'") }} {{ currency }}</span></span>
+                                        {%- endfor -%}
+                                    {% endif %}
+                                    {% if data.accepted_vouchers.removedData[report.id] is defined %}
+                                        {%- for positionId, removedData in data.accepted_vouchers.removedData[report.id] -%}
+                                            <span>Accepted Voucher (#{{ removedData.number }}): <span>{{ removedData.amount | number_format(2, ".", "'") }} {{ currency }}</span></span>
+                                        {%- endfor -%}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </td>
+            {% else %}
+                <td class="cashier-column shift-1">
+                    <div class="table-vouchers-cashiers-values action-table-item">
+                    </div>
+                </td>
+            {% endif %}
+        {% endfor %}
+        <td class="total-difference-column">
+            <div class="table-vouchers-total-values action-table-item">
+            </div>
+        <td class="total-all-column">
+            <div class="table-vouchers-total-values action-table-item">
+                <p>{{ data.vouchers.totalAllVouchers | number_format(2, ".", "'") }} {{ currency }}</p>
+            </div>
+        </td>
+        <td class="approval-column">
+            <div class="main-approval">
+                <div class="{% if data.issued_vouchers.numbers is not defined and data.accepted_vouchers.numbers is not defined %}allow payment-approve-check {% else %} payment-approve{% endif %} not-active">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="{% if data.issued_vouchers.numbers is not defined and data.accepted_vouchers.numbers is not defined or approved %}payment-approve{% else %}payment-approve-check allow{% endif %}">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr class="cashiers-table-vouchers-collapse">
+        <td colspan="{{ 4 + data.reports|length }}">
+            <div class="table-collapse">
+                <table>
+                    {% if data.issued_vouchers.numbers is defined %}
+                    {% for numberData in data.issued_vouchers.numbers %}
+                        <tr class="issued-vouchers-collapse">
+                            <td class="payment-column">
+                                <div class="collapse-table-item">
+                                    <label for="">{{ 'report_overview.issued_voucher'|trans }}{{ numberData.number }})</label>
+                                    {% if numberData.old_number is defined %}
+                                        <div class="tooltip-point">
+                                            <span class="point"></span>
+                                            <div class="tooltip-point-message">
+                                                <span>{{ numberData.old_number }}</span>
+                                                <span><i class="fas fa-arrow-right"></i></span>
+                                                <span class="point-current-value">{{ numberData.number }}</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if numberData.new is defined %}
+                                        <div class="tooltip-point">
+                                            <span class="point"></span>
+                                            <div class="tooltip-point-message">
+                                                <span>new</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </td>
+
+                            {% for report in data.reports %}
+                                {% if data.issued_vouchers.data[report.id].data is defined %}
+                                    {% set voucherExists = false %}
+                                    {% for key,voucher in data.issued_vouchers.data[report.id].data %}
+                                        {% if voucher.number == numberData.number %}
+                                            {% set voucherExists = voucher %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if voucherExists %}
+                                        <td class="cashier-column shift-1">
+                                            <div class="collapse-table-item table-vouchers-cashiers-values">
+                                                <p>{{ voucherExists.amount | number_format(2, ".", "'") }} {{ currency }}</p>
+                                                {% if voucherExists.old_amount is defined %}
+                                                    <div class="tooltip-point">
+                                                        <span class="point"></span>
+                                                        <div class="tooltip-point-message">
+                                                            <span>{{ voucherExists.old_amount | number_format(2, ".", "'") }} {{ currency }}</span>
+                                                            <span><i class="fas fa-arrow-right"></i></span>
+                                                            <span class="point-current-value">{{ voucherExists.amount | number_format(2, ".", "'")  }} {{ currency }}</span>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    {% else %}
+                                        <td class="cashier-column shift-2">
+                                            <div class="collapse-table-item table-vouchers-cashiers-values">
+                                                <p>-</p>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                {% else %}
+                                    <td class="cashier-column shift-2">
+                                        <div class="collapse-table-item table-vouchers-cashiers-values">
+                                            <p>-</p>
+                                        </div>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                            <td class="total-difference-column">
+                                <div class="collapse-table-item table-vouchers-total-values">
+                                </div>
+                            <td class="total-all-column">
+                                <div class="collapse-table-item table-vouchers-total-values">
+                                </div>
+                            </td>
+                            <td class="approval-column">
+                                <div class="collapse-table-item vouchers-additional-approval">
+                                    <div class="payment-approve not-active">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="{% if approved %}payment-approve{% else %}payment-approve-check allow{% endif %}">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if data.accepted_vouchers.numbers is defined %}
+                    {% for numberData in data.accepted_vouchers.numbers %}
+                        <tr>
+                            <td class="payment-column">
+                                <div class="collapse-table-item">
+                                    <label for="">{{ 'report_overview.accepted_voucher'|trans }}{{ numberData.number }})</label>
+                                    {% if numberData.old_number is defined %}
+                                        <div class="tooltip-point">
+                                            <span class="point"></span>
+                                            <div class="tooltip-point-message">
+                                                <span>{{ numberData.old_number }}</span>
+                                                <span><i class="fas fa-arrow-right"></i></span>
+                                                <span class="point-current-value">{{ numberData.number }}</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if numberData.new is defined %}
+                                        <div class="tooltip-point">
+                                            <span class="point"></span>
+                                            <div class="tooltip-point-message">
+                                                <span>new</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </td>
+
+                            {% for report in data.reports %}
+                                {% if data.accepted_vouchers.data[report.id].data is defined %}
+                                    {% set voucherExists = false %}
+                                    {% for key,voucher in data.accepted_vouchers.data[report.id].data %}
+                                        {% if voucher.number == numberData.number %}
+                                            {% set voucherExists = voucher %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if voucherExists %}
+                                        <td class="cashier-column shift-1">
+                                            <div class="collapse-table-item table-vouchers-cashiers-values">
+                                                <p>{{ voucherExists.amount | number_format(2, ".", "'") }} {{ currency }}</p>
+                                                {% if voucherExists.old_amount is defined %}
+                                                    <div class="tooltip-point">
+                                                        <span class="point"></span>
+                                                        <div class="tooltip-point-message">
+                                                            <span>{{ voucherExists.old_amount | number_format(2, ".", "'") }} {{ currency }}</span>
+                                                            <span><i class="fas fa-arrow-right"></i></span>
+                                                            <span class="point-current-value">{{ voucherExists.amount | number_format(2, ".", "'")  }} {{ currency }}</span>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    {% else %}
+                                        <td class="cashier-column shift-2">
+                                            <div class="collapse-table-item table-vouchers-cashiers-values">
+                                                <p>-</p>
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                {% else %}
+                                    <td class="cashier-column shift-2">
+                                        <div class="collapse-table-item table-vouchers-cashiers-values">
+                                            <p>-</p>
+                                        </div>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                            <td class="total-difference-column">
+                                <div class="collapse-table-item table-vouchers-total-values">
+                                </div>
+                            <td class="total-all-column">
+                                <div class="collapse-table-item table-vouchers-total-values">
+                                </div>
+                            </td>
+                            <td class="approval-column">
+                                <div class="collapse-table-item vouchers-additional-approval">
+                                    <div class="payment-approve not-active">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="{% if approved %}payment-approve{% else %}payment-approve-check allow{% endif %}">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </td>
+    </tr>
+{% endif %}

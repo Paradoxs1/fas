@@ -1,0 +1,42 @@
+<tr>
+    <td>{{ item.date|date("d.m.Y") }}</td>
+    <td>{{ item.facility_name }}</td>
+    <td class="cashier-report-column">{{ reportsData['cashierReports']|length }}</td>
+    <td class="sales-reports-sum total-sales-column"><span>{{ reportsData['amountData']['sum'] }}</span> {{ reportsData['amountData']['currency'] }}</td>
+    {% if reportsData.approved %}
+        <td class="approved approval-column">{{ 'report.yes' | trans }}</td>
+    {% else %}
+        <td class="not-approved approval-column">{{ 'report.no' | trans }}</td>
+    {% endif %}
+    <td class="action-column">
+        {% if reportsData.reportTypeMigration is not defined %}
+            {% if reportsData['backofficerReports']|length == 0 %}
+                <a href="{{ path('check_report', {'facilityId': facility.id, 'checkDate': item.date|date("Y-m-d")}) }}">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+            {% endif %}
+            {% if reportsData['backofficerReports']|length > 0 and get_report(reportsData['backofficerReports'][0]).approved == true %}
+                <a class="reopen-report"
+                   data-route="{{ path('reopen_backofficer_report', {'id': facility.id, 'date': item.date|date("Y-m-d")}) }}"
+                   data-popup-header="{{ 'report.reopen_header'|trans({'%date%': item.date|date("d.m.Y")}) | raw }}"
+                   data-popup-text="{{ 'report.reopen_text'|trans({'%date%': item.date|date("d.m.Y")}) | raw }}"
+                   data-id="{{ 1 }}"
+                >
+                    <i class="fas fa-sync-alt"></i>
+                </a>
+                <a href="{{ path('report_overview', {'facilityId': facility.id, 'checkDate': item.date|date("Y-m-d"), 'approved': 'true'}) }}">
+                    <i class="fas fa-file"></i>
+                </a>
+            {% endif %}
+            {% if reportsData['backofficerReports']|length > 0 and get_report(reportsData['backofficerReports'][0]).approved != true and reportsData['cashierReports']|length > 0 %}
+                <a href="{{ path('check_report', {'facilityId': facility.id, 'checkDate': item.date|date("Y-m-d")}) }}">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+            {% elseif reportsData['backofficerReports']|length > 0 and get_report(reportsData['backofficerReports'][0]).approved != true and reportsData['cashierReports']|length == 0 %}
+                <a href="{{ path('backofficer_report', {'id': facility.id, 'date': item.date|date("d.m.Y") }) }}">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+            {% endif %}
+        {% endif %}
+    </td>
+</tr>

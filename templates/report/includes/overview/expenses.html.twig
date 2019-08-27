@@ -1,0 +1,186 @@
+{% if data.expenses is defined %}
+    <tr class="cashiers-table-expenses">
+        <td class="payment-column">
+            <div class="action-table-item">
+                <p>
+                    <span class="payment-title-arrow">
+                        <i class="fas fa-angle-down{% if data.expenses.data is not defined %} icon-blue{% endif %}"></i>
+                    </span>
+                    <span>{{ 'report_overview.expenses'|trans }}</span>
+                </p>
+            </div>
+        </td>
+
+        {% for report in data.reports %}
+            {% if data.expenses.data[report.id].total is defined or data.expenses.removedData[report.id] is defined %}
+                <td class="cashier-column shift-1">
+                    <div class="table-expenses-cashiers-values action-table-item">
+                        {% if data.expenses.data is not defined %}
+                            <label for="">{{ 0 | number_format(2, ".", "'") }} {{ currency }}</label>
+                        {% endif %}
+                        {% if data.expenses.data[report.id].total is defined %}
+                            <label for="">{{ data.expenses.data[report.id].total | number_format(2, ".", "'") }} {{ currency }}</label>
+                        {% endif %}
+                        {% if data.expenses.removedData[report.id] is defined %}
+                            <div class="tooltip-point">
+                                <span class="point"></span>
+                                <div class="tooltip-point-message">Removed:
+                                    {%- for positionId, removedData in data.expenses.removedData[report.id] -%}
+                                        <span>{{ removedData.name }}: <span>{{ removedData.amount | number_format(2, ".", "'") }}  {{ currency }}</span></span>
+                                    {%- endfor -%}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </td>
+            {% else %}
+                <td class="cashier-column shift-1">
+                    <div class="table-expenses-cashiers-values action-table-item">
+                        <p> </p>
+                    </div>
+                </td>
+            {% endif %}
+        {% endfor %}
+
+        <td class="total-difference-column">
+            <div class="table-expenses-total-values action-table-item">
+            </div>
+        </td>
+        <td class="total-all-column">
+            <div class="table-expenses-total-values action-table-item">
+                <p>{{ data.expenses.totalAllExpenses | number_format(2, ".", "'") }} {{ currency }}</p>
+            </div>
+
+        </td>
+        <td class="approval-column">
+            <div class="main-approval">
+                <div class="{% if approved or data.expenses.data is not defined %}payment-approve{% else %}payment-approve-check allow{% endif %}">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="{% if data.expenses.data is not defined %}allow payment-approve-check {% else %} payment-approve{% endif %} not-active">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+
+        </td>
+    </tr>
+
+    <tr class="cashiers-table-expenses-collapse">
+        <td colspan="{{ data.reports|length + 4 }}">
+            <div class="table-collapse">
+                <table>
+                    {% if data.expenses.names is defined %}
+                    {% for expense in data.expenses.names %}
+                        <tr>
+                            <td class="payment-column">
+
+                                <div class="collapse-table-item">
+                                    <label for="expanses-item-{{ expense.id }}" class="{% if approved != true %}error-name{% endif %}">{{ expense.name }} </label>
+                                    {% if expense.old_name is defined %}
+                                        <div class="tooltip-point">
+                                            <span class="point"></span>
+                                            <div class="tooltip-point-message">
+                                                <span>{{ expense.old_name }}</span>
+                                                <span><i class="fas fa-arrow-right"></i></span>
+                                                <span class="point-current-value">{{ expense.name  }}</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if expense.new is defined %}
+                                        <div class="tooltip-point">
+                                            <span class="point"></span>
+                                            <div class="tooltip-point-message">
+                                                <span>new</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    <div class="expanses-input-wrap">
+                                    {% for report in data.reports %}
+                                        {% if data.expenses.data[report.id].data is defined %}
+                                            {% for key,expenseData in data.expenses.data[report.id].data %}
+                                                {% if expense.name == expenseData.name %}
+                                                    {% if approved %}
+                                                        <p class="catalog-number">{% if expenseData.catalogNumber is defined  %}(#{{ expenseData.catalogNumber }}){% endif %}</p>
+                                                    {% else %}
+                                                        <span class="expanses-input-placeholder">#</span>
+                                                        <input
+                                                                data-position-id="{{ expense.id }}"
+                                                                name="catalog-name[{{ expense.id }}]"
+                                                                id="expanses-item-{{ expense.id }}"
+                                                                value="{% if expenseData.catalogNumber is defined %}{{ expenseData.catalogNumber }}{% endif %}"
+                                                                type="text"
+                                                                class="fas-input cashiers-table-input error-input"
+                                                        >
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    </div>
+                                </div>
+
+                            </td>
+
+                            {% set totalByExpense = 0 %}
+                            {% for report in data.reports %}
+                                {% if data.expenses.data[report.id].data is defined %}
+                                    {% set expenseExists = false %}
+                                    {% for key,expenseData in data.expenses.data[report.id].data %}
+                                        {% if expenseData.name == expense.name and report.id == expense.reportId %}
+                                            {% set expenseExists = expenseData %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if expenseExists %}
+                                        <td class="cashier-column shift-1">
+                                            <div class="collapse-table-item table-expenses-cashiers-values">
+                                                {% set totalByExpense = expenseExists.amount %}
+                                                <p>{{ expenseExists.amount | number_format(2, ".", "'") }} {{ currency }}</p>
+                                                {% if expenseExists.old_amount is defined %}
+                                                    <div class="tooltip-point">
+                                                        <span class="point"></span>
+                                                        <div class="tooltip-point-message">
+                                                            <span>{{ expenseExists.old_amount | number_format(2, ".", "'") }} {{ currency }}</span>
+                                                            <span><i class="fas fa-arrow-right"></i></span>
+                                                            <span class="point-current-value">{{ expenseExists.amount | number_format(2, ".", "'") }} {{ currency }}</span>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    {% else %}
+                                        <td class="cashier-column shift-2">
+                                            <div class="collapse-table-item table-bills-cashiers-values">
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                {% else %}
+                                    <td class="cashier-column shift-2">
+                                        <div class="collapse-table-item table-bills-cashiers-values">
+                                        </div>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                            <td class="total-difference-column">
+                                <div class="collapse-table-item table-expenses-total-values">
+                                </div>
+                            </td>
+
+                            <td class="total-all-column">
+                                <div class="collapse-table-item table-expenses-total-values">
+                                    <p>{% if totalByExpense > 0 %}{{ totalByExpense | number_format(2, ".", "'") }}{% endif %} {{ currency }}</p>
+                                </div>
+                            </td>
+
+                            <td class="approval-column">
+                                <div class="collapse-table-item expenses-additional-approval">
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </td>
+    </tr>
+{% endif %}

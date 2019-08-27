@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}Tenants{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/tenants-list.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+
+        {#{% include 'common/header.html.twig' %}#}
+        {% block header %}
+            {% set current_tenant = app.user.tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% include 'common/pop-up.html.twig' %}
+
+
+    </div>
+{% endblock %}

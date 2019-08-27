@@ -1,0 +1,107 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'tenant.users.facilities'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/tenants-list.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+
+        {% block header %}
+            {% set current_tenant = tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {% set current_tenant = tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% include 'common/pop-up.html.twig' %}
+
+        <div class="facility-list">
+            <div class="container">
+                <div class="row fas-header">
+                    <div class="col-md-6 fas-title">
+                        <h1>{{ 'tenant.users.facilities'|trans }}</h1>
+                    </div>
+                    <div class="col-md-6 fas-add-search-nav">
+                        <div class="fas-add-item">
+                            <a href="{{ url('tenant_facility_new') }}">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>{{ 'tenant.users_edit_add_facility'|trans }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row fas-section">
+                    <div class="col-12">
+                        <table class="fas-section-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>{{ 'facility.users.name'|trans }}</th>
+                                    <th>{{ 'address.title'|trans }}</th>
+                                    <th>{{ 'tenant.users.actions'|trans }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if paginated_data.currentPageResults  %}
+                                    {% for facility in paginated_data.currentPageResults %}
+                                        <tr>
+                                            <td>{{ facility.id }}</td>
+                                            <td>{{ facility.name }}</td>
+                                            <td>
+                                                {{ facility.address.street }},
+                                                {{ facility.address.zip }}
+                                            </td>
+                                            <td>
+                                                <a>
+                                                    <i
+                                                        class="fas fa-trash-alt"
+                                                        data-delete-route="{{ path('facility_delete', {'id': facility.id}) }}"
+                                                        data-popup-header="{{ 'facility.delete' | trans }} {{ facility.name }}"
+                                                        data-popup-text="{{ 'delete_facility.text'|trans }}"
+                                                        data-id="{{ facility.id }}"
+                                                    >
+                                                    </i>
+                                                </a>
+                                                <a href="{{ url('tenant_facility_edit', {'facilityId': facility.id}) }}">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">{{ 'no_facilities.text'|trans }}</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                        <div class="row pagination">
+                            <div class="col-md-6 pagination-left-content">
+                                <p>
+                                    {{ 'tenant.users.show'|trans }}
+                                    <span class="pagination-pages-values">
+                                        {{ paginated_data.getCurrentPageOffsetStart }}-{{ paginated_data.getCurrentPageOffsetEnd }}
+                                    </span>
+                                    {{ 'tenant.users.of'|trans }}
+                                    <span class="pagination-pages-values">{{ paginated_data.count }}</span> {{ 'tenant.users.rows'|trans }}.
+                                </p>
+                            </div>
+                            <div class="col-md-6 pagination-right-content">
+                                {{ pagerfanta(paginated_data, 'fas_pager', { 'omitFirstPage': true}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

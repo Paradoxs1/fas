@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'report_created_successful_title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+        {% set current_facility = facility %}
+        {% set current_tenant = facility.tenant %}
+        {% set facilityLayouts =  facility.facilityLayouts.last%}
+
+        {% if facilityLayouts and facilityLayouts.currency %}
+            {% set currency = facilityLayouts.currency.administrativeName %}
+        {% else %}
+            {% set currency = 'CHF' %}
+        {% endif %}
+
+        {% block header %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="container">
+            <div class="row">
+                <h1 class="mt-5">{{ 'report_created_successful_title'|trans }}</h1>
+            </div>
+            <div class="row">
+                <div class="mt-3">
+                    <p>{{ 'report_created_successful_text'|trans({'%total%': total, '%currency%': currency }) }}</p>
+                    <p>{{ 'report_created_kind_regards'|trans }}</p>
+                    <p>{{ 'cashup_team'|trans }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

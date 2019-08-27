@@ -1,0 +1,15 @@
+.fas-section-table th:first-child,
+.fas-section-table td:first-child{
+    width: 9%;
+    padding-left: 10px;
+}
+
+.fas-section-table th:nth-child(2),
+.fas-section-table td:nth-child(2){
+    width: 31%;
+}
+
+.fas-section-table th:last-child,
+.fas-section-table td:last-child{
+    width: 4%;
+}

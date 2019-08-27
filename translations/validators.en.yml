@@ -1,0 +1,29 @@
+security.login_not_blank: Please e​nter a username
+security.login_min_length: Must at least contain 2 characters
+security.login_uniq: Username already exists, please enter a new username
+security.email_valid: Must be a valid email address
+security.email_not_blank: Please enter an email address
+security.first_name_not_blank: Please enter a first name
+security.first_name_min_length: Must at least contain 2 characters
+security.last_name_not_blank: Please enter a last name
+security.last_name_min_length: Must at least contain 2 characters
+security.phone_valid: Please enter a valid phone number
+security.password_not_blank: Please enter a password
+security.new_password_min_length: The password has to be 6 characters long
+security.confirm_password_not_identical: The password is not identical
+security.account.username_min_length: Must at least contain 2 characters.
+security.account.username_not_blank: Please enter an username.
+security.new_password_not_blank: Please enter a password
+security.new_confirm_password_not_identical: The password is not identical
+security.password_min_length: The password has to be 6 characters long
+security.country_not_blank: The password has to be 6 characters long
+tenant.name_not_blank: Please enter a tenant name
+tenant.name_min_length: Must at least contain 2 characters
+tenant.street_not_blank: Please enter a street
+tenant.street_min_length: Must at least contain 3 characters
+tenant.zip_not_blank: Please enter a ZIP code
+tenant.zip_length: Must contain between 4 and 8 characters
+tenant.city_not_blank: Please enter a city
+tenant.city_min_length: Must at least contain 2 characters
+tenant.country_not_blank: Please select a country
+facility.name_not_blank: Please enter a facility name

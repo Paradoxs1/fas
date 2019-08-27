@@ -1,0 +1,280 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: 'en'
+
+    password_reset_token_lifetime: 172800
+    login_attempt_gap: 100
+    login_attempts: 4
+    login_ban_time: 100
+
+    #Max items per list in page
+    max_items_in_list: 10
+
+    #Number of hours which should pass after midnight so we assume the next day started.
+    #For instance: if set to 3 that means that the next day starts after 3 A.M.
+    number_of_hours_to_shift: 3
+
+    #RAS connection cred.
+    RAS:
+        url: '%env(RAS_DATABASE_URL)%'
+
+    cashier_edit_allowed_days: 4
+
+    postal_messenger_server_url: '%env(POSTAL_MESSENGER_SERVER_URL)%'
+    postal_messenger_server_key: '%env(POSTAL_MESSENGER_KEY)%'
+    postal_messenger_server_email: '%env(POSTAL_MESSENGER_EMAIL)%'
+
+    #GrayLog data for connection
+    graylog_host: '%env(GRAYLOG_HOST)%'
+    graylog_port: '%env(GRAYLOG_PORT)%'
+    graylog_name: 'FAS Project'
+
+    #ISO_CODE
+    eur: 'EUR'
+    chf: 'CHF'
+
+    invoiceNumberPrefix: '%env(INVOICE_NUMBER_PREFIX)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Allows optimizing the container by removing unused services; this also means
+                            # fetching services directly from the container via $container->get() won't work.
+                            # The best practice is to be explicit about your dependencies anyway.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    pagerfanta.view.fas_pager:
+        class: App\View\FASPagerView
+        public: false
+        tags: [{ name: pagerfanta.view, alias: fas_pager }]
+
+    #Handlers
+
+    login_handler:
+        class: App\Handler\LoginHandler
+
+    #Listeners
+
+    App\Form\EventListener\LoggerListenerInterface: '@App\Form\EventListener\FacilityLayoutTypeListener'
+
+    App\EventListener\ResponseListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.response }
+
+    App\EventListener\DeletedAccountResponseListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.response }
+
+    App\EventListener\AuthenticationFailureListener:
+        arguments:
+            $loginAttempts: '%login_attempts%'
+        tags:
+            - { name: kernel.event_listener, event: security.authentication.failure }
+
+    App\EventListener\LoggerListener:
+        arguments: ["@security.token_storage"]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+
+    App\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    App\Service\LoginFailedAttemptsProcessorService:
+        arguments:
+            $loginAttemptGap: '%login_attempt_gap%'
+            $loginAttempts: '%login_attempts%'
+            $loginBanTime: '%login_ban_time%'
+
+    App\EventListener\AuthenticationSuccessListener:
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }
+
+    App\Service\Email\EmailSender:
+        arguments:
+            $url: '%postal_messenger_server_url%'
+            $key: '%postal_messenger_server_key%'
+            $serverEmail: '%postal_messenger_server_email%'
+
+    App\Service\AccountPasswordResetProcessorService:
+        arguments:
+            $passwordResetTokenLifetime: '%password_reset_token_lifetime%'
+
+    App\Service\Manager\AbstractAccountManager:
+        abstract: true
+
+    App\Service\Manager\FacilityAccountManager:
+        public: true
+        autowire: true
+        autoconfigure: false
+        parent: App\Service\Manager\AbstractAccountManager
+
+    App\Service\Manager\TenantAccountManager:
+        public: true
+        autowire: true
+        autoconfigure: false
+        parent: App\Service\Manager\AbstractAccountManager
+
+    App\Service\Routine\RmaProcessor:
+        abstract: true
+
+    App\Service\Routine\RmaCashierProcessor:
+        parent: App\Service\Routine\RmaProcessor
+        autowire: true
+        autoconfigure: false
+        public: true
+        calls:
+            - [setDataCollector, ['@App\Service\Routine\DataCollector\RmaDataCollector']]
+            - [setDataCollectorDecorator, ['@App\Service\Routine\DataCollector\RmaDataCollectorDecorator']]
+
+    App\Service\Routine\RmaBackofficerProcessor:
+        parent: App\Service\Routine\RmaProcessor
+        autowire: true
+        autoconfigure: false
+        public: true
+        calls:
+            - [setDataCollector, ['@App\Service\Routine\DataCollector\RmaDataBackofficerCollector']]
+            - [setDataCollectorDecorator, ['@App\Service\Routine\DataCollector\RmaDataCollectorDecorator']]
+
+    App\Twig\CommonExtension:
+        arguments:
+            $env: '%kernel.environment%'
+
+    App\Service\Report\Handler\BillHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\TotalSalesHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\TipHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\ShiftHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\QuestionsHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\AcceptedVoucherHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\IssuedVoucherHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\CigaretteHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\CreditCardHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\ExpenseHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\CommentHandler:
+        tags: ['category_report_position.handler']
+
+    App\Service\Report\Handler\CashIncomeHandler:
+        tags: ['category_report_position.handler']
+
+#    App\EventListener\AuthenticationSuccessListener:
+#        tags:
+#            - { name: kernel.event_listener, event: security.interactive_login }
+
+
+    Monolog\Handler\GelfHandler:
+        arguments: ['@Gelf\Publisher']
+
+    Gelf\Publisher:
+        arguments: ['@Gelf\Transport\IgnoreErrorTransportWrapper']
+
+    Gelf\Transport\IgnoreErrorTransportWrapper:
+        arguments: ['@Gelf\Transport\UdpTransport']
+
+    Gelf\Transport\UdpTransport:
+        arguments: ['%graylog_host%', '%graylog_port%']
+
+    App\Service\GelfLogger:
+        arguments: ['@Gelf\Publisher', '@service_container', '%graylog_name%', '%kernel.environment%']
+
+    App\Form\AccountType:
+        arguments: ['@App\Form\EventListener\AccountTypeListener']
+
+    App\Form\BaseAccountType:
+        arguments: ['@App\Form\EventListener\AccountTypeListener']
+
+    App\Form\FacilityLayoutType:
+        arguments: ['@App\Form\EventListener\FacilityLayoutTypeListener']
+
+    App\Form\FacilityType:
+        arguments: ['@App\Form\EventListener\FacilityTypeListener']
+
+    App\Form\TenantType:
+        arguments: ['@App\Form\EventListener\TenantTypeListener']
+
+    App\Service\Routine\DefaultRoutine:
+        tags: ['fas.routine']
+
+    App\Service\Routine\BBCRMA:
+        tags: ['fas.routine']
+
+    App\Service\Routine\AbaninjaRoutine:
+        tags: ['fas.routine']
+
+    App\Service\Facility\ConfigurationParamsHandler:
+        abstract:  true
+        arguments: ['@doctrine.orm.entity_manager', '@App\Service\Routine\RoutineRegistry']
+
+    App\Service\Facility\Handler\AcceptedVoucherHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\IssuedVoucherHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\CreditCardHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\BillHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\ExpenseHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\TipHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\CigarettesHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\CashHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\PaymentMethodsOrderHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\SalesCategoryHandler:
+        tags: ['configuration_params.handler']
+
+    App\Service\Facility\Handler\QuestionsHandler:
+        tags: ['configuration_params.handler']
+
+    App\EventListener\ApiResponseListener:
+        tags:
+            - { name: kernel.event_listener, event: api.response, method: 'onResponse' }

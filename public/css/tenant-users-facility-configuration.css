@@ -1,0 +1,849 @@
+/*---------------------setup---------------------*/
+
+.facility-configuration-title{
+    padding:0;
+}
+
+.facility-configuration-title h2{
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 30px;
+    color: #3F4F5E;
+}
+
+.fa-square{
+    color: #D8D8D8;
+}
+
+.fa-check-square{
+    color: #3F4F5E;
+}
+
+.facility-configuration-section-title{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    width: 196px;
+}
+
+.facility-configuration-select{
+    display: inline-block;
+    width: 70px;
+    background-position: 90% center;
+}
+
+.facility-configuration-input{
+    display: inline-block;
+    width: 140px;
+}
+
+.draggable-icon{
+    width: 16px;
+    height: 13px;
+    border-top: 1px solid #2A81CB;
+    border-bottom: 1px solid #2A81CB;
+    position: relative;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.draggable-icon:after{
+    content: '';
+    width: 20px;
+    height: 1px;
+    background-color: #2A81CB;
+    position: absolute;
+    top: 5px;
+    left: -2px;
+}
+
+.btn-remove-line.not-active{
+    display: none;
+}
+
+.sortable-placeholder{
+    display: block;
+    height: 57px;
+    background-color: inherit !important;
+}
+
+.facility-configuration-title{
+    display: inline-block;
+}
+
+.btn-remove-line{
+    padding: 0 10px;
+    text-align: center;
+}
+
+.fas-section{
+    margin-bottom: 15px;
+    padding: 20px 0 30px 20px;
+}
+
+.btn-add-line span{
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.ui-sortable-handle.not-active{
+    display: none;
+}
+
+/*--------------------facility configuration header---------------------*/
+
+.facility-configuration-header{
+    padding: 10px 0 20px 0;
+    max-width: 1184px;
+    margin-left: 26px;
+}
+
+.facility-configuration-title{
+    text-align: left;
+}
+
+.facility-configuration-title h1{
+    color: #3F4F5E;
+    font-size: 32px;
+    line-height: 43px;
+}
+
+/*--------------------facility configuration general section---------------------*/
+
+.facility-configuration-general>.col-12{
+    padding-bottom: 33px;
+}
+
+.facility-configuration-general>.col-12:last-child{
+    padding-bottom: 0;
+}
+
+.facility-configuration-general h2{
+    margin-bottom: 0;
+}
+
+.reporting-window-content,
+.enable-shifts-content{
+    padding-top: 50px;
+}
+
+.shifts-switch-block.collapsed{
+    display: none;
+}
+
+.enable-interface-content{
+    padding-top: 40px;
+}
+
+.reporting-window,
+.enable-shifts,
+.enable-interface{
+    min-height: 50px;
+}
+
+.facility-configuration-checkbox{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+.facility-configuration-checkbox label{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 2;
+    top: -8px;
+}
+
+.facility-configuration-checkbox label .far{
+    font-size: 22px;
+    position: absolute;
+    z-index: 2;
+    padding-right: 10px;
+    padding-left: 6px;
+    background-color: #fff;
+    margin-left: -6px;
+}
+
+.checkbox-title{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 19px;
+    vertical-align: top;
+    background-color: #FFFFFF;
+    padding-right: 6px;
+    margin-left: 25px;
+}
+
+.facility-configuration-checkbox label:nth-child(2){
+    width: 100%;
+}
+
+.facility-configuration-checkbox label:nth-child(2):after{
+    content: '';
+    display: inline-block;
+    height: 1px;
+    width: -webkit-calc(100% + 20px);
+    width: -moz-calc(100% + 20px);
+    width: calc(100% + 20px);
+    border-top: 1px solid  #EBEBEB;
+    top: 10px;
+    left: -20px;
+    position: absolute;
+    z-index: 1;
+}
+
+/*--------------------general currency--------------------*/
+
+.general-currency{
+    padding: 26px 0 48px 0;
+}
+
+/*--------------------report window--------------------*/
+
+.reporting-window{
+    position: relative;
+    padding: 0 0 8px 0;
+}
+
+.reporting-window label{
+    color: #3F4F5E;
+}
+
+.reporting-window .facility-configuration-input{
+    width: 70px;
+}
+
+/*--------------------enable shifts--------------------*/
+
+.enable-shifts{
+    padding: 0 0 8px 0;
+}
+
+/*--------------------enable interface--------------------*/
+
+.enable-interface{
+    padding: 0 0 6px 0;
+}
+
+.enable-interface-account-provider,
+.enable-interface-account-configuration{
+    display: block;
+}
+
+.enable-interface-account-provider{
+    margin-top: 10px;
+}
+
+.enable-interface-account-configuration{
+    margin-top: 8px;
+}
+
+#interface-provider{
+    width: 280px;
+    background-position: 98% center;
+}
+
+#facility_layout_params{
+    width: 50%;
+    height: 245px;
+    resize: none;
+    padding-top: 8px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.enable-interface-account-configuration .facility-configuration-section-title{
+    vertical-align: top;
+    padding-top: 6px;
+}
+
+.test-connection-link{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    color: #2A81CB;
+}
+
+.test-connection-link:hover{
+    font-weight: normal;
+}
+
+/*--------------------JSON validation--------------------*/
+
+.test-connection-link.not-active{
+    display: none;
+}
+
+.error-message{
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 20px;
+}
+
+#error-configuration-message-must-contain,
+#error-configuration-message-exceeded-chars{
+    font-size: 14px;
+    max-width: 320px;
+}
+
+/*--------------------estimated costs--------------------*/
+
+.estimated-costs{
+    padding: 10px 0 0 0;
+}
+
+.estimated-costs-header{
+    position: relative;
+    height: 20px;
+    width: 100%;
+}
+
+.estimated-costs-header .checkbox-title{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin: 0 0 0 -6px;
+}
+
+.estimated-costs-header:after{
+    content: '';
+    display: inline-block;
+    height: 1px;
+    width: -webkit-calc(100% + 20px);
+    width: -moz-calc(100% + 20px);
+    width: calc(100% + 20px);
+    border-top: 1px solid  #EBEBEB;
+    top: 10px;
+    left: -20px;
+    position: absolute;
+    z-index: 1;
+}
+
+.estimated-costs-table{
+    margin-top: 35px;
+    width: 93%;
+    font-size: 14px;
+    color: #3F4F5E;
+}
+
+.estimated-costs-table td{
+    font-weight: 300;
+}
+
+.estimated-costs-table td:first-child{
+    width: 190px;
+}
+
+.estimated-costs-table th{
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.estimated-costs-table .facility-configuration-input{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+/*--------------------sales category--------------------*/
+
+.facility-configuration-sales-category{
+    padding-bottom: 0;
+}
+
+.sales-category-header,
+.sales-category-content{
+    padding-left: 0;
+    padding-right: 20px;
+}
+
+.sales-category-content:after{
+    content: '';
+    display: block;
+    height: 30px;
+}
+
+.facility-configuration-sales-category .btn-add-line{
+    margin-top: 0;
+    display: inline-block;
+    float: right;
+}
+
+.facility-configuration-sales-category .fas{
+    font-size: 16px;
+}
+
+.sales-category-header:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.btn-remove-line.not-active{
+    display: none;
+}
+
+.sales-category-table{
+    width: 100%;
+}
+
+.sales-category-table tbody tr:nth-child(even){
+    background-color: #FAFAFA;
+}
+
+.sales-category-table thead{
+    background-color: #FFFFFF;
+    font-size: 14px;
+    border-bottom: 2px solid #3F4F5E;
+    color: #3F4F5E;
+}
+
+.sales-category-table td:first-child{
+    width: 56px;
+    cursor: pointer;
+}
+
+.sales-category-table td:last-child{
+    width: 50px;
+}
+
+.sales-category-table td .facility-configuration-input{
+    margin: 10px 0;
+}
+
+/*--------------------payment methods section--------------------*/
+
+.not-active-link .btn-add-line{
+    color: #bbc0c5!important;
+    cursor: default !important;
+}
+
+.facility-configuration-payment-methods{
+    padding-bottom: 0;
+}
+
+.payment-methods-header h2{
+    padding-bottom: 16px;
+    padding-top: 10px;
+}
+
+.payment-methods-content:before,
+.payment-methods-content:after{
+    content: '';
+    display: block;
+    height: 30px;
+}
+
+.payment-methods-header,
+.payment-methods-content{
+    padding-left: 0;
+    padding-right: 20px;
+}
+
+.payment-methods-link{
+    float: right;
+    display: inline-block;
+    position: relative;
+}
+
+.payment-methods-link.not-active .btn-add-line{
+    cursor: default;
+    color: #D8D8D8;
+}
+
+.payment-methods-link.not-active .payment-methods-submenu{
+    border: none;
+}
+
+.payment-methods-submenu.not-active{
+    display: none;
+}
+
+.payment-methods-submenu{
+    display: block;
+    position: absolute;
+    border: 1px solid #2a81cb;
+    z-index: 2;
+    background-color: #fafafa;
+    top: 34px;
+    right: 0;
+}
+
+.payment-methods-submenu ul{
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.payment-methods-submenu li{
+    cursor: pointer;
+    color: #3F4F5E;
+    list-style: none;
+    line-height: 26px;
+    padding: 2px 8px;
+}
+
+.payment-methods-submenu li:hover{
+    background-color: #2a81cb;
+    color: #FFFFFF;
+}
+
+.payment-method-content{
+    display: none;
+    background-color: #fff!important;
+}
+
+.facility-configuration-payment-methods .fas{
+    font-size: 16px;
+}
+
+.payment-method-header{
+    padding: 14px 0;
+    background-color: rgba(42, 129, 203, 0.2);
+}
+
+.payment-methods-lines div:nth-child(even){
+    background-color: #FAFAFA;
+}
+
+.payment-method-dropdown-arrow,
+.payment-method-draggable-icon,
+.payment-method-title,
+.payment-method-remove-line{
+    display: inline-block;
+}
+
+.payment-methods-lines{
+    border-top: 2px solid #3F4F5E;
+}
+
+.payment-method-dropdown-arrow{
+    color: #2A81CB;
+    margin-left: 14px;
+    -webkit-transition: transform 0.5s ease;
+    -moz-transition: transform 0.5s ease;
+    -ms-transition: transform 0.5s ease;
+    -o-transition: transform 0.5s ease;
+    transition: transform 0.5s ease;
+}
+
+.payment-method-dropdown-arrow .fa-angle-down{
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.payment-method-draggable-icon{
+    padding-left: 20px;
+    background: none !important;
+}
+
+.payment-method-title{
+    font-size: 14px;
+    font-weight: bold;
+    color: #3F4F5E;
+    padding-left: 20px;
+}
+
+.payment-method-title p{
+    margin: 0;
+}
+
+.payment-method-remove-line{
+    float: right;
+    padding-right: 8px;
+    background: none !important;
+}
+
+.payment-method-remove-line:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.payment-method-dropdown-arrow.active{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.payment-method-table{
+    width: 100%;
+    color: #3F4F5E;
+    font-size: 14px;
+}
+
+.payment-method-table:after{
+    content: '';
+    display: block;
+    height: 14px;
+}
+
+.payment-method-table tbody tr:nth-child(odd){
+    background-color: #FAFAFA;
+}
+
+.payment-method-table thead{
+    border-bottom: 1px solid #BDC3C9;
+    line-height: 36px;
+}
+
+.payment-method-table th,
+.payment-method-table td{
+    font-weight: normal;
+    text-align: center;
+}
+
+.payment-method-table td:after,
+.payment-method-table td:before{
+    content: '';
+    display: block;
+    height: 10px;
+}
+
+.default-payment-method .far{
+    font-size: 22px;
+}
+
+.default-payment-method-title,
+.default-payment-method-content{
+    display: flex;
+    align-items: center;
+}
+
+.default-payment-method-content label,
+.default-payment-method-title p{
+    margin: 0;
+}
+
+.default-payment-method-title p,
+.payment-method-item{
+    text-align: left;
+    margin-right: 100px;
+    background-color: transparent !important;
+}
+
+.default-payment-method-title p:first-child,
+.payment-method-item:first-child{
+    width: 285px;
+}
+
+.default-payment-method-title p:not(:first-child),
+.payment-method-item:not(:first-child){
+    width: 180px;
+}
+
+.payment-method-item:first-child input{
+    width: 100%;
+}
+
+.payment-method-item.questions{
+    width: 100%;
+    margin: 0;
+}
+
+.payment-method-table td:first-child .draggable-icon{
+    display: inline-block;
+}
+
+.payment-method-table th:first-child,
+.payment-method-table td:first-child{
+    width: 122px;
+    padding-left: 100px;
+    text-align: left;
+}
+
+.payment-method-table th:last-child,
+.payment-method-table td:last-child{
+    width: 30px;
+    text-align: right;
+    padding-right: 8px;
+}
+
+
+.payment-method-table tr:last-child td{
+    padding-bottom: 0;
+}
+
+
+
+
+
+
+.bills-table th:nth-child(3),
+.bills-table td:nth-child(3){
+    width: 180px;
+}
+
+.bills-table th:nth-child(4),
+.bills-table td:nth-child(4){
+    width: 448px;
+}
+
+
+
+
+
+
+.payment-method-content .btn-add-line{
+    margin-top: 0;
+    margin-left: 100px;
+    margin-bottom: 18px;
+    background-color: #fff!important;
+}
+
+.issuedVoucher-checkbox label{
+    vertical-align: top;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+}
+
+.issuedVoucher-checkbox .far{
+    font-size: 22px;
+}
+
+.issuedVoucher-checkbox .checkbox-title{
+    font-weight: normal;
+    margin-left: 4px;
+    background-color: inherit;
+}
+
+.issuedVoucher-checkbox{
+    padding-left: 30px;
+    display: inline-block;
+    margin-top: 7px;
+    background-color: inherit !important;
+}
+
+.tip-input{
+    position: relative;
+}
+
+.tip-input:after{
+    content: "%";
+    position: absolute;
+    display: block;
+    top: 17px;
+    left: 118px;
+}
+
+#expenses tbody tr td,
+#cash tbody tr td,
+#cigarettes tbody tr td{
+    padding-bottom: 10px;
+}
+
+#expenses tbody tr,
+#cash tbody tr,
+#cigarettes tbody tr{
+    background-color: #fff;
+}
+
+#expenses .payment-method-table:after,
+#cash .payment-method-table:after,
+#cigarettes .payment-method-table:after{
+    height: 0;
+}
+
+
+/*--------------------questions section--------------------*/
+
+.facility-configuration-questions{
+    padding-bottom: 0;
+}
+
+.questions-header,
+.questions-content{
+    padding-left: 0;
+    padding-right: 20px;
+}
+
+.questions-content:after{
+    content: '';
+    display: block;
+    height: 30px;
+}
+
+.facility-configuration-questions .btn-add-line{
+    margin-top: 0;
+    display: inline-block;
+    float: right;
+}
+
+.facility-configuration-questions .fas{
+    font-size: 16px;
+}
+
+.questions-header:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.questions-table{
+    width: 100%;
+}
+
+.questions-table tbody tr:nth-child(even){
+    background-color: #FAFAFA;
+}
+
+.questions-table thead{
+    background-color: #FFFFFF;
+    font-size: 14px;
+    border-bottom: 2px solid #3F4F5E;
+    color: #3F4F5E;
+}
+
+.questions-table thead th{
+    padding-bottom: 4px;
+    font-weight: normal;
+}
+
+.questions-table thead th:nth-child(1){
+    width: 56px;
+}
+
+.questions-table thead th:nth-child(2){
+    width: 91%;
+}
+
+.questions-table thead th:nth-child(3){
+    width: 4%;
+}
+
+.questions-table td:nth-child(1){
+    width: 56px;
+    cursor: pointer;
+}
+
+.questions-table td .facility-configuration-input{
+    margin: 10px 0;
+}
+
+.questions-table .facility-configuration-input{
+    width: 1031px;
+}
+
+/*--------------------facility configuration buttons--------------------*/
+
+.facility-configuration-buttons{
+    padding-bottom: 40px;
+}
+
+/*---------------------------- media queries ----------------------------*/
+
+@media all and (max-width: 1235px) {
+    .questions-table .facility-configuration-input{
+        width: 100%;
+    }
+}

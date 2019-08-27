@@ -1,0 +1,120 @@
+<tr class="cashiers-table-cards">
+    <td class="payment-column">
+        <div class="action-table-item">
+            <p>
+                <span class="payment-title-arrow">
+                    <i class="fas fa-angle-down
+                        {%- for reportId, paymentData in data.credit_cards.cashier_data -%}
+                            {%- if data.credit_cards.cashier_data[reportId].data | length == 0 -%}
+                            icon-blue
+                            {%- endif -%}
+                        {%- endfor -%}
+                        "></i>
+                </span>
+                <span>{{ 'report_overview.card_payments'|trans }}</span>
+            </p>
+        </div>
+    </td>
+
+    {% for reportId, paymentData in data.credit_cards.cashier_data %}
+        <td class="cashier-column shift-1">
+            <div class="table-cards-cashiers-values action-table-item">
+                <p>{{ paymentData.total | number_format(2, ".", "'") }} {{ currency }}</p>
+                {% if data.credit_cards.parent_cashier_data[reportId] is defined %}
+                    {% if data.credit_cards.parent_cashier_data[reportId].total is defined and data.credit_cards.parent_cashier_data[reportId].total != paymentData.total %}
+                        <div class="tooltip-point">
+                            <span class="point"></span>
+                            <div class="tooltip-point-message">
+                                <span>{{ data.credit_cards.parent_cashier_data[reportId].total | number_format(2, ".", "'") }} {{ currency }}</span>
+                                <span><i class="fas fa-arrow-right"></i></span>
+                                <span class="point-current-value">{{ paymentData.total | number_format(2, ".", "'") }} {{ currency }}</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+        </td>
+    {% endfor %}
+
+    <td class="total-difference-column">
+        <div class="table-cards-total-values action-table-item">
+            <p>{% if data.credit_cards.diff != 0 %}{{ data.credit_cards.diff | number_format(2, ".", "'") }} {{ currency }}{% endif %}</p>
+        </div>
+    </td>
+    <td class="total-all-column">
+        <div class="table-cards-total-values action-table-item">
+            {% if data.credit_cards.backofficer_total != data.credit_cards.cashier_total %}
+                <p class="error-name">{{ data.credit_cards.backofficer_total | number_format(2, ".", "'") }} {{ currency }}</p>
+            {% else %}
+                <p>{{ data.credit_cards.backofficer_total | number_format(2, ".", "'") }} {{ currency }}</p>
+            {% endif %}
+        </div>
+    </td>
+    <td class="approval-column">
+        <div class="main-approval">
+        </div>
+    </td>
+</tr>
+<tr class="cashiers-table-cards-collapse">
+    <td colspan="{{ 4 + data.credit_cards.cashier_data|length }}">
+        <div class="table-collapse">
+            <table>
+                {% set ccNames = data.credit_cards.cashier_data|first.data|keys %}
+                {% for ccName in ccNames %}
+                    {% set totalByCard = 0 %}
+                    <tr>
+                        <td class="payment-column">
+                            <div class="collapse-table-item">
+                                <p>{{ ccName }}</p>
+                            </div>
+                        </td>
+
+                        {% for reportId, paymentData in data.credit_cards.cashier_data %}
+                            <td class="cashier-column shift-1">
+                                <div class="collapse-table-item table-cards-cashiers-values">
+                                    <p>{{ paymentData.data[ccName] | number_format(2, ".", "'") }} {{ currency }}</p>
+                                    {% set totalByCard = totalByCard + paymentData.data[ccName] %}
+                                    {% if data.credit_cards.parent_cashier_data[reportId] is defined %}
+                                        {% if data.credit_cards.parent_cashier_data[reportId].data[ccName] is defined and data.credit_cards.parent_cashier_data[reportId].data[ccName] != data.credit_cards.cashier_data[reportId].data[ccName] %}
+                                            <div class="tooltip-point">
+                                                <span class="point"></span>
+                                                <div class="tooltip-point-message">
+                                                    <span>{{ data.credit_cards.parent_cashier_data[reportId].data[ccName] | number_format(2, ".", "'") }} {{ currency }}</span>
+                                                    <span><i class="fas fa-arrow-right"></i></span>
+                                                    <span class="point-current-value">{{ paymentData.data[ccName] | number_format(2, ".", "'") }} {{ currency }}</span>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                        {% endfor %}
+                        <td class="total-difference-column">
+                            <div class="collapse-table-item table-cards-total-values">
+                                {% if totalByCard != 0 %}
+                                    <p>{% if (totalByCard - data.credit_cards.backofficer_data[ccName]) != 0 %} {{ (totalByCard - data.credit_cards.backofficer_data[ccName]) | number_format(2, ".", "'") }} {{ currency }} {% endif %}</p>
+                                {% else %}
+                                    <p>-</p>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="total-all-column">
+                            <div class="collapse-table-item table-cards-total-values">
+                                {% if totalByCard != data.credit_cards.backofficer_data[ccName]  %}
+                                    <p class="error-name">{{ data.credit_cards.backofficer_data[ccName] | number_format(2, ".", "'")  }} {{ currency }}</p>
+                                {% else %}
+                                    <p>{{ data.credit_cards.backofficer_data[ccName] | number_format(2, ".", "'") }} {{ currency }}</p>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="approval-column">
+                            <div class="collapse-table-item cards-additional-approval">
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </td>
+</tr>

@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'facility_add.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/add-edit-entity.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+        {% block header %}
+            {% set current_tenant = tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {% set current_tenant = tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="user-add-edit">
+            <div class="container">
+                <div class="row fas-header">
+                    <div class="col-10 fas-title">
+                        <h1>{{ 'create_facility.title'|trans }}</h1>
+                    </div>
+                    <div class="col-2 fas-required-message">
+                        <p><span class="red-color">*</span> {{ 'add_account.required'|trans }}</p>
+                    </div>
+                </div>
+                {% include 'includes/facility-form.html.twig' with {'form' : form, 'addUser': true } %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/validation/tenant-edit.js"></script>
+    <script src="/js/user-assignment.js"></script>
+    <script src="/js/facility-edit.js"></script>
+{% endblock %}

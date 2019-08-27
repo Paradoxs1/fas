@@ -1,0 +1,97 @@
+/*---------------------setup---------------------*/
+
+.tenant-add-edit label:after{
+    display: inline-block;
+    content: '*';
+    padding-left: 5px;
+    color: #C90026;
+}
+
+td{
+    font-size: 14px;
+    font-weight: 300;
+    padding-bottom: 10px;
+}
+
+td:first-child{
+    width: 192px;
+}
+
+td:last-child{
+    padding-left: 10px;
+}
+
+.tenant-input,
+.tenant-select{
+    width: 360px;
+}
+
+.tenant-add-edit-personal-data{
+    padding-top: 50px;
+}
+
+.disabled{
+    color: #777;
+}
+
+/*--------------------tenant add/edit content---------------------*/
+
+
+.tenant-add-edit-content tr:last-child td{
+    vertical-align: top;
+    padding-top: 10px;
+}
+
+.checkbox-tenant-managers{
+    margin-bottom: 10px;
+}
+
+.checkbox-tenant-managers input{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.checkbox-tenant-managers label{
+    vertical-align: top;
+    margin-bottom: 0;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.checkbox-tenant-managers label:after{
+    content: '';
+}
+
+.checkbox-tenant-managers input{
+    display: none;
+}
+
+.checkbox-tenant-managers .far{
+    font-size: 20px;
+    color: #D8D8D8;
+}
+
+.checkbox-tenant-managers input:not(checked) + label .fa-check-square{
+    display: none;
+    color: #444;
+}
+
+.checkbox-tenant-managers input:checked + label .fa-square{
+    display: none;
+}
+.checkbox-tenant-managers input:checked + label .fa-check-square{
+    display: inline-block;
+}
+
+.tenant-add-edit-content tr:last-child td{
+    padding-left: 0;
+}
+
+/*--------------------tenant add/edit edit buttons--------------------*/
+
+.tenant-add-edit-buttons{
+    margin-top: 15px;
+    padding-bottom: 40px;
+}

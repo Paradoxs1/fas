@@ -1,0 +1,493 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'accounting_interface.configuration.label'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/tenant-users-facility-configuration.css">
+{% endblock %}
+
+{% block body %}
+
+<div class="site-content">
+    {% set routine_name = routine.name %}
+    {% set routine = routine.accountingPositionsTemplate %}
+
+    {% block header %}
+        {% set current_tenant = facility.tenant %}
+        {% set current_facility = facility %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block menu %}
+        {% set current_tenant = facility.tenant %}
+        {% set current_facility = facility %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% include 'facility/includes/configuration/test-api-popup.html.twig'%}
+
+    <div class="facility-configuration">
+        <div class="container">
+
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id' : 'facility-configuration-form'}}) }}
+
+                <div class="row fas-header">
+                    <div class="fas-title">
+                        <h1>{{ 'accounting_interface.configuration.label'|trans }}</h1>
+                    </div>
+                </div>
+                <div class="row fas-section facility-configuration-general">
+                    <div class="col-12 facility-configuration-title">
+                        <h2>{{ 'general.title'|trans }}</h2>
+                    </div>
+
+                    <div class="col-12 general-currency">
+                        {{ form_label(form.currency, null, {'label_attr' : {'class' : 'facility-configuration-section-title'}}) }}
+                        {{ form_widget(form.currency, {'attr': {'class': 'fas-select facility-configuration-select'}}) }}
+                    </div>
+
+                    <div class="col-12 reporting-window">
+                        <div class="fas-checkbox facility-configuration-checkbox reporting-switch">
+
+                            {{ form_widget(form.reportingWindowCheckbox, {'id':'reporting-window-checkbox'}) }}
+
+                            <label for="reporting-window-checkbox">
+                                <i class="far fa-square"></i>
+                                <i class="far fa-check-square"></i>
+                            </label>
+                            <label for="reporting-window-checkbox" >
+                                <span class="checkbox-title">
+                                    {{ 'facility_layout.different_reporting_window_short'|trans }} ({% transchoice cashierEditAllowedDays %}report.window.days{% endtranschoice %})
+                                </span>
+                            </label>
+                        </div>
+                        <div class="reporting-window-content reporting-switch-block">
+                            {{ form_label(form.daysInPast, null, {'label_attr' : {'class' : 'facility-configuration-section-title'}}) }}
+                            {{ form_widget(form.daysInPast, { 'attr': {'class': 'fas-input facility-configuration-input'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="col-12 enable-shifts">
+                        <div class="fas-checkbox facility-configuration-checkbox shifts-switch">
+                            {{ form_widget(form.enableShiftsCheckbox, {'id':'enable-shifts-checkbox'}) }}
+
+                            <label for="enable-shifts-checkbox">
+                                <i class="far fa-square"></i>
+                                <i class="far fa-check-square"></i>
+                            </label>
+                            <label for="enable-shifts-checkbox">
+                                <span class="checkbox-title">{{ 'facility_layout.enable_shifts'|trans }}</span>
+                            </label>
+                        </div>
+                        <div class="enable-shifts-content shifts-switch-block">
+                            {{ form_label(form.shifts, null, {'label_attr' : {'class' : 'facility-configuration-section-title'}}) }}
+                            {{ form_widget(form.shifts, { 'attr': {'class': 'fas-select facility-configuration-select'}}) }}
+                        </div>
+                    </div>
+
+                    {% if form.vars.isDefaultRoutine == false %}
+                        <div class="col-12 enable-interface">
+                            <div class="fas-checkbox facility-configuration-checkbox interface-switch">
+                                {{ form_widget(form.enableInterface, {'id' : 'enable-interface-checkbox', 'checked': form.vars.value.facility.enableInterface }) }}
+
+                                <label for="enable-interface-checkbox">
+                                    <i class="far fa-square"></i>
+                                    <i class="far fa-check-square"></i>
+                                </label>
+                                <label for="enable-interface-checkbox">
+                                    <span class="checkbox-title">{{ 'facility_layout.enable_interface'|trans }}</span>
+                                </label>
+                            </div>
+                            <div class="enable-interface-content interface-switch-block">
+                                <div class="enable-interface-account-configuration">
+                                    {{ form_label(form.params, null, {'label_attr' : {'class' : 'facility-configuration-section-title'}}) }}
+                                    {{ form_widget(form.params, {'id' : 'facility_layout_params', 'value': form.vars.value.facility.routine.params}) }}
+                                    <div class="error-message">
+                                        <p id="error-configuration-message-must-contain" class="not-active">
+                                            {{ 'json_not_valid'|trans }}
+                                        </p>
+                                        <p id="error-configuration-message-exceeded-chars" class="not-active">
+                                            {{ 'json_chars_limit'|trans }}
+                                        </p>
+                                    </div>
+                                    <a href="" data-url="{{ path('test_api_rma', {'id': facility.id}) }}" class="test-connection-link">{{ 'test_connection.title'|trans }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="col-12 estimated-costs">
+                        <div class="estimated-costs-header">
+                            <p class="checkbox-title">{{ 'estimated_cost_day.title'|trans }}</p>
+                        </div>
+                        <div class="estimated-costs-content">
+                            <table class="estimated-costs-table">
+                                <tr>
+                                    <th></th>
+                                    <th>{{ 'personal_cost.title'|trans }}</th>
+                                    <th>{{ 'operating_cost.title'|trans }}</th>
+                                    <th>{{ 'ware_costs.title'|trans }}</th>
+                                </tr>
+
+                                {% if facility.costForecastWeekDay %}
+                                    {% for row in facility.costForecastWeekDay|batch(3) %}
+                                        <tr>
+                                            {% for column in row %}
+                                                {% if loop.first %}
+                                                    {% set nameDay = 'dashboard.' ~ daysOfWeekMapping[column.dayOfWeek] %}
+                                                    <td>{{ nameDay | trans }}</td>
+                                                {% endif %}
+                                                <td>
+                                                    <input
+                                                        type="text"
+                                                        id="estimated-costs-input-{{ daysOfWeekMapping[column.dayOfWeek] }}-{{ column.category }}"
+                                                        name="estimated-costs[{{ column.id }}][{{ column.category }}][{{ column.dayOfWeek }}][value]"
+                                                        class="fas-input facility-configuration-input"
+                                                        value="{{ column.value }}"
+                                                    >
+
+                                                    <select
+                                                        id="estimated-costs-{{ daysOfWeekMapping[column.dayOfWeek] }}-{{ column.category }}"
+                                                        name="estimated-costs[{{ column.id }}][{{ column.category }}][{{ column.dayOfWeek }}][valueType]"
+                                                        class="fas-select facility-configuration-select"
+                                                    >
+                                                        <option value="fix" class="currency-select" {% if column.type == 'fix'%} selected {% endif %}>
+                                                            {% if facilityLayout.currency != null and facilityLayout.currency.isoCode == 'CHF' %}
+                                                                CHF
+                                                            {% elseif facilityLayout.currency != null and facilityLayout.currency.isoCode == 'EUR' %}
+                                                                €
+                                                            {% endif %}
+                                                        </option>
+                                                        <option value="relative" {% if column.type == 'relative'%} selected {% endif %}>%</option>
+                                                    </select>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            <div class="row fas-section facility-configuration-sales-category">
+                <div class="col-12 sales-category-header">
+                    <div class="facility-configuration-title">
+                        <h2>{{ 'sales_category.title'|trans }}</h2>
+                    </div>
+                    <div class="btn-add-line">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>{{ 'new_category.title'|trans }}</span>
+                    </div>
+                </div>
+                <div class="col-12 sales-category-content">
+                    {% set salesCategory = constant('App\\Service\\Facility\\Handler\\SalesCategoryHandler::CATEGORY_NAME') %}
+                    {% if data[salesCategory] is defined %}
+                        <table class="sales-category-table">
+                            <thead>
+                                <th></th>
+                                <th>
+                                    <div class="default-payment-method-title">
+                                        {%- for parameter in data[salesCategory]|first -%}
+                                            <p>{{parameter.key | trans }}</p>
+                                        {%- endfor -%}
+                                    </div>
+                                </th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                            {% for accountingPositionId, position in data[salesCategory] %}
+                                <tr class="ui-sortable-handle">
+                                    <td>
+                                        <div class="draggable-icon"></div>
+                                    </td>
+                                    <td>
+                                        <div class="default-payment-method-content">
+                                            {%- for parameter in position -%}
+                                                {%- if parameter.type != 'checkbox' -%}
+                                                    <div class="payment-method-item">
+                                                        <input
+                                                                type="text"
+                                                                id="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                name="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                value="{{ parameter.value }}"
+                                                                class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                data-method="{{ salesCategory }}"
+                                                                data-type="{{-  parameter.key -}}"
+                                                                data-position="{{accountingPositionId}}"
+                                                        >
+                                                    </div>
+                                                {%- endif -%}
+
+                                                {%- if parameter.type == 'checkbox' -%}
+                                                    <div class="payment-method-item">
+                                                        <div class="fas-checkbox">
+                                                            <input
+                                                                    type="checkbox"
+                                                                    id="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                    name="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                    class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                    data-method="{{- salesCategory -}}"
+                                                                    data-type="{{-  parameter.key -}}"
+                                                                    {% if parameter.value is defined %} checked {% endif %}
+                                                            >
+                                                            <label for="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]">
+                                                                <i class="far fa-square"></i>
+                                                                <i class="far fa-check-square"></i>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {%- endfor -%}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn-remove-line">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row fas-section facility-configuration-payment-methods">
+                <div class="col-12 payment-methods-header">
+                    <div class="facility-configuration-title">
+                        <h2>{{ 'payment_methods.title'|trans }}</h2>
+                    </div>
+                    <div class="payment-methods-link">
+                        <div class="btn-add-line"
+                             data-translate-credit-cards="{{ 'category.credit_cards' | trans  }}"
+                             data-translate-accepted-voucher="{{ 'category.accepted_voucher' | trans  }}"
+                             data-translate-issued-voucher="{{ 'category.issued_voucher' | trans  }}"
+                             data-translate-bills="{{ 'category.bills' | trans  }}"
+                             data-translate-expenses="{{ 'category.expenses' | trans  }}"
+                             data-translate-tip="{{ 'category.tip' | trans  }}"
+                             data-translate-cash="{{ 'category.cash' | trans  }}"
+                             data-translate-cigarettes="{{ 'category.cigarettes' | trans  }}"
+                        >
+                            <i class="fas fa-plus-circle"></i>
+                            <span>{{ 'payment_methods.new_method'|trans }}</span>
+                        </div>
+                        <div class="payment-methods-submenu not-active">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 payment-methods-content">
+                    <div class="payment-methods-lines">
+                        {% for categoryName, categoryData in data %}
+                            {% if categoryName != constant('App\\Service\\Facility\\Handler\\SalesCategoryHandler::CATEGORY_NAME') and categoryName != constant('App\\Service\\Facility\\Handler\\QuestionsHandler::CATEGORY_NAME') %}
+                                <div id="{{ categoryName }}">
+                                    <div class="default-payment-method">
+                                        <div class="payment-method-header">
+                                            <div class="payment-method-dropdown-arrow">
+                                                <i class="fas fa-angle-down"></i>
+                                            </div>
+                                            <div class="payment-method-draggable-icon">
+                                                <div class="draggable-icon"></div>
+                                            </div>
+                                            <div class="payment-method-title">
+                                                <p>{{categoryName | trans}}</p>
+                                            </div>
+                                            <div class="payment-method-remove-line" id="remove-{{categoryName}}">
+                                                <div class="btn-remove-line">
+                                                    <i class="fas fa-minus-circle"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="payment-method-content">
+                                            <table class="payment-method-table {{categoryName}}-table default-payment-method-row" data-method="{{categoryName}}">
+                                                <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>
+                                                        <div class="default-payment-method-title">
+                                                            {%- for parameter in data[categoryName]|first -%}
+                                                                <p>{{parameter.key | trans }}</p>
+                                                            {%- endfor -%}
+                                                        </div>
+                                                    </th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for accountingPositionId, position in data[categoryName] %}
+                                                    <tr class="ui-sortable-handle">
+                                                        <td>
+                                                            <div class="draggable-icon"></div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="default-payment-method-content">
+                                                                {%- for parameter in position -%}
+                                                                    {%- if parameter.type != 'checkbox' -%}
+                                                                        <div class="payment-method-item">
+                                                                            <input
+                                                                                    type="text"
+                                                                                    id="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                                    name="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                                    value="{{ parameter.value }}"
+                                                                                    class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                                    data-method="{{ categoryName }}"
+                                                                                    data-type="{{-  parameter.key -}}"
+                                                                                    data-position="{{accountingPositionId}}"
+                                                                            >
+                                                                        </div>
+                                                                    {%- endif -%}
+
+                                                                    {%- if parameter.type == 'checkbox' -%}
+                                                                        <div class="payment-method-item">
+                                                                            <div class="fas-checkbox">
+                                                                                <input
+                                                                                        type="checkbox"
+                                                                                        id="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                                        name="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                                        class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                                        data-method="{{- categoryName -}}"
+                                                                                        data-type="{{-  parameter.key -}}"
+                                                                                        {% if parameter.value is defined and parameter.value != '' %} checked {% endif %}
+                                                                                >
+                                                                                <label for="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]">
+                                                                                    <i class="far fa-square"></i>
+                                                                                    <i class="far fa-check-square"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                {%- endfor -%}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-remove-line">
+                                                                <i class="fas fa-minus-circle"></i>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+
+                                            {%- if (categoryName == 'creditCard') or (categoryName == 'tip') or (categoryName == 'bill') -%}
+                                                <div class="btn-add-line">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                    <span>New {{categoryName | trans }}</span>
+                                                </div>
+                                            {%- endif -%}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fas-section facility-configuration-questions">
+                <div class="col-12 questions-header">
+                    <div class="facility-configuration-title">
+                        <h2>{{ 'questions.title'|trans }}</h2>
+                    </div>
+                    <div class="btn-add-line">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>{{ 'questions.new_question'|trans }}</span>
+                    </div>
+                </div>
+                <div class="col-12 questions-content">
+                    {% set questionCategory = constant('App\\Service\\Facility\\Handler\\QuestionsHandler::CATEGORY_NAME') %}
+                    {% if data[questionCategory] is defined %}
+                        <table class="questions-table">
+                                <thead>
+                                    <th></th>
+                                    {%- for parameter in data[questionCategory]|first -%}
+                                        <th>{{parameter.key | trans }}</th>
+                                    {%- endfor -%}
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                {% for accountingPositionId, position in data[questionCategory] %}
+                                    <tr class="ui-sortable-handle">
+                                        <td>
+                                            <div class="draggable-icon"></div>
+                                        </td>
+                                        {%- for parameter in position -%}
+                                            {%- if parameter.type != 'checkbox' -%}
+                                                <td>
+                                                    <input
+                                                            type="text"
+                                                            id="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                            name="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                            value="{{ parameter.value }}"
+                                                            class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                            data-method="{{ questionCategory }}"
+                                                            data-type="{{-  parameter.key -}}"
+                                                            data-position="{{accountingPositionId}}"
+                                                    >
+                                                </td>
+                                            {%- endif -%}
+
+                                            {%- if parameter.type == 'checkbox' -%}
+                                                <td>
+                                                    <div class="fas-checkbox">
+                                                        <input
+                                                                type="checkbox"
+                                                                id="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                name="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                data-method="{{- questionCategory -}}"
+                                                                data-type="{{-  parameter.key -}}"
+                                                                {% if parameter.value is defined %} checked {% endif %}
+                                                        >
+                                                        <label for="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]">
+                                                            <i class="far fa-square"></i>
+                                                            <i class="far fa-check-square"></i>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            {% endif %}
+                                        {%- endfor -%}
+                                        <td>
+                                            <div class="btn-remove-line">
+                                                <i class="fas fa-minus-circle"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                    {% endif %}
+                </div>
+            </div>
+
+                <div class="row facility-configuration-buttons save-cancel-buttons">
+                    {{ form_widget(form.save) }}
+                    <button onclick=location.href='{{ path("facility_dashboard", {'id' : facility.id}) }}' type="button" class="btn-cancel">{{ 'cancel_button.title'|trans }}</button>
+                </div>
+
+                <input type="hidden" id="facility-{{ facility.id }}" name="facility" value="{{ facility.id }}"/>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+
+    {%  include 'facility/includes/configuration/default-payment-methods.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script>
+        var global_shift = '{{ facilityLayout.shifts }}';
+    </script>
+    <script src="/js/jquery-ui-draggable.min.js"></script>
+    <script src="/js/facility-configuration.js"></script>
+    <script src="/js/validation/json-validation.js"></script>
+    <script src="/js/jquery.formatCurrency.min.js"></script>
+{% endblock %}

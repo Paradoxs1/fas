@@ -1,0 +1,248 @@
+/*-----------------------general-----------------------*/
+
+.fa-square{
+    color: #D8D8D8;
+}
+
+.fa-check-square{
+    color: #444;
+}
+
+.not-approved{
+    color: #E53935;
+}
+
+.approved{
+    color: #417505;
+}
+
+.sales-reports .currency{
+    position: inherit;
+}
+
+/*---------------------sales reports header---------------------*/
+.sales-reports .container{
+    position: relative;
+}
+
+.sales-reports .fas-add-search-nav{
+    padding-top: 25px;
+}
+
+.sales-reports-show-approved{
+    margin-left: 25px;
+    display: inline-block;
+}
+
+.sales-reports-show-approved *{
+    vertical-align: bottom;
+    margin: 0;
+}
+
+.sales-reports-checkbox-label{
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 19px;
+}
+
+#onlyApproved{
+    display: none;
+}
+
+#onlyApproved:not(checked) + label .fa-check-square{
+    display: none;
+}
+
+#onlyApproved:checked + label .fa-check-square{
+    display: inline-block;
+}
+
+#onlyApproved:checked + label .fa-square{
+    display: none;
+}
+
+.sales-reports-show-approved label{
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+}
+
+.sales-reports-show-approved label .far{
+    font-size: 22px;
+}
+
+.sales-reports-show-approved label span{
+    line-height: 22px;
+    vertical-align: top;
+    padding-left: 7px;
+}
+
+/*---------------------sales reports pagination---------------------*/
+
+.sales-reports-pagination{
+    padding: 30px 0 32px 2px;
+    font-weight: normal;
+}
+
+.sales-reports-pagination-right-content{
+    text-align: right;
+}
+
+.pagination-pages-values{
+    font-weight: 700;
+}
+
+.pagination-nav a{
+    padding-left: 5px;
+    margin-left: 5px;
+    padding-bottom: 2px;
+    text-decoration: none;
+    color: #2A81CB;
+    font-size: 14px;
+    line-height: 19px;
+}
+
+.pagination-nav a.active,
+.pagination-nav a:hover{
+    border-bottom: 1px solid #3f4f5e;
+    color: #3f4f5e;
+}
+
+/*---------------------sales report table---------------------*/
+
+.cashier-report-column,
+.total-sales-column,
+.action-column{
+    text-align: right;
+}
+
+.cashier-report-column{
+    width: 12%;
+}
+
+.action-column{
+    width: 8%;
+}
+
+.total-sales-column{
+    width: 30%;
+    padding-right: 10%;
+}
+
+.approval-column{
+    width: 7%;
+}
+
+.sales-report-empty-table td{
+    line-height: 100px;
+}
+
+.reports-list .cashier-report-column{
+    width: 24%;
+}
+
+/*---------------------tipping table---------------------*/
+
+.tipping-table{
+    margin-top: 20px
+}
+
+.tipping-table .col-12{
+    padding: 0 20px;
+}
+
+.tipping-table table{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.tipping-table th{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 22px;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+}
+
+.tipping-table td{
+    padding-bottom: 15px;
+}
+
+.tipping-table td:nth-child(1){
+    font-weight: 700;
+}
+
+.tipping-table td:nth-child(2),
+.tipping-table th:nth-child(2){
+    padding-left: 30px;
+    max-width: 130px;
+}
+
+.tipping-table-money-box{
+    height: 36px;
+    max-width: 191px;
+    border: 1px solid #D9DDE0;
+    background-color: #FDFDFD;
+    -webkit-box-shadow: inset 0 0 3px 0 rgba(0,0,0,0);
+    -moz-box-shadow: inset 0 0 3px 0 rgba(0,0,0,0);
+    box-shadow: inset 0 0 3px 0 rgba(0,0,0,0);
+    padding: 0 10px;
+}
+
+.tipping-table-money-box span{
+    color: #3F4F5E;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 32px;
+}
+
+.tipping-table-money-box:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.tipping-table-money-box .currency{
+    float: right;
+    position: static;
+}
+
+/*--------------------Reopen report-------------------*/
+
+.reopen-report, .reopen-report-popup .fa-times{
+    cursor: pointer;
+}
+
+.reopen-report-popup{
+    position: absolute;
+    z-index: 1;
+    top: -10px;
+    right: 0;
+    max-width: 300px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #fff;
+    text-align: right;
+    -webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
+    -moz-box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
+    box-shadow: 0 0 5px 0 rgba(0,0,0,.2);
+
+}
+.reopen-report-popup.hide{
+    display: none;
+}
+.reopen-report-popup .fa-times{
+    font-size: 14px;
+    line-height: 16px;
+    margin-right: 7px;
+    color: #2A81CB;
+}
+.reopen-report-popup .reopen-error-message{
+    text-align: left;
+    font: normal 14px/18px "Open Sans", sans-serif;
+    padding: 0 10px 10px;
+    margin-bottom: 0;
+    color: red;
+}

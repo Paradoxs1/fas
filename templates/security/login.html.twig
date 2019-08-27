@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    <div class="login">
+        <div class="container">
+            <div class="login-container">
+                <div class="site-login">
+                    <div class="login-logo">
+                        <a href="{{ path('index') }}">
+                            <img src="/img/CashUpLogo.png" alt="Logo">
+                        </a>
+                    </div>
+                    <form action="{{ path('login') }}" method="post" id="login-form">
+                        <div class="user-name">
+                            <label for="username" class="control-label" id="title-name">{{'security.login'|trans }}</label>
+                            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="Benutzernamen eingeben">
+                            <p class="password-error-message">
+                                <span id="error-name-message-required" class="not-active">Username is required.</span>
+                                <span id="error-name-message-must-contain" class="not-active">Must at least contain 2 characters.</span>
+                            </p>
+                        </div>
+                        <div class="user-password">
+                            <label for="password" class="control-label" id="title-password">{{'security.password'|trans }}</label>
+                            <input type="password" id="password" name="_password" class="form-control" placeholder="Passwort eingeben">
+                            <p class="password-error-message not-active">
+                                <span id="error-password-message-required" class="not-active">Password is required.</span>
+                                <span id="error-password-message-must-contain" class="not-active">The password has to be 6 characters long.</span>
+                                <span id="error-credentials-message">{% if error %}Incorrect username or password.{% endif %}</span>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn-login" name="login-button">{{'security.enter'|trans }}</button>
+                            <a class="reset-password-link" href="{{ path('password_reset') }}">{{'security.forgot.password'|trans }}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/validation/login.js"></script>
+{% endblock %}

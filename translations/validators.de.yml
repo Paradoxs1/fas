@@ -1,0 +1,29 @@
+security.login_not_blank: Bitte geben Sie einen Benutzernamen ein
+security.login_min_length: Muss mindestens 2 Zeichen enthalten
+security.login_uniq: Benutzername existiert bereits, bitte geben Sie einen neuen Benutzernamen ein
+security.email_valid: Muss eine gültige E-Mail-Adresse sein
+security.email_not_blank: Bitte geben Sie eine E-mail-Adresse ein
+security.first_name_not_blank: Bitte geben Sie einen Vornamen ein
+security.first_name_min_length: Muss mindestens 2 Zeichen enthalten
+security.last_name_not_blank: Bitte geben Sie einen Nachnamen ein
+security.last_name_min_length: Muss mindestens 2 Zeichen enthalten
+security.phone_valid: Bitte geben Sie eine gültige Telefonnummer ein
+security.password_not_blank: Bitte Passwort eingeben
+security.confirm_password_not_identical: Das Passwort ist nicht identisch
+security.account.username_min_length: Muss mindestens 2 Zeichen lang sein
+security.account.username_not_blank: Bitte geben Sie einen Benutzername ein
+security.new_password_not_blank: Bitte geben Sie ein Passwort ein
+security.new_password_min_length: Das Passwort muss 6 Zeichen lang sein
+security.new_confirm_password_not_identical: Das Passwort ist nicht identisch
+security.password_min_length: Das Passwort muss 6 Zeichen lang sein
+security.country_not_blank: Bitte wählen Sie ein Land aus
+tenant.name_not_blank: Bitte geben Sie einen Tenant Name ein
+tenant.name_min_length: Muss mindestens 2 Zeichen enthalten
+tenant.street_not_blank: Bitte geben Sie eine Strasse ein
+tenant.street_min_length: Muss mindestens 3 Zeichen enthalten
+tenant.zip_not_blank: Bitte geben Sie eine Postleitzahl ein
+tenant.zip_length: Muss zwischen 4 und 8 Zeichen enthalten
+tenant.city_not_blank: Bitte geben Sie eine Stadt ein
+tenant.city_min_length: Muss mindestens 2 Zeichen enthalten
+tenant.country_not_blank: Bitte wählen Sie ein Land aus
+facility.name_not_blank: Bitte geben Sie einen Namen ein

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'add_account.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/add-edit-entity.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+
+        {% block header %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="user-add-edit">
+            <div class="container">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id' : 'user-edit-form'}}) }}
+                    <div class="row fas-header">
+                        <div class="col-10 fas-title">
+                            <h1>{{ 'add_account.create_tenant_manager'|trans }}</h1>
+                        </div>
+                        <div class="col-2 fas-required-message">
+                            <p><span class="red-color">*</span> {{ 'add_account.required'|trans }}</p>
+                        </div>
+                    </div>
+
+                    {% include 'includes/person-form.html.twig' with {'form' : form } %}
+                    {% include 'includes/username-password-form.html.twig' with {'form' : form } %}
+
+                    <div class="row fas-section user-add-edit-association">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'add_account.association'|trans }}</h2>
+                        </div>
+                        <div class="col-12 fas-section-title">
+                            {{ form_label(form.tenant, null, {'label_attr' : {'class' : 'tenant-select-label'}}) }}
+
+                            {{ form_widget(form.tenant, {'id' : 'tenant-select', 'attr': {'class': 'fas-select tenant-select'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="row user-add-edit-buttons save-cancel-buttons">
+                        {{ form_widget(form.save) }}
+                        <button onclick=location.href='{{ path("admin_users") }}' type="button" class="btn-cancel">{{ 'add_account.cancel'|trans }}</button>
+                    </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/validation/user-add.js"></script>
+{% endblock %}

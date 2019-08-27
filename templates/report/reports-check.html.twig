@@ -1,0 +1,302 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'report_check.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/reports-check.css">
+    <link rel="stylesheet" href="/css/date-picker.css">
+{% endblock %}
+
+{% block body %}
+
+    <div class="site-content">
+
+        {% block header %}
+            {% set current_tenant = app.user.tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        {#TODO change popup data for this template#}
+        {#TODO apply appearance functionality for this popup, when form submitted#}
+
+        <div class="popup-section-calculate-total not-active">
+            <div class="overlay">
+                <div class="popup-calculate-total">
+                    <div class="popup-calculate-total-header">
+                        <h4>{{ 'report.calculating.cash'|trans }}</h4>
+                        <div class="close-icon"></div>
+                    </div>
+                    {% if facilityLayout.currency.isoCode == eur %}
+                        {% include 'includes/popup-eur-currency.html.twig' %}
+                    {% elseif facilityLayout.currency.isoCode == chf %}
+                        {% include 'includes/popup-chf-currency.html.twig' %}
+                    {% endif %}
+                    <div class="popup-calculate-total-footer">
+                        <div class="popup-total-count">
+                            <p class="total-count-title">{{ 'report.total.cash'|trans }}</p>
+                            <p class="total-count-value-section">
+                                <span class="total-count-val">0.00</span>
+                                <span class="total-count-currency">{{ currency }}</span>
+                            </p>
+                        </div>
+                        <div class="popup-btn">
+                            <div id="calculation-cash-popup-send-btn" class="btn-submit">{{ 'security.send_button.title'|trans }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="reports-check">
+            <div class="container">
+                <form id="reports-check-form">
+
+                    <div class="row fas-header">
+                        <div class="col-8 fas-title">
+                            <h1>
+                                {{ 'sales_reports.title'|trans }}
+                            </h1>
+                        </div>
+                        <div class="col-4 header-reports-check-right-content">
+                            <div class="sales-report-details-date">
+                                <label for="date-pick" id="date-pick-title">{{ 'report.date'|trans }}: </label>
+                                <input
+                                        type="text"
+                                        name="date"
+                                        id="date-pick"
+                                        class="fas-input report-input empty-date"
+                                        disabled
+                                        data-check-date="{{ app.request.get('checkDate')|date("d.m.Y") }}"
+                                >
+                                <i class="fas fa-calendar-alt"></i>
+                                <input type="hidden" name="date" value="{{ reports[0].statementDate|date("Y-m-d") }}">
+                            </div>
+                            <p><span class="red-color">*</span> {{ 'report.required'|trans }}</p>
+                        </div>
+                    </div>
+
+                    {% if sales is defined and sales is not empty %}
+                        <div class="row fas-section total-sales">
+                            <div class="col-12 fas-section-title reports-check-title-cash">
+                                <h2>{{ 'report.cash'|trans }}</h2>
+                            </div>
+                            <div class="sales-report-title-with-line">
+                                <p>{{ 'report.earnings'|trans }}</p>
+                            </div>
+
+                            {% for id, item in sales %}
+                                <div class="col-12 tenant-report-total-sales">
+                                    <label for="sales-{{ id }}" id="sales-title-{{ id }}">{{ item['name'] }} <span class="red-color">*</span></label>
+                                    <div class="currency-input-wrapper">
+                                        <input
+                                                name=sales[{{ id }}]
+                                                type="text"
+                                                id="sales-{{ id }}"
+                                                class="fas-input report-input currency-input"
+                                                {% if item['value'] is defined %}
+                                                    value="{{ item['value'] | number_format(2, ".", "'") }}"
+                                                {% endif %}
+                                        >
+                                        <span class="currency">{{ currency }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                                <div class="col-12 tenant-report-total-sales">
+                                    <div class="total-sales-total-count">
+                                        <p class="total-count-title">{{ 'report.total'|trans }}</p>
+                                        <p class="total-count-value-section">
+                                        <span class="total-count-val">0.00</span>
+                                        <span class="total-count-currency">{{ currency }}</span>
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endif %}
+                    {% if creditCards is defined and creditCards is not empty %}
+                        <div class="row fas-section sales-report-credit-cards">
+                            <div class="col-12 fas-section-title">
+                                <h2>{{ 'report.credit.cards'|trans }}</h2>
+                                <div class="link-add-terminal">
+                                    <div class="btn-add-line">
+                                        <i class="fas fa-plus-circle"></i>
+                                        <span>{{ 'report.add.terminal'|trans }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 terminals-container">
+                                {% for terminal, data in creditCards %}
+                                    {% set number = loop.index %}
+                                    <div class="sales-report-credit-cards-terminal" id="terminal-{{ number }}" data-terminal-id="{{ number }}">
+                                        <div class="link-delete-terminal not-active">
+                                            <div class="btn-remove-line">
+                                                <i class="fas fa-minus-circle"></i>
+                                                <span>{{ 'report.delete.terminal' | trans }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="terminal-content">
+                                            <div class="sales-report-title-with-line">
+                                                <p>{{ 'report.terminal'|trans }} {{ number }}</p>
+                                            </div>
+
+                                            {% for accountingPositionId, creditCard in data %}
+                                                <div class="credit-cards-terminal">
+                                                    <label for="credit-card-{{ accountingPositionId }}" id="credit-card-{{ accountingPositionId }}-title">{{ creditCard['name'] }} <span class="red-color">*</span></label>
+                                                    {% if creditCard['data'] is defined %}
+                                                        {% for value in creditCard['data'] %}
+                                                            <div class="credit-cards-input currency-input-wrapper"
+                                                                 data-number="{{ number }}"
+                                                                 data-terminal="{{ terminal }}"
+                                                                 data-accounting-position="{{ accountingPositionId }}"
+                                                            >
+                                                                <input
+                                                                        type="text"
+                                                                        id="credit-card-{{ terminal }}-{{ accountingPositionId }}"
+                                                                        class="fas-input report-input currency-input"
+                                                                        name="credit-cards[{{ terminal }}][{{ accountingPositionId }}][]"
+                                                                        value="{{ value | number_format(2, ".", "'") }}"
+                                                                >
+                                                                <span class="currency">{{ currency }}</span>
+                                                            </div>
+
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <div class="credit-cards-input currency-input-wrapper"
+                                                             data-number="{{ number }}"
+                                                             data-terminal="1"
+                                                             data-accounting-position="{{ accountingPositionId }}"
+                                                        >
+                                                            <input
+                                                                    type="text"
+                                                                    id="credit-card-1-{{ accountingPositionId }}"
+                                                                    class="fas-input report-input currency-input"
+                                                                    name="credit-cards[1][{{ accountingPositionId }}][]"
+                                                            >
+                                                            <span class="currency">{{ currency }}</span>
+                                                        </div>
+                                                    {% endif %}
+                                                    <div class="add-remove-buttons">
+                                                    {% if creditCard['data'] is defined %}
+                                                            <div
+                                                                    class="btn-remove-line {% if creditCard['data']|length == 1 %}not-active{% endif %}"
+                                                                    data-block-number="{{ accountingPositionId }}"
+                                                            >
+                                                                <i class="fas fa-minus-circle"></i>
+                                                            </div>
+                                                            <div class="btn-add-line {% if creditCard['data']|length == 3 %}not-active{% endif %}">
+                                                                <i class="fas fa-plus-circle"></i>
+                                                            </div>
+
+                                                    {% else %}
+                                                            <div
+                                                                    class="btn-remove-line not-active"
+                                                                    data-block-number="{{ accountingPositionId }}"
+                                                            >
+                                                                <i class="fas fa-minus-circle"></i>
+                                                            </div>
+                                                            <div class="btn-add-line">
+                                                                <i class="fas fa-plus-circle"></i>
+                                                            </div>
+
+                                                    {% endif %}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            <div class="credit-cards-terminal-total-count">
+                                                <p class="total-count-title">{{ 'report.total'|trans }}</p>
+                                                <p class="total-count-value-terminal-section">
+                                                        <span class="total-count-val">
+                                                            {% if terminalSum is defined %}
+                                                                {{ terminalSum | number_format(2, ".", "'") }}
+                                                            {% endif %}
+                                                        </span>
+                                                    <span class="total-count-currency">{{ currency }}</span>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="row fas-section sales-report-received-cash"
+                         data-reports-cnt="{{ reports|length }}"
+                         data-cashiers='{{ cashiers|json_encode() }}'
+                         data-cashiers-amounts='{{ cashiersAmounts|json_encode() }}'
+                         {% if cash is defined and cash is not empty %}
+                            data-accounting-position-cashier="{{ cash[0].accountingPosition.id }}"
+                            data-accounting-position-amount="{{ cash[1].accountingPosition.id }}"
+                         {% endif %}
+                    >
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'report.received_cash'|trans }}</h2>
+                        </div>
+
+
+                        <div class="col-12 link-add-cashier">
+                            <div class="btn-add-line  {% if backofficerReport is defined and cashiersAmounts|length == reports|length %}not-active{% endif %}">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Add Cashier</span>
+                            </div>
+                        </div>
+
+                        {% if backofficerReport is defined %}
+                            {% for cashierId, amount in cashiersAmounts %}
+                                {% set i = loop.index %}
+                                <div class="col-12 sales-report-cashier">
+                                    <select id="cashier-select-{{ i }}" name="cashier[{{ cash[0].accountingPosition.id }}][]" class="fas-select report-select cashier-select">
+                                        {% for id, name in cashiers %}
+                                            {% if cashierId == id %}
+                                                <option value="{{ id }}" {% if cashierId == id %}selected{% endif %}>{{ name }}</option>
+                                            {% elseif id not in cashiersAmounts|keys %}
+                                                <option value="{{ id }}">{{ name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                    <div class="currency-input-wrapper">
+                                        <input type="text" id="cashier-input-{{ i }}" name="cash-amount[{{ cash[1].accountingPosition.id }}][]"
+                                               class="fas-input report-input currency-input"
+                                               value="{{ amount | number_format(2, ".", "'") }}"
+                                        >
+                                        <span class="currency">{{ currency }}</span>
+                                    </div>
+                                    <span class="report-cash-calculate-link">{{ 'report.calculate.total'|trans }}</span>
+                                    <div class="link-delete-cashier">
+                                        <div class="btn-remove-line">
+                                            <i class="fas fa-minus-circle"></i>
+                                            <span>{{ 'button.check_report.delete' | trans}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                    </div>
+                    <div class="row save-cancel-buttons save-check-report">
+                        <button type="button" class="btn-submit">{{ 'report.next'|trans }}</button>
+                    </div>
+                </form>
+                {% include 'report/includes/credit-card-default-template.html.twig' with {'creditCards' : creditCards } %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/jquery-ui-datepicker.min.js"></script>
+    <script src="/js/jquery.formatCurrency.min.js"></script>
+    <script src="/js/report-check.js"></script>
+
+    <script>
+        var global_currency = '{{ currency }}';
+    </script>
+{% endblock %}

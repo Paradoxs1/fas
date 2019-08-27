@@ -1,0 +1,863 @@
+/*---------------------setup---------------------*/
+.facility-sales-report .fas-section{
+    margin-bottom: 16px;
+}
+
+.report-select{
+    display: inline-block;
+    width: 220px;
+}
+
+.report-input{
+    display: inline-block;
+    width: 220px;
+}
+
+.btn-remove-line.not-active{
+    display: none;
+}
+
+.not-approved-message.not-active,
+.approved-message.not-active{
+    display: none;
+}
+
+.approved-message{
+    color: #417505;
+    font-weight: 600;
+}
+
+.not-approved-message{
+    color: #D0021B;
+    font-weight: 600;
+}
+
+.approval-section{
+    text-align: right;
+    padding-right: 30px !important;
+    font-size: 14px;
+    margin-top: -15px;
+}
+
+.total-count-title,
+.total-count-value-section,
+.total-count-value-terminal-section{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #3F4F5E;
+}
+
+.total-count-val{
+    min-width: 166px;
+    display: inline-block;
+}
+
+.total-count-title{
+    width: 296px;
+}
+
+label{
+    color: #3F4F5E;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.facility-sales-report .fas{
+    font-size: 17px;
+}
+
+.approval-section .fas{
+    font-size: 13px;
+}
+
+.facility-sales-report .btn-add-line span{
+    line-height: 21px;
+}
+
+.not-approved-message.not-active,
+.approved-message.not-active{
+    display: none;
+}
+
+.approved-message{
+    color: #417505;
+}
+
+.not-approved-message{
+    color: #D0021B;
+}
+
+.btn-add-line.not-active,
+.btn-remove-line.not-active{
+    display: none;
+}
+
+.sales-report-title-with-line{
+    font-size: 14px;
+    font-weight: 300;
+    color: #3F4F5E;
+    position: absolute;
+    top: -16px;
+    left: 14px;
+    background-color: #fff;
+    padding: 6px;
+}
+
+.sales-report-title-with-line p{
+    margin: 0;
+    padding: 0;
+}
+
+.facility-sales-report input::-webkit-outer-spin-button,
+.facility-sales-report input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.sales-report-section-footer .total-count-title{
+    margin-left: 20px;
+    width: 24.8%;
+}
+
+.sales-report-section-footer{
+    background-color: #FAFAFA;
+    border-top: 1px solid #EBEBEB;
+    margin: -40px 0 -20px 0;
+    padding: 20px 0 18px 0 !important;
+}
+
+.facility-sales-report table{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.facility-sales-report table .approval-section{
+    margin-top: 0;
+    padding-right: 10px !important;
+}
+
+.total-count-currency{
+    min-width: 30px;
+    display: inline-block;
+    text-align: right;
+}
+
+/*---------------------report details---------------------*/
+
+.sales-report-details{
+    color: #3F4F5E;
+}
+
+.sales-report-details .approval-section{
+    margin-top: -10px;
+}
+
+.sales-report-details-date{
+    position: relative;
+}
+
+.sales-report-details-date .fa-calendar-alt{
+    color: #BABFC4;
+    margin-left: -30px;
+    font-size: 18px;
+}
+
+#date-pick{
+    cursor: pointer;
+}
+
+.sales-report-details-date,
+.sales-report-details-shifts{
+    padding-top: 10px !important;
+}
+
+.sales-report-details-date label,
+.sales-report-details-shifts label{
+    width: 25%;
+}
+
+#shifts-select{
+    margin-bottom: 20px;
+}
+
+/*---------------------total sales---------------------*/
+
+.sales-report-total-sales label{
+    width: 25%;
+}
+
+#total-sales{
+    margin-bottom: 20px;
+}
+
+/*---------------------credit cards---------------------*/
+
+.sales-report-credit-cards .sales-report-title{
+    width: 100%;
+}
+
+.sales-report-credit-cards .sales-report-title:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.sales-report-credit-cards .link-add-terminal,
+.sales-report-credit-cards h2{
+    display: inline-block;
+}
+
+.sales-report-credit-cards .sales-report-title-with-line{
+    left: -6px;
+}
+
+.link-add-terminal{
+    float: right;
+    margin-top: 27px;
+    margin-right: 10px;
+}
+
+.link-add-terminal span{
+    font-weight: normal;
+}
+
+.sales-report-credit-cards-terminal{
+    position: relative;
+}
+
+.sales-report-credit-cards-terminal:before{
+    content: '';
+    display: block;
+    border-bottom: 1px solid #EBEBEB;
+    margin-left: -14px;
+    width: 102%;
+}
+
+.sales-report-credit-cards-terminal label{
+    width: 289px;
+}
+
+.terminal-content .credit-cards-terminal:nth-child(2){
+    padding-top: 32px;
+}
+
+.credit-cards-terminal{
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.credit-cards-terminal div{
+    display: inline-block;
+    min-width: 220px
+}
+
+.facility-sales-report .btn-remove-line,
+.facility-sales-report .btn-add-line{
+    min-width: 15px;
+    margin: 0;
+}
+
+.btn-remove-line.not-active,
+.btn-add-line.not-active{
+    display: none;
+}
+
+.add-remove-buttons{
+    min-width: 20px !important;
+    padding-left: 6px;
+    margin: 0;
+}
+
+.credit-cards-input {
+    margin-right: 5px;
+}
+
+.credit-cards-input.not-active{
+    display: none;
+}
+
+.credit-cards-terminal-total-count{
+    padding-top: 20px;
+    margin-bottom: 46px;
+}
+
+.total-count-value-terminal-section{
+    position: absolute;
+    bottom: 46px;
+    right: 38px;
+}
+
+.terminal-content{
+    display: inline-block;
+    position: relative;
+}
+
+.link-delete-terminal{
+    float: right;
+    padding-right: 10px;
+    margin-top: 6px;
+}
+
+.link-delete-terminal span{
+    font-weight: normal;
+    line-height: 21px;
+    color: #3E7EC8;
+}
+
+.link-delete-terminal.not-active{
+    display: none;
+}
+
+.sales-report-credit-cards .approval-section{
+    margin-top: -36px;
+}
+
+.sales-report-credit-cards .sales-report-section-footer{
+    height: 64px;
+}
+
+/*--------------------vouchers--------------------*/
+
+.accepted-vouchers-section{
+    position: relative;
+    margin-bottom: 44px;
+}
+.issued-vouchers-section{
+    position: relative;
+    margin-bottom: 64px;
+}
+
+.accepted-vouchers-section:before,
+.issued-vouchers-section:before{
+    content: '';
+    display: block;
+    border-bottom: 1px solid #EBEBEB;
+    margin-left: -14px;
+    width: 102%;
+}
+
+.vouchers-section-content{
+    padding-left: 293px;
+}
+
+.vouchers-section-labels{
+    margin-left: 293px;
+    padding: 30px 0 10px 0;
+}
+
+.vouchers-section-labels label:first-child{
+   width: 228px;
+}
+
+.accepted-vouchers-number-input,
+.issued-vouchers-number-input{
+    margin-right: 12px;
+}
+
+.vouchers-section-content .currency{
+    margin-left: -52px;
+}
+
+.vouchers-section-content .btn-remove-line{
+    margin-left: 8px;
+}
+
+.link-add-accepted-voucher,
+.link-add-issued-voucher {
+    margin: 26px 0 24px 293px;
+}
+
+.link-add-accepted-voucher span{
+    font-weight: normal;
+}
+
+.sales-report-voucher .approval-section{
+    margin-top: -34px;
+}
+
+.vouchers-section-labels.not-active{
+    display: none;
+}
+
+.new-voucher{
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.voucher-accepted-total-count .total-count-title,
+.voucher-issued-total-count .total-count-title{
+    width: 530px;
+}
+
+.voucher-accepted-total-count .total-count-val,
+.voucher-issued-total-count .total-count-val{
+    width: 163px;
+}
+
+.new-voucher .btn-remove-line{
+    padding-top: 8px;
+}
+
+/*--------------------expenses--------------------*/
+
+.sales-report-expenses .approval-section{
+    margin-top: -36px;
+}
+
+.expenses-section-labels.not-active{
+    display: none;
+}
+
+.expenses-section{
+    margin-bottom: 64px;
+}
+
+.expenses-section-labels{
+    margin-left: 293px;
+    padding: 30px 0 10px 0;
+}
+
+.expenses-section-labels label:first-child{
+    width: 228px;
+}
+
+.expenses-section-content{
+    padding-left: 293px;
+}
+
+.expenses-section-content .currency{
+    margin-left: -44px;
+}
+
+.expenses-section-content .btn-remove-line{
+    margin-left: 8px;
+}
+
+.expenses-name-input{
+    margin-right: 8px;
+}
+
+.link-add-expenses{
+    margin: 26px 0 0 293px;
+
+}
+
+.link-add-expenses span{
+    font-weight: normal;
+}
+
+.new-expenses{
+    margin-bottom: 10px;
+}
+
+.expenses-total-count .total-count-title{
+    width: 530px;
+}
+
+.expenses-total-count  .total-count-val{
+    width: 171px;
+}
+
+/*--------------------bills--------------------*/
+
+.sales-report-bills .approval-section{
+    margin-top: -36px;
+}
+
+.bills-section-labels.not-active{
+    display: none;
+}
+
+.bills-section{
+    margin-bottom: 64px;
+}
+
+.bills-section-labels{
+    margin-left: 293px;
+    padding: 30px 0 10px 0;
+}
+
+.bills-section-labels label:first-child{
+    width: 228px;
+}
+
+.bills-section-content{
+    padding-left: 293px;
+}
+
+.bills-section-content .currency-input-wrapper{
+    margin-right: 8px;
+}
+
+.bills-section-content .btn-remove-line{
+    margin-left: 6px;
+}
+
+.link-add-bills{
+    margin: 26px 0 0 293px;
+}
+
+.link-add-bills span{
+    font-weight: normal;
+}
+
+.new-bills{
+    margin-bottom: 10px;
+}
+
+.sales-report-bills .total-count-title{
+    width: 533px;
+}
+
+.sales-report-bills .total-count-val{
+    width: 30px;
+}
+
+.bills-name-input{
+    margin-right: 8px;
+}
+
+.bills-amount-input{
+    width: 110px;
+}
+
+.bills-tip-input{
+    width: 110px;
+}
+
+#bills-amount-title{
+    width: 116px;
+}
+
+#bills-count-tip,
+#bills-count-amount{
+    width: 119px;
+    text-align: left;
+}
+
+.bills-total-count .total-count-currency{
+    text-align: right;
+    width: 26px;
+}
+
+#total-bills-amount,
+#total-bills-tip{
+    width: 58px;
+}
+
+.sales-report-bills .total-count-val{
+    min-width: auto;
+    width: auto;
+}
+
+.sales-report-bills .total-count-currency{
+    min-width: auto !important;
+}
+
+/*---------------------cigarettes---------------------*/
+
+.sales-report-cigarettes label{
+    width: 25%;
+}
+
+.sales-report-cigarettes .sales-report-section-footer{
+    margin-top: 10px;
+}
+
+.sales-report-cigarettes .approval-section{
+    margin-top: -36px;
+}
+
+#cigarettes{
+    margin-bottom: 20px;
+}
+
+.sales-report-cigarettes .total-count-title{
+    width: 296px;
+}
+
+/*---------------------summary---------------------*/
+
+.summary-table tr:nth-child(even){
+    background-color: #FAFAFA;
+}
+
+.summary-table-labels{
+    font-weight: 300;
+    color: #3F4F5E;
+    font-size: 14px;
+    line-height: 52px;
+    padding-left: 16px;
+    width: 20%;
+}
+
+.summary-cash-counting-fields{
+    text-align: right;
+    width: 24%;
+}
+
+.sales-report-summary .sales-report-section-footer{
+    margin-top: 10px;
+}
+
+#summary-cash-income-approval{
+    margin-top: -36px;
+}
+
+.summary-val,
+.summary-currency{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #3F4F5E;
+}
+
+.summary-total-count .total-count-val{
+    text-align: right;
+}
+
+.sales-report-summary .total-count-title{
+    width: 24.8%;
+}
+
+.sales-report-summary .total-count-currency{
+    text-align: left;
+}
+
+.sales-report-summary .total-count-val{
+    min-width: 171px;
+}
+
+/*--------------------- dues ---------------------*/
+
+.dues-table .approval-section{
+    margin-top: 0;
+    padding-right: 13px;
+}
+
+.dues-table tr:nth-child(even){
+    background-color: #FAFAFA;
+}
+
+.dues-table-labels{
+    font-weight: 300;
+    color: #3F4F5E;
+    font-size: 14px;
+    line-height: 52px;
+    padding-left: 16px;
+    width: 20%;
+}
+
+.dues-cash-counting-fields{
+    text-align: right;
+    width: 24%;
+}
+
+.sales-report-dues .sales-report-section-footer{
+    margin-top: 10px;
+    padding: 16px 0 3px 0 !important;
+    background-color: #4B7DC7;
+}
+
+.dues-val,
+.dues-currency{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #3F4F5E;
+}
+
+.dues-total-count p{
+    color: #FFFFFF;
+}
+
+.dues-tips{
+    width: 140px;
+}
+
+.dues-val .currency{
+    display: inline-block;
+}
+
+.dues-total-count .total-count-value-section{
+    width: 201px;
+    text-align: right;
+}
+
+.dues-total-count .total-count-currency{
+    min-width: auto;
+}
+
+/*--------------------- comment ---------------------*/
+
+#report-comment{
+    width: 98.5%;
+    min-height: 140px;
+    resize: none;
+    border: 1px solid #D8D8D8;
+    font-size: 14px;
+    padding-left: 15px;
+    padding-top: 5px;
+    color: #555;
+}
+
+#report-comment::-webkit-input-placeholder{
+    color: #C2BFD2;
+}
+#report-comment:-moz-placeholder{
+    color: #C2BFD2;
+}
+#report-comment::-moz-placeholder{
+    color: #C2BFD2;
+}
+#report-comment:-ms-input-placeholder{
+    color: #C2BFD2;
+}
+
+/*--------------------- questionnaire ---------------------*/
+
+.question-row{
+    margin-bottom: 7px;
+}
+
+.question-row label{
+    width: 25%;
+}
+
+.question-row input{
+    width: 360px;
+    height: 36px;
+    border: 1px solid #D8DCDF;
+    padding-left: 14px;
+    font-size: 14px;
+    color: #555;
+}
+
+/*--------------------sales report buttons--------------------*/
+
+.sales-report-buttons{
+    padding-bottom: 40px;
+}
+
+.sales-report-buttons .btn-submit.not-active,
+.sales-report-buttons .not-approved-transact.not-active{
+    display: none;
+}
+
+.btn-not-approved,
+.not-approved-transact-message{
+    display: inline-block;
+}
+
+.btn-not-approved{
+    font-weight: 800;
+    color: #FFFFFF;
+    background-color: #D65B70;
+    padding: 14px 30px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    cursor: not-allowed;
+}
+
+.not-approved-transact-message{
+    color: #D0021B;
+    margin-left: 20px;
+}
+
+.not-approved-transact-message span{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.not-approved-transact-message .fas{
+    font-size: 12px;
+}
+
+.sales-report-buttons.not-active{
+    /*display: none;*/
+}
+
+/*--------------------success data saved message--------------------*/
+
+.data-saved-message{
+    color: #417505;
+    background-color: rgba(65,117,5,0.03);
+    border: 1px solid #417505;
+    width: 100%;
+    padding: 20px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    margin: 20px 0 10px 0;
+}
+
+.success-data-saved-message,
+.close-icon{
+    display: inline-block;
+}
+
+.success-data-saved-message .fas{
+    font-size: 21px;
+}
+
+.success-data-saved-message span{
+    padding-left: 9px;
+    font-size: 14px;
+    font-weight: 300;
+    vertical-align: top;
+}
+
+.close-icon{
+    float: right;
+    cursor: pointer;
+    min-width: 10px;
+}
+
+.close-icon:before,
+.close-icon:after{
+    content: '';
+    display: inline-block;
+    height: 14px;
+    width: 2px;
+    background-color: #BEBFBE;
+    -webkit-transition: background-color 0.5s ease;
+    -moz-transition: background-color 0.5s ease;
+    -ms-transition: background-color 0.5s ease;
+    -o-transition: background-color 0.5s ease;
+    transition: background-color 0.5s ease;
+}
+
+.close-icon:before{
+    -webkit-transform: skewX(45deg);
+    -moz-transform: skewX(45deg);
+    -ms-transform: skewX(45deg);
+    -o-transform: skewX(45deg);
+    transform: skewX(45deg);
+}
+
+.close-icon:after{
+    margin-left: -3px;
+    -webkit-transform: skewX(135deg);
+    -moz-transform: skewX(135deg);
+    -ms-transform: skewX(135deg);
+    -o-transform: skewX(135deg);
+    transform: skewX(135deg);
+}
+
+.close-icon:hover:after,
+.close-icon:hover:before{
+    background-color: #3F4F5E;
+}
+
+.data-saved-message:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.data-saved-message.not-active{
+    display: none;
+}

@@ -1,0 +1,206 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Statements{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/sales-reports.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+
+        {% include 'common/header.html.twig' %}
+
+        <div class="sales-reports">
+            <div class="container">
+
+                <div class="row sales-reports-header">
+                    <div class="col-md-6 sales-reports-title">
+                        <h1>Sales Reports</h1>
+                    </div>
+                    <div class="col-md-6 sales-reports-header-nav">
+                        <div class="sales-reports-add-report">
+                            <a href="#">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Add report</span>
+                            </a>
+                        </div>
+                        <div class="sales-reports-show-approved">
+                            <input id="onlyApproved" type="checkbox">
+                            <label for="onlyApproved">
+                                <i class="far fa-square"></i>
+                                <i class="far fa-check-square"></i>
+                                <span>Show only not approved</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row sales-reports-table">
+                    <div class="col-12">
+
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Restaurant</th>
+                                <th>Cashier Reports</th>
+                                <th>Total Sales</th>
+                                <th>Approved</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>01.01.2017</td>
+                                <td>Nikolay's Restaurant</td>
+                                <td>4</td>
+                                <td>34’040.50 CHF</td>
+                                <td class="not-approved">Nein</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>02.01.2017</td>
+                                <td>Nikolay's Restaurant</td>
+                                <td>6</td>
+                                <td>9’643.40 CHF</td>
+                                <td class="not-approved">Nein</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>03.01.2017</td>
+                                <td>Nikolay's Restaurant</td>
+                                <td>3</td>
+                                <td>21’034.60 CHF</td>
+                                <td class="approved">Ja</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </a>
+                                    <a href="#">
+                                        <i class="fas fa-file"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>04.01.2017</td>
+                                <td>Nikolay's Restaurant</td>
+                                <td>9</td>
+                                <td>11’450.00 CHF</td>
+                                <td class="not-approved">Nein</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>05.01.2017</td>
+                                <td>Nikolay's Restaurant</td>
+                                <td>4</td>
+                                <td>4’566.50 CHF</td>
+                                <td class="not-approved">Nein</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>06.01.2017</td>
+                                <td>Nikolay's Restaurant</td>
+                                <td>10</td>
+                                <td>86’560.10 CHF</td>
+                                <td class="not-approved">Nein</td>
+                                <td>
+                                    <a href="#">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row sales-reports-pagination">
+                            <div class="col-md-6 sales-reports-pagination-left-content">
+                                <p>
+                                    Showing <span class="pagination-pages-values">1-10</span> of <span class="pagination-pages-values">21</span> items.
+                                </p>
+                            </div>
+                            <div class="col-md-6 sales-reports-pagination-right-content">
+                                <nav class="pagination-nav">
+                                    <a href="#">&laquo;</a>
+                                    <a href="#" class="active">1</a>
+                                    <a href="#">2</a>
+                                    <a href="#">3</a>
+                                    <a href="#">&#8230;</a>
+                                    <a href="#">4</a>
+                                    <a href="#">5</a>
+                                    <a href="#">6</a>
+                                    <a href="#">&raquo;</a>
+                                </nav>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row tipping-table">
+                    <div class="col-12">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>TIP</th>
+                                <th>Actual month (July)</th>
+                                <th>Previous month (June)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Kitchen Tip</td>
+                                <td>
+                                    <div class="tipping-table-money-box">
+                                        <span class="tip-value">500.35 </span>
+                                        <span class="currency">CHF</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="tipping-table-money-box">
+                                        <span class="tip-value">500.35 </span>
+                                        <span class="currency">CHF</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bar Tip</td>
+                                <td>
+                                    <div class="tipping-table-money-box">
+                                        <span class="tip-value">423.55 </span>
+                                        <span class="currency">CHF</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="tipping-table-money-box">
+                                        <span class="tip-value">423.55 </span>
+                                        <span class="currency">CHF</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

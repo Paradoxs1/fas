@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+        <link rel="icon" type="image/png" href="/img/CashUpFavicon.png" />
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+            <link rel="stylesheet" href="/css/style.css">
+        {% endblock %}
+
+        {% block stylesheets_additional %}{% endblock %}
+    </head>
+    <body>
+        {% block ribbon %}
+            {% set data = display_environment_ribbon() %}
+            {% if data|length > 0 %}
+                <div class="ribbon">
+                    <div class="ribbon-box">
+                        <p class="ribbon-title">
+                            {% if data['label'] is defined %}
+                                {{ data['label'] }}
+                            {% endif %}
+                        </p>
+                        <p class="ribbon-text">
+                            {% if data['shortHash'] is defined %}
+                                 <a target="_blank" href="https://gitlab.digio.ch/bbc/fas/commit/{{ data['fullHash'] }}">{{ data['shortHash'] }}</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endblock %}
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="/js/jquery-3.3.1.min.js"></script>
+            <script src="/js/base-structure.js"></script>
+        {% endblock %}
+        {% block javascripts_additional %}{% endblock %}
+    </body>
+</html>

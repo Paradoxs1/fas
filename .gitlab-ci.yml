@@ -1,0 +1,188 @@
+stages:
+  - test
+  - build
+  - deploy
+
+before_script:
+  - docker login -u $REGISTRY_USER -p $REGISTRY_PW registry.digio.ch:443
+
+test:
+  stage: test
+  script:
+    - cd /home/gitlab-runner/fas-config-dev
+    - git pull
+    - cd $CI_PROJECT_DIR
+    - cp /home/gitlab-runner/fas-config-dev/test/.env .env
+    - cp -r /home/gitlab-runner/fas-config-dev/test/php7 ./php7
+    - cp /home/gitlab-runner/fas-config-dev/test/docker-compose.yml docker-compose.yml
+    - docker-compose down
+    - docker-compose pull
+    - docker-compose up -d
+    - docker exec --user $(id -u) fas-core-test composer install
+    - docker exec --user $(id -u) fas-core-test php bin/console doctrine:schema:update --force
+    - docker exec --user $(id -u) fas-core-test php bin/console app:base-data-insert
+    - docker exec --user $(id -u) fas-core-test php bin/console app:add-routines
+    - docker exec --user $(id -u) fas-core-test php bin/console doctrine:fixtures:load --append -n
+    - docker exec --user $(id -u) fas-core-test bin/phpunit --colors=never
+    - docker-compose down
+    - docker image prune -f
+    - docker volume prune -f
+  only:
+    - develop
+    - staging
+    - master
+  tags:
+    - docker
+    - build
+
+build docker-image dev:
+  stage: build
+  script:
+    - cp /home/gitlab-runner/fas-config-dev/dev/.env ./.env
+    - docker run --user $(id -u) --entrypoint /usr/bin/composer -v $(pwd):/srv registry.digio.ch:443/utils/docker-php-caddy/caddy-php-composer:latest install
+    - docker build --pull -t registry.digio.ch:443/bbc/fas/data:$CI_COMMIT_REF_SLUG .
+    - docker push registry.digio.ch:443/bbc/fas/data:$CI_COMMIT_REF_SLUG
+    - docker image prune -f
+    - docker volume prune -f
+  only:
+    - develop
+  tags:
+    - docker
+    - build
+
+build docker-image stage:
+  stage: build
+  script:
+    - cp /home/gitlab-runner/fas-config-dev/stage/.env ./.env
+    - docker run  --user $(id -u) --entrypoint /usr/bin/composer -v $(pwd):/srv registry.digio.ch:443/utils/docker-php-caddy/caddy-php-composer:latest install --optimize-autoloader
+    - docker build --pull -t registry.digio.ch:443/bbc/fas/data:$CI_COMMIT_REF_SLUG .
+    - docker push registry.digio.ch:443/bbc/fas/data:$CI_COMMIT_REF_SLUG
+    - docker tag registry.digio.ch:443/bbc/fas/data:$CI_COMMIT_REF_SLUG registry.digio.ch:443/bbc/fas/data:staging
+    - docker push registry.digio.ch:443/bbc/fas/data:staging
+    - docker image prune -f
+    - docker volume prune -f
+  only:
+    - /^[0-9]+\.[0-9]+\.[0-9]+-rc\.[1-9]+$/
+  tags:
+    - docker
+    - build
+
+build docker-image prod:
+  stage: build
+  script:
+    - cp /home/gitlab-runner/fas-config-dev/prod/.env ./.env
+    - docker run  --user $(id -u) --entrypoint /usr/bin/composer -v $(pwd):/srv registry.digio.ch:443/utils/docker-php-caddy/caddy-php-composer:latest install --optimize-autoloader
+    - docker build --pull -t registry.digio.ch:443/bbc/fas/data:$CI_COMMIT_REF_SLUG .
+    - docker push registry.digio.ch:443/bbc/fas/data:$CI_COMMIT_REF_SLUG
+    - docker tag registry.digio.ch:443/bbc/fas/data:$CI_COMMIT_REF_SLUG registry.digio.ch:443/bbc/fas/data:production
+    - docker push registry.digio.ch:443/bbc/fas/data:production
+    - docker image prune -f
+    - docker volume prune -f
+  only:
+    - /^[0-9]+\.[0-9]+\.[0-9]+$/
+  tags:
+    - docker
+    - build
+
+deploy on dev-server:
+  stage: deploy
+  script:
+    - cd /home/gitlab-runner/fas-config-dev/dev
+    - git pull
+    - docker-compose down
+    - docker-compose pull
+    - docker-compose up -d
+    - sleep 10
+    - docker exec fas-core-dev php bin/console doctrine:schema:update --force
+    - docker exec fas-core-dev php bin/console app:base-data-insert
+    - docker exec fas-core-dev php bin/console app:add-routines
+    - docker exec fas-core-dev php bin/console doctrine:fixtures:load --append -n
+    - docker image prune -f
+    - docker volume prune -f
+  only:
+    - develop
+  environment:
+    name: CashUp - dev
+    url: https://dev-office.cashup.ch
+  tags:
+    - docker
+    - deploy
+    - develop
+
+deploy on stage-server:
+  stage: deploy
+  script:
+    - cd /home/gitlab-runner/fas-config-dev/stage
+    - git pull
+    - docker-compose down
+    - docker-compose pull
+    - docker-compose up -d
+    - sleep 10
+    - docker exec fas-core-stage php bin/console doctrine:migrations:migrate -n --allow-no-migration
+    - docker exec fas-core-stage chmod g+w -R /srv/var/log /srv/var/cache
+    - docker exec fas-core-stage chown :www-user -R /srv/var/log /srv/var/cache
+    - cd /home/gitlab-runner/fas-config-dev/loadbalancer_stage_demo
+    - docker-compose up -d
+    - docker image prune -f
+    - docker volume prune -f
+  only:
+    - /^[0-9]+\.[0-9]+\.[0-9]+-rc\.[1-9]+$/
+  environment:
+    name: CashUp - stage
+    url: https://stage-office.cashup.ch
+  tags:
+    - docker
+    - deploy
+    - staging
+
+deploy on demo-server:
+  stage: deploy
+  script:
+    - cd /home/gitlab-runner/fas-config-dev/demo
+    - git pull
+    - docker-compose down
+    - docker-compose pull
+    - docker-compose up -d
+    - sleep 10
+    - docker exec fas-core-demo php bin/console doctrine:migrations:migrate -n --allow-no-migration
+    - docker exec fas-core-demo chmod g+w -R /srv/var/log /srv/var/cache
+    - docker exec fas-core-demo chown :www-user -R /srv/var/log /srv/var/cache
+    - cd /home/gitlab-runner/fas-config-dev/loadbalancer_stage_demo
+    - docker-compose up -d
+    - docker image prune -f
+    - docker volume prune -f
+  only:
+    - /^[0-9]+\.[0-9]+\.[0-9]+$/
+  environment:
+    name: CashUp - demo
+    url: https://demo-office.cashup.ch
+  tags:
+    - docker
+    - deploy
+    - staging
+
+deploy on prod-server:
+  stage: deploy
+  script:
+    - cd /home/gitlab-runner/fas-config-dev/prod
+    - git pull
+    - docker-compose down
+    - docker-compose pull
+    - docker-compose up -d
+    - sleep 10
+    - docker exec fas-core-prod php bin/console doctrine:migrations:migrate -n --allow-no-migration
+    - docker exec fas-core-prod chmod g+w -R /srv/var/log /srv/var/cache
+    - docker exec fas-core-prod chown :www-user -R /srv/var/log /srv/var/cache
+    - docker image prune -f
+    - docker volume prune -f
+  only:
+    - /^[0-9]+\.[0-9]+\.[0-9]+$/
+  when: manual
+  allow_failure: false
+  environment:
+    name: CashUp - prod
+    url: https://office.cashup.ch
+  tags:
+    - docker
+    - deploy
+    - production

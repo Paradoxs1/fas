@@ -1,0 +1,40 @@
+parameters:
+    # Adds a fallback DATABASE_URL if the env var is not set.
+    # This allows you to run cache:warmup even if your
+    # environment variables are not available yet.
+    # You should not need to change this value.
+    env(DATABASE_URL): ''
+
+doctrine:
+    dbal:
+        default_connection:   FAS
+        connections:
+            FAS:
+                # configure these for your database server
+                server_version: '9.6'
+                charset: utf8
+                default_table_options:
+                    charset: utf8
+                    collate: utf8_unicode_ci
+
+                url: '%env(resolve:DATABASE_URL)%'
+#            RAS:
+#                server_version: '10.4'
+#                charset: utf8
+#                default_table_options:
+#                    charset: utf8
+#                    collate: utf8_unicode_ci
+#
+#                url: 'postgresql://webadmin:Dig+0.445@node64558-env-2181339.alp1.ae.flow.ch:11039/ras'
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App

@@ -1,0 +1,77 @@
+{% if accountsToAssign %}
+    <div class="row fas-section user-add-edit-association">
+        <div class="col-12 fas-section-title">
+            <h2>{{ 'user_assignment.title'|trans }}</h2>
+        </div>
+        <table class="facility-assignment facility-assignment-edit">
+            <tr>
+                <th></th>
+                <th><p>{{ 'role.tenant_manager.title'|trans }}</p></th>
+                <th><p>{{ 'role.tenant_user.title'|trans }}</p></th>
+                <th><p>{{ 'role.stakeholder.title'|trans }}</p></th>
+                <th><p>{{ 'role.facility_manager.title'|trans }}</p></th>
+                <th><p>{{ 'role.facility_user.title'|trans }}</p></th>
+                <th></th>
+            </tr>
+            <tr class="basic-facility-line facility-initial-line">
+                <td>
+                    <select id="restaurant-user-select" class="fas-select tenant-select" name="user-to-assign[1]">
+                        {% for accountToAssign in accountsToAssign %}
+                            <option value="{{ accountToAssign.id }}">{{ accountToAssign.fullName }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td class="facility-assignment-checkbox">
+                    <input id="tenant-manager-1" type="checkbox" name="roles[tenant-manager][1]">
+                    <label for="tenant-manager-1">
+                        <i class="far fa-square"></i>
+                        <i class="far fa-check-square"></i>
+                    </label>
+                </td>
+                <td class="facility-assignment-checkbox">
+                    <input id="tenant-user-1" type="checkbox" name="roles[tenant-user][1]">
+                    <label for="tenant-user-1">
+                        <i class="far fa-square"></i>
+                        <i class="far fa-check-square"></i>
+                    </label>
+                </td>
+                <td class="facility-assignment-checkbox">
+                    <input id="stakeholder-1" type="checkbox" name="roles[stakeholder][1]">
+                    <label for="stakeholder-1">
+                        <i class="far fa-square"></i>
+                        <i class="far fa-check-square"></i>
+                    </label>
+                </td>
+                <td class="facility-assignment-checkbox">
+                    <input id="facility-manager-1" type="radio" name="roles[facility-manager-user][1]" value="fm">
+                    <label for="facility-manager-1">
+                        <i class="far fa-circle"></i>
+                        <i class="far fa-check-circle"></i>
+                    </label>
+                </td>
+                <td class="facility-assignment-checkbox">
+                    <input id="facility-user-1" type="radio" name="roles[facility-manager-user][1]" value="fu">
+                    <label for="facility-user-1">
+                        <i class="far fa-circle"></i>
+                        <i class="far fa-check-circle"></i>
+                    </label>
+                </td>
+                <td class="error-message">
+                    <span class="not-active">
+                        {{ 'tenant.users_edit_required_assigment'|trans }}
+                    </span>
+                </td>
+                {#<td class="error-message">
+                    <span id="error-user-assignment-message-required" class="not-active">{{ 'user.required'|trans }}</span>
+                    {% if not validAssignUsers %}
+                        <span>{{ 'user.required'|trans }}</span>
+                    {% endif %}
+                </td>#}
+            </tr>
+        </table>
+        <div class="col-12 btn-add-line">
+            <i class="fas fa-plus-circle"></i>
+            <span>{{ 'tenant.users.add_user'|trans }}</span>
+        </div>
+    </div>
+{% endif %}

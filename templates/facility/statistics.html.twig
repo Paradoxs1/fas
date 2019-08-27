@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}Facilities{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/tenants-list.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+
+        {% block header %}
+            {% set current_facility = facility %}
+            {% set current_tenant = facility.tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {% set current_facility = facility %}
+            {% set current_tenant = facility.tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+    </div>
+{% endblock %}

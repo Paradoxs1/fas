@@ -1,0 +1,33 @@
+{% if creditCards %}
+    <div class="row cash-report-credit-cards-content">
+        <div class="col-12 title-with-line-box">
+            <div class="sales-report-title-with-line">
+                <p>{{ 'report_overview.credit_cards'|trans }}</p>
+            </div>
+        </div>
+
+        {% for terminalId, terminalData in creditCards %}
+            <div class="col-4 cash-report-credit-card">
+                <div class="cash-report-title">
+                    <h3>{{ 'report_overview.terminal'|trans }} <span>{{ loop.index }}</span></h3>
+                </div>
+                {% for accountingId, data in terminalData %}
+                    {% set amount = 0 %}
+                    {% for id, value in data.data %}
+                        {% set amount = amount + value %}
+                    {% endfor %}
+                    <div class="cash-report-item">
+                        <p class="cash-items-name">{{ data.name }}</p>
+                        <p class="cash-items-value">{{ amount | number_format(2, ".", "'") }}</p>
+                        <span>{{ currency }}</span>
+                    </div>
+                {% endfor %}
+                <div class="cash-report-item cash-total">
+                    <p class="cash-count-title">Total</p>
+                    <p class="cash-count-val"></p>
+                    <span>{{ currency }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

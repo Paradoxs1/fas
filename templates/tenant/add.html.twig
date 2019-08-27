@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'tenants_add.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/add-edit-tenant-entity.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+        {% block header %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="tenant-add-edit">
+            <div class="container">
+                <div class="row fas-header">
+                    <div class="col-10 fas-title">
+                        <h1>{{ 'create_tenant.title'|trans }}</h1>
+                    </div>
+                    <div class="col-2 fas-required-message">
+                        <p><span class="red-color">*</span> {{ 'report.required'|trans }}</p>
+                    </div>
+                </div>
+
+                {% include 'includes/tenant-form.html.twig' with {'form' : form, 'addTenantManager': true } %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/validation/tenant-edit.js"></script>
+{% endblock %}

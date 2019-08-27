@@ -1,0 +1,107 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'steakholders.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/tenants-list.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+        {% block header %}
+            {% set current_tenant = facility.tenant %}
+            {% set current_facility = facility %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {% set current_facility = facility %}
+            {% set current_tenant = facility.tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% include 'common/pop-up.html.twig' %}
+
+        <div class="tenants-list">
+            <div class="container">
+                <div class="row fas-header">
+                    <div class="col-md-6 fas-title">
+                        <h1>{{ 'stakeholder.users'|trans }}</h1>
+                    </div>
+                    <div class="col-md-6 fas-add-search-nav">
+                        <div class="fas-add-item">
+                            <a href="{{ path('stakeholder_account_add', {'id': facility.id}) }}">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>{{ 'stakeholder.users.add_user'|trans }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row fas-section">
+                    <div class="col-12">
+                        <table class="fas-section-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>{{ 'stakeholder.users.name'|trans }}</th>
+                                    <th>{{ 'stakeholder.users.username'|trans }}</th>
+                                    <th>{{ 'stakeholder.users.actions'|trans }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% if data is not null and data.currentPageResults  %}
+                                {% for account in data.currentPageResults %}
+                                    <tr>
+                                        <td>{{ account.id }}</td>
+                                        <td>{{ account.person.firstName}} {{ account.person.lastName }}</td>
+                                        <td>{{ account.login }}</td>
+                                        <td>
+                                            {% if app.user.id != account.id %}
+                                                <a>
+                                                    <i class="fas fa-trash-alt" data-delete-route="{{ path('tenant_account_delete', {'id': account.id }) }}"  data-popup-header="{{ 'facility.delete' | trans }} {{ account.person.firstName }} {{ account.person.lastName }}" data-popup-text="{{ 'popup.delete_content'|trans }}"></i>
+                                                </a>
+                                            {% endif %}
+                                            <a href="{{ path('stakeholder_account_edit', {'id': facility.id, 'userId': account.id}) }}">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">{{ 'stakeholder.users.no_users'|trans }}</td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                        {% if data is not null and data.currentPageResults  %}
+                            <div class="row pagination">
+                                <div class="col-md-6 pagination-left-content">
+                                    <p>
+                                        {{ 'tenant.users.show'|trans }}
+                                        <span class="pagination-pages-values">
+                                            {{ data.getCurrentPageOffsetStart }}-{{ data.getCurrentPageOffsetEnd }}
+                                        </span>
+                                        {{ 'tenant.users.of'|trans }}
+                                        <span class="pagination-pages-values">{{ data.count }}</span> {{ 'tenant.users.rows'|trans }}.
+                                    </p>
+                                </div>
+                                <div class="col-md-6 pagination-right-content">
+                                    {{ pagerfanta(data, 'fas_pager', { 'omitFirstPage': true}) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/jquery-ui.min.js"></script>
+{% endblock %}

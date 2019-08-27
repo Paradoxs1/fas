@@ -1,0 +1,40 @@
+version: '2'
+services:
+  fas-postgres:
+    container_name: fas-postgres-dev
+    restart: always
+    image: sameersbn/postgresql:9.6-2
+    environment:
+      - DEBUG=false
+      - DB_USER=fas-dev
+      - DB_PASS=fas-dev
+      - DB_NAME=postgres,fas_dev,fas_dev_test
+    ports:
+      - "5440:5432"
+
+  fas-core:
+    container_name: fas-core-dev
+    image: registry.digio.ch:443/utils/docker-php-caddy/caddy-php-composer-dev:latest
+    volumes:
+      - ./Caddyfile:/etc/Caddyfile
+      - ./php.ini:/etc/php7/php.ini
+      - ./:/srv
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - "8080:80"
+
+  pg-admin:
+    container_name: fas-pgadmin-dev
+    image: zhajor/docker-phppgadmin
+    ports: 
+      - "5441:80"
+    environment:
+      - DB_HOST=fas-postgres
+      - DB_PORT=5432
+
+  memcached:
+    image: memcached
+    container_name: fas-memcached-dev
+    restart: always

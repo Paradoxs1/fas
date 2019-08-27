@@ -1,0 +1,13 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+logout:
+    path: /logout
+
+pageNotFound:
+    path: /{path}
+    methods: GET
+    controller: App\Controller\SecurityController::pageNotFound
+    requirements:
+        path: ".+"

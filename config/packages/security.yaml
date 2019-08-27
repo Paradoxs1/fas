@@ -1,0 +1,69 @@
+# app/config/security.yml
+security:
+    encoders:
+         App\Entity\Account:
+            algorithm: bcrypt
+            cost: 12
+
+    role_hierarchy:
+         ROLE_FACILITY_USER: ROLE_USER
+         ROLE_FACILITY_MANAGER: ROLE_USER
+         ROLE_FACILITY_STAKEHOLDER: ROLE_USER
+         ROLE_TENANT_USER: ROLE_USER
+         ROLE_ADMIN: [ROLE_USER]
+
+    providers:
+        fas_db_provider:
+            entity:
+                class: App\Entity\Account
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            anonymous: ~
+            provider: fas_db_provider
+            form_login:
+                login_path: login
+                check_path: login
+                success_handler: login_handler
+
+            logout:
+                path:   /logout
+                target: /login
+                handlers: ['App\EventListener\LogoutListener']
+
+    access_control:
+        # Anonimous
+        - { path: ^/login, allow_if: "not has_role('ROLE_USER')" }
+        - { path: ^/password, allow_if: "not has_role('ROLE_USER')" }
+
+        #Admin
+        - { path: ^/admin/.*, roles: ROLE_ADMIN }
+
+        - { path: ^/tenant/facilities/(.+)/statistics, roles: [ROLE_FACILITY_STAKEHOLDER] }
+        - { path: ^/tenant/facilities/(.+)/configuration, roles: [ROLE_TENANT_MANAGER] }
+        - { path: ^/tenant/facilities/(.+)/stakeholders, roles: [ROLE_TENANT_MANAGER] }
+        - { path: ^/tenant/facilities/(.+)/dashboard, roles: [ROLE_TENANT_MANAGER, ROLE_TENANT_USER, ROLE_FACILITY_STAKEHOLDER] }
+        - { path: ^/tenant/facilities/(.+)/reports, roles: [ROLE_TENANT_USER] }
+        - { path: ^/tenant/facilities/(.+)/reports/add, roles: [ROLE_TENANT_USER] }
+        - { path: ^/tenant/facilities/(.+)/reports, roles: [ROLE_TENANT_USER] }
+        - { path: ^/tenant/facilities/(.+)/cashiers, roles: [ROLE_TENANT_USER] }
+        - { path: ^/tenant/facilities/(.+)/delete, roles: [ROLE_TENANT_MANAGER] }
+        - { path: ^/tenant/users/(.+)/delete, roles: [ROLE_TENANT_MANAGER, ROLE_TENANT_USER, ROLE_ADMIN] }
+
+
+        - { path: ^/tenant/facilities/(.+)/reports/(.+)/edit/(.+), roles: [ROLE_TENANT_USER] }
+        - { path: ^/tenant/(.+)/facility/(.+)/reports/(.+)/check, roles: [ROLE_TENANT_USER] }
+
+        - { path: ^/tenant/facilities, roles: [ROLE_TENANT_MANAGER] }
+
+        - { path: ^/tenant/users, roles: [ROLE_TENANT_MANAGER, ROLE_TENANT_USER] }
+        - { path: ^/tenant/configuration, roles: [ROLE_TENANT_MANAGER] }
+        - { path: ^/tenant, roles: [ROLE_TENANT_MANAGER, ROLE_TENANT_USER, ROLE_FACILITY_STAKEHOLDER] }
+
+        #Facility User, Facility Manager
+        - { path: ^/report, roles: [ROLE_FACILITY_USER, ROLE_FACILITY_MANAGER] }

@@ -1,0 +1,178 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'report_overview.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/reports-overview.css">
+    <link rel="stylesheet" href="/css/date-picker.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+
+        {% block header %}
+            {% set current_tenant = app.user.tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% for label, flashes in app.session.flashbag.all %}
+            {% for flash in flashes %}
+                <div class="alert alert-{{ label }}">
+                    <div class="container">{{ flash }}</div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <form id="reports-overview-form" method="post">
+
+        {% if overlayTemplate != null %}
+            {% include overlayTemplate with {'facility' : facility, 'overlayData': overlayData } %}
+        {% endif %}
+
+            <div class="reports-overview">
+                <div class="container">
+                    <div class="row fas-header">
+                        <div class="col-8 fas-title">
+                            <h1>
+                                {{ 'report_overview.sales_reports'|trans }}
+                            </h1>
+                        </div>
+                        <div class="col-4 header-reports-overview-right-content">
+                            <div class="sales-report-details-date">
+                                <label for="date-pick" id="date-pick-title">{{ 'report.date'|trans }}: </label>
+                                <input
+                                        type="text"
+                                        name="date"
+                                        id="date-pick"
+                                        class="fas-input report-input empty-date"
+                                        disabled
+                                        value="{{ app.request.get('checkDate')|date("d.m.Y") }}"
+                                >
+                                <i class="fas fa-calendar-alt"></i>
+                                <input type="hidden" name="date" value="{{ app.request.get('checkDate')|date("d.m.Y") }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row fas-section cash-report">
+                        <div class="col-10 fas-section-title reports-overview-title-cash">
+                            <div class="reports-overview-title-cash-link">
+                                <div class="cash-link-icon-wrap">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                                <h2>{{ 'report_overview.cash_report'|trans }}</h2>
+                            </div>
+                        </div>
+                        {% if approved != true %}
+                            <div class="col-2 edit-report">
+                                <div class="edit-report-link">
+                                    <a href="{{ path('check_report', {'facilityId': facilityId, 'checkDate': checkDate|date("Y-m-d")}) }}">
+                                        <i class="fas fa-pencil-alt"></i>
+                                        <p>{{ 'report_overview.edit'|trans }}</p>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="col-12 cash-report-content">
+                            {% include 'report/includes/overview/header-sales.html.twig' %}
+                            {% include 'report/includes/overview/header-credit-cards.html.twig' %}
+                            {% include 'report/includes/overview/header-cash.html.twig' %}
+                        </div>
+                    </div>
+
+                    <div class="row fas-section reports-form-cashiers">
+                        <div class="col-12 fas-section-title">
+                            <h2>{% if data.sales.cashier_total is defined %}{{ 'report_overview.cashier_reports'|trans }}{% else %}{{ 'report_overview.backofficer_reports'|trans }}{% endif %}</h2>
+                        </div>
+                        <div class="col-12 reports-form-cashiers-table">
+                            <table>
+                                <thead>
+                                <tr class="cashiers-table-header">
+                                    <td class="payment-column"></td>
+                                    {% for reportId, shift in data.shifts %}
+                                        <td class="cashier-column shift-{{ shift }}">{{ 'report_overview.shift'|trans }} {{ shift }}</td>
+                                    {% endfor %}
+                                    <td class="total-difference-column"></td>
+                                    <td class="total-all-column">{{ 'report_overview.total'|trans }}</td>
+                                    <td class="approval-column"></td>
+                                </tr>
+                                <tr class="cashiers-table-titles">
+
+                                    <td class="payment-column"></td>
+                                    {% for reportId, account in data.accounts %}
+                                        <td class="cashier-column shift-1">
+                                            <span class="table-cashier-name">{{ account }}</span>
+                                            {% if data.comments[reportId].value is defined and data.comments[reportId].value is not empty%}
+                                                <div class="cashier-comment">
+                                                    <i class="fas fa-comment-alt"></i>
+                                                    <div class="cashier-comment-box">
+                                                        <p class="cashier-comment-title">
+                                                            {{ 'report_overview.comment'|trans }} <span>{{ account }}</span>
+                                                        </p>
+                                                        <p class="cashier-comment-text">
+                                                            {{ data.comments[reportId].value }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% for report in data.reports %}
+                                                {% if reportId == report.id and report.getParentReport() != null %}
+                                                    <div class="tooltip-point">
+                                                        <span class="point"></span>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                    {% endfor %}
+                                    <td class="total-difference-column">
+                                        {{ 'report_overview.difference'|trans }}
+                                    </td>
+                                    <td class="total-all-column">
+                                        {{ 'report_overview.all'|trans }}
+                                    </td>
+                                    <td class="approval-column"></td>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% include 'report/includes/overview/sales.html.twig' %}
+                                    {% include 'report/includes/overview/credit-cards.html.twig' %}
+                                    {% include 'report/includes/overview/vouchers.html.twig' %}
+                                    {% include 'report/includes/overview/bills.html.twig' %}
+                                    {% include 'report/includes/overview/expenses.html.twig' %}
+                                    {% include 'report/includes/overview/dues.html.twig' %}
+                                </tbody>
+
+                                <tfoot>
+                                    {% include 'report/includes/overview/control.html.twig' %}
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    {% include 'report/includes/overview/questions.html.twig' %}
+                </div>
+            </div>
+
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/reports-overview.js"></script>
+    <script src="/js/jquery-ui-datepicker.min.js"></script>
+    <script src="/js/jquery.formatCurrency.min.js"></script>
+
+    <script>
+        var global_issued_total_sales = '{% if data['issued_vouchers'] is defined and data['issued_vouchers']['addTotal'] is defined %}{{ data['issued_vouchers']['addTotal'] }}{% endif %}';
+        var global_currency = '{{ currency }}';
+        var global_approved = '{{ approved }}';
+    </script>
+{% endblock %}

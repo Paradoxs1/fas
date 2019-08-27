@@ -1,0 +1,54 @@
+{% if creditCards is defined and creditCards is not empty %}
+    <div class="credit-card-default-template" style="display: none">
+            <div class="sales-report-credit-cards-terminal" id="terminal-{{ creditCards|length + 1 }}" data-terminal-id="{{ creditCards|length + 1 }}">
+                <div class="link-delete-terminal not-active">
+                    <div class="btn-remove-line">
+                        <i class="fas fa-minus-circle"></i>
+                        <span>{{ 'report.delete.terminal' | trans }}</span>
+                    </div>
+                </div>
+                <div class="terminal-content">
+                    <div class="sales-report-title-with-line">
+                        <p>Terminal {{ creditCards|length + 1 }}</p>
+                    </div>
+                    {% for accountingPositionId, data in creditCards|first %}
+                    {% set numberCreditCard = loop.index %}
+                        <div class="credit-cards-terminal">
+                            <label for="credit-card-{{ accountingPositionId }}" id="credit-card-{{ accountingPositionId }}-title">{{ data['name'] }} <span class="red-color">*</span></label>
+                            <div class="credit-cards-input currency-input-wrapper"
+                                 data-number="1"
+                                 data-terminal="{{ creditCards|length + 1 }}"
+                                 data-accounting-position="{{ accountingPositionId }}"
+                            >
+                                <input
+                                        type="text"
+                                        id="credit-card-{{ creditCards|length + 1 }}-{{ accountingPositionId }}-1"
+                                        class="fas-input report-input currency-input"
+                                        name="credit-cards[{{ creditCards|length + 1 }}][{{ accountingPositionId }}][1]"
+                                >
+                                <span class="currency">{{ currency }}</span>
+                            </div>
+                            <div class="add-remove-buttons">
+                                <div
+                                        class="btn-remove-line not-active"
+                                        data-block-number="{{ accountingPositionId }}"
+                                >
+                                    <i class="fas fa-minus-circle"></i>
+                                </div>
+                                <div class="btn-add-line">
+                                    <i class="fas fa-plus-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="credit-cards-terminal-total-count">
+                        <p class="total-count-title">{{ 'report.total'|trans }}</p>
+                        <p class="total-count-value-terminal-section">
+                            <span class="total-count-val">0.00</span>
+                            <span class="total-count-currency">{{ currency }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endif %}

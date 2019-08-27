@@ -1,0 +1,193 @@
+{% if data.bills is defined %}
+    <tr class="cashiers-table-bills">
+        <td class="payment-column">
+            <div class="action-table-item">
+                <p>
+                    <span class="payment-title-arrow">
+                        <i class="fas fa-angle-down{% if data.bills.receivers is not defined %} icon-blue{% endif %}"></i>
+                    </span>
+                    <span>{{ 'report_overview.bills'|trans }}</span>
+                </p>
+            </div>
+        </td>
+
+        {% for report in data.reports %}
+            {% if data.bills.data[report.id].total is defined or data.bills.removedData[report.id] is defined %}
+                <td class="cashier-column shift-1">
+                    <div class="table-bills-cashiers-values action-table-item">
+                        {% if data.bills.receivers is not defined %}
+                            <label>{{ 0 | number_format(2, ".", "'") }} {{ currency }}</label>
+                        {% endif %}
+                        {% if data.bills.data[report.id].total is defined %}
+                            <label>{{ data.bills.data[report.id].total | number_format(2, ".", "'") }} {{ currency }}</label>
+                        {% endif %}
+                        {% if data.bills.removedData[report.id] is defined %}
+                            <div class="tooltip-point">
+                                <span class="point"></span>
+                                <div class="tooltip-point-message">Removed:
+                                    {%- for positionId, removedData in data.bills.removedData[report.id] -%}
+                                        <span>{{ removedData.receiver }}:<span>{{ removedData.amount | number_format(2, ".", "'") }} {{ currency }}</span> ({{ 'report_overview.tip'|trans }}: <span>{{ removedData.tip | number_format(2, ".", "'") }} {{ currency }})</span></span>
+                                    {%- endfor -%}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if data.bills.receivers is not defined %}
+                            <p class="bills-tip bills-tip-zero">({{ 'report_overview.tip'|trans }}:{{ data.bills.totalAllTips | number_format(2, ".", "'") }} {{ currency }})</p>
+                        {% endif %}
+                        {% if data.bills.data[report.id].tipsTotal is defined %}
+                            <p class="bills-tip">({{ 'report_overview.tip'|trans }}:{{ data.bills.data[report.id].tipsTotal | number_format(2, ".", "'") }} {{ currency }})</p>
+                        {% endif %}
+                    </div>
+                </td>
+            {% else %}
+                <td class="cashier-column shift-1">
+                    <div class="table-bills-cashiers-values action-table-item">
+                        <p></p>
+                    </div>
+                </td>
+            {% endif %}
+        {% endfor %}
+        <td class="total-difference-column">
+            <div class="table-bills-total-values action-table-item">
+
+            </div>
+        </td>
+        <td class="total-all-column">
+            <div class="table-bills-total-values action-table-item">
+                <p>{{ data.bills.totalAllBills | number_format(2, ".", "'") }} {{ currency }}</p>
+                <p class="bills-tip">({{ 'report_overview.tip'|trans }}:{{ data.bills.totalAllTips | number_format(2, ".", "'") }} {{ currency }})</p>
+            </div>
+        </td>
+        <td class="approval-column">
+            <div class="main-approval">
+                <div class="{% if approved or data.bills.receivers is not defined %}payment-approve{% else %}payment-approve-check allow{% endif %}">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="{% if data.bills.receivers is not defined %}allow payment-approve-check {% else %} payment-approve{% endif %} not-active">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr class="cashiers-table-bills-collapse">
+        <td colspan="{{ 4 + data.reports|length }}">
+            <div class="table-collapse">
+                <table>
+                    {% if data.bills.receivers is defined %}
+                    {% for receiver in data.bills.receivers %}
+                        <tr>
+                            <td class="payment-column">
+                                <div class="collapse-table-item">
+                                    <label for="bills-item-{{ receiver.reportId }}" >{{ receiver.name }} ({{ receiver.bill_name }})</label>
+                                    {% if receiver.old_name is defined or receiver.old_bill_name is defined %}
+                                        <div class="tooltip-point">
+                                            <span class="point"></span>
+                                            <div class="tooltip-point-message">
+                                                <span>
+                                                    {% if receiver.old_name is defined %}
+                                                        {{ receiver.old_name }}
+                                                    {% else %}
+                                                        {{ receiver.name }}
+                                                    {% endif %}
+                                                    {% if receiver.old_bill_name is defined %}
+                                                        ({{ receiver.old_bill_name }}
+                                                    {% else %}
+                                                        ({{ receiver.bill_name }})
+                                                    {% endif %}
+                                                </span>
+                                                <span><i class="fas fa-arrow-right"></i></span>
+                                                <span class="point-current-value">
+                                                    {{ receiver.name }}
+                                                    ({{ receiver.bill_name }})
+                                                </span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if receiver.new is defined %}
+                                        <div class="tooltip-point">
+                                            <span class="point"></span>
+                                            <div class="tooltip-point-message">
+                                                <span>new</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </td>
+
+                            {% for report in data.reports %}
+                                {% if data.bills.data[report.id].data is defined %}
+                                    {% set billExists = false %}
+                                    {% for key,bill in data.bills.data[report.id].data %}
+                                        {% if bill.receiver == receiver.name and receiver.reportId == report.id  %}
+                                            {% set billExists = bill %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if billExists %}
+                                        <td class="cashier-column shift-1">
+                                            <div class="collapse-table-item table-bills-cashiers-values">
+                                                <p>{{ billExists.amount | number_format(2, ".", "'") }} {{ currency }}</p>
+                                                {% if billExists.old_amount is defined or billExists.old_tip is defined %}
+                                                    <div class="tooltip-point">
+                                                        <span class="point"></span>
+                                                        <div class="tooltip-point-message">
+                                                            <p>
+                                                                <span>
+                                                                    {% if billExists.old_amount is defined %}
+                                                                        {{ billExists.old_amount | number_format(2, ".", "'") }}
+                                                                    {% else %}
+                                                                        {{ billExists.amount | number_format(2, ".", "'") }}
+                                                                    {% endif %}
+                                                                    {{ currency }}
+                                                                </span>
+                                                                {% if billExists.old_tip is defined %}
+                                                                    <span>({{ 'report_overview.tip'|trans }}:{{ billExists.old_tip | number_format(2, ".", "'") }} {{ currency }})</span>
+                                                                {% else %}
+                                                                    <span>({{ 'report_overview.tip'|trans }}:{{ billExists.tip | number_format(2, ".", "'") }} {{ currency }})</span>
+                                                                {% endif %}
+                                                            </p>
+                                                            <span><i class="fas fa-arrow-right"></i></span>
+                                                            <p>
+                                                                <span class="point-current-value">{{ billExists.amount | number_format(2, ".", "'")  }} {{ currency }}</span>
+                                                                <span>({{ 'report_overview.tip'|trans }}:{{ billExists.tip | number_format(2, ".", "'") }} {{ currency }})</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                <p class="bills-tip">({{ 'report_overview.tip'|trans }}:{{ billExists.tip | number_format(2, ".", "'") }} {{ currency }})</p>
+                                            </div>
+                                        </td>
+                                    {% else %}
+                                        <td class="cashier-column shift-2">
+                                            <div class="collapse-table-item table-bills-cashiers-values">
+                                            </div>
+                                        </td>
+                                    {% endif %}
+                                {% else %}
+                                    <td class="cashier-column shift-2">
+                                        <div class="collapse-table-item table-bills-cashiers-values">
+                                        </div>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                            <td class="total-difference-column">
+                                <div class="collapse-table-item table-bills-total-values">
+                                </div>
+                            </td>
+                            <td class="total-all-column">
+                                <div class="collapse-table-item table-bills-total-values">
+                                </div>
+                            </td>
+                            <td class="approval-column">
+                                <div class="collapse-table-item bills-additional-approval">
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </td>
+    </tr>
+{% endif %}

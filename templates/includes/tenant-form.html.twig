@@ -1,0 +1,81 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id' : 'tenant-edit-form'}}) }}
+    <div class="row fas-section tenant-add-edit-personal-data">
+        <div class="col-12 tenant-add-edit-content">
+            <table>
+                <tr>
+                    <td id="title-name">
+                        {{ form_label(form.name) }}
+                    </td>
+                    <td class="form-row">
+                        {{ form_widget(form.name, {'id' : 'form-name', 'attr': {'class': 'fas-input tenant-input'}}) }}
+                    </td>
+                    <td class="error-message" >
+                        <span>{{ get_unique_errors(form_errors(form.name)) }}</span>
+                        <span id="error-name-message-required" class="not-active">{{ 'tenant_name.required'|trans }}</span>
+                        <span id="error-name-message-must-contain" class="not-active">{{ 'tenant.users_edit_first_name_min_length'|trans }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="title-street">
+                        {{ form_label(form.address.street) }}
+                    </td>
+                    <td class="form-row">
+                        {{ form_widget(form.address.street, {'id' : 'form-street', 'attr': {'class': 'fas-input tenant-input'}}) }}
+                    </td>
+                    <td class="error-message" >
+                        <span>{{ get_unique_errors(form_errors(form.address.street)) }}</span>
+                        <span id="error-street-message-required" class="not-active">{{ 'street.required'|trans }}</span>
+                        <span id="error-street-message-must-contain" class="not-active">{{ 'street.min_length'|trans }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="title-zip">
+                        {{ form_label(form.address.zip) }}
+                    </td>
+                    <td class="form-row">
+                        {{ form_widget(form.address.zip, {'id' : 'form-zip', 'attr': {'class': 'fas-input tenant-input'}}) }}
+                    </td>
+                    <td class="error-message" >
+                        <span>{{ get_unique_errors(form_errors(form.address.zip)) }}</span>
+                        <span id="error-zip-message-required" class="not-active">{{ 'zip.required'|trans }}</span>
+                        <span id="error-zip-message-must-contain" class="not-active">{{ 'zip.min_length'|trans }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="title-city">
+                        {{ form_label(form.address.city) }}
+                    </td>
+                    <td class="form-row">
+                        {{ form_widget(form.address.city, {'id' : 'form-city', 'attr': {'class': 'fas-input tenant-input'}}) }}
+                    </td>
+                    <td class="error-message" >
+                        <span>{{ get_unique_errors(form_errors(form.address.city)) }}</span>
+                        <span id="error-city-message-required" class="not-active">{{ 'city.required'|trans }}</span>
+                        <span id="error-city-message-must-contain" class="not-active">{{ 'city.min_length'|trans }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="title-country">
+                        {{ form_label(form.address.country) }}
+                    </td>
+                    <td class="form-row">
+                        {{ form_widget(form.address.country, {'id' : 'country-select', 'attr': {'class': 'fas-select tenant-select'}}) }}
+                    </td>
+                    <td class="error-message" >
+                        <span>{{ get_unique_errors(form_errors(form.address.country)) }}</span>
+                        <span id="error-country-message" class="not-active">{{ 'country.required'|trans }}</span>
+                    </td>
+                </tr>
+                {% if addTenantManager is defined %}
+                    {% include 'includes/tenant-managers-add.html.twig' %}
+                {% else %}
+                    {% include 'includes/tenant-managers-edit.html.twig' %}
+                {% endif %}
+            </table>
+        </div>
+    </div>
+    <div class="row tenant-add-edit-buttons save-cancel-buttons">
+        {{ form_widget(form.save) }}
+        <button onclick=location.href='{{ path("admin_tenants") }}' type="button" class="btn-cancel">{{ 'cancel_button.title'|trans }}</button>
+    </div>
+{{ form_end(form) }}

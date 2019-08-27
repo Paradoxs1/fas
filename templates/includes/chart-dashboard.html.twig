@@ -1,0 +1,73 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+    {% set facilityLayouts = facility.facilityLayouts.last %}
+
+    $(document).ready(function() {
+        var ctx = document.getElementById('chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+            responsive: true,
+
+            // The data for our dataset
+            data: {
+                labels: [
+                    {%- for date in chartData -%}
+                        {%- set day = date.date|split(',') -%}
+                        [{%- for item in day -%}
+                            {%- if loop.index == 1 -%}
+                                {%- set nameDay = 'dashboard.' ~ item -%}'{{ nameDay | lower | trans }}',
+                            {%- else -%}
+                                '{{ item }}'
+                            {%- endif -%}
+                        {%- endfor -%}],
+                    {%- endfor -%}
+                ],
+                datasets: [{
+                    data: [
+                    {%- for data in chartData -%}
+                        {{ data.total | number_format(2, '.', '') }},
+                    {%- endfor -%}
+                    ],
+                    fill: false,
+                    backgroundColor: '#404F5D',
+                    borderColor: '#404F5D',
+                }]
+            },
+
+            // Configuration options go here
+            options: {
+                legend: {
+                    display: false,
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var total = parseFloat(tooltipItem.value).toFixed(2);
+                            return total + ' {% if facilityLayouts and facilityLayouts.currency %}{{ facilityLayouts.currency.administrativeName }}{% else %} CHF{% endif %}';
+                        }
+                    }
+                },
+                scaleLabel: {
+                    display: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true,
+                },
+                title: {
+                    display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>

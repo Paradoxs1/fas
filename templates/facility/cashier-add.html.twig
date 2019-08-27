@@ -1,0 +1,109 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'facility.users_add_title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/add-edit-entity.css">
+{% endblock %}
+
+{% block body %}
+
+    <div class="site-content">
+
+        {% block header %}
+            {% set current_tenant = facilities[0].tenant %}
+            {% set current_facility = facilities[0] %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {% set current_tenant = facilities[0].tenant %}
+            {% set current_facility = facilities[0] %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="user-add-edit">
+            <div class="container">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id' : 'user-edit-form'}}) }}
+                <div class="row fas-header">
+                    <div class="col-10 fas-title">
+                        <h1>
+                            {{ 'facility.users_add_title'|trans }}
+                        </h1>
+                    </div>
+                    <div class="col-2 fas-required-message">
+                        <p><span class="red-color">*</span> {{ 'facility.users_edit_required_fields'|trans }}</p>
+                    </div>
+                </div>
+
+                {% include 'includes/person-form.html.twig' with {'form' : form } %}
+                {% include 'includes/username-password-form.html.twig' with {'form' : form } %}
+
+                <div class="row fas-section user-add-edit-association">
+                    <div class="col-12 fas-section-title">
+                    <h2>{{ 'tenant.users_edit_facility_assignment'|trans }}</h2>
+                    </div>
+                    {% set roleData = get_roles_data('facility') %}
+                    <table class="facility-assignment" data-count="{% if accountFacilities|length %}{{ accountFacilities|length }}{% else %}1{% endif %}">
+                        <tr>
+                            <th></th>
+                            {% for role in roleData %}
+                                <th><p>{{ role.title }}</p></th>
+                            {% endfor %}
+                            <th></th>
+                        </tr>
+                        <tr class="basic-facility-line">
+                            <td>
+                                <select class="fas-select tenant-select" name="fas_facility_account[accountFacilityRoles][0][facility]">
+                                    {% for facility in facilities %}
+                                        <option {% if accountFacilities[0]['facility'] is defined and accountFacilities[0]['facility'] == facility.id %}selected{% endif %} value="{{ facility.id }}">{{ facility.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+
+                            {% for role in roleData %}
+                                <td class="facility-assignment-checkbox">
+                                    {% if role.displayType == 'checkbox' %}
+                                        <input class="facility-role" id="facility-row-1-item-{{ loop.index }}" type="checkbox" name="fas_facility_account[accountFacilityRoles][0][role][]" value="{{ role.id }}"
+                                                {% if accountFacilities[0]['role'] is defined and role.id in accountFacilities[0]['role'] %} checked {% elseif accountFacilities[0] is not defined and loop.index == 1 %} checked {% endif %}
+                                        >
+                                        <label for="facility-row-1-item-{{ loop.index }}">
+                                            <i class="far fa-square"></i>
+                                            <i class="far fa-check-square"></i>
+                                        </label>
+                                    {% else %}
+                                        <input class="facility-role" id="facility-row-1-item-{{ loop.index }}" type="radio" name="fas_facility_account[accountFacilityRoles][0][role][]" value="{{ role.id }}"
+                                                {% if accountFacilities[0]['role'] is defined and role.id in accountFacilities[0]['role'] %} checked {% elseif accountFacilities[0] is not defined and loop.index == 1 %} checked {% endif %}
+                                        >
+                                        <label for="facility-row-1-item-{{ loop.index }}">
+                                            <i class="far fa-circle"></i>
+                                            <i class="far fa-check-circle"></i>
+                                        </label>
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="row user-add-edit-buttons save-cancel-buttons">
+                    {{ form_widget(form.save, {'id' : 'btn-submit'}) }}
+                    <button onclick=location.href="{{ path('facility_accounts', {'id': facilities[0].id}) }}" type="button" class="btn-cancel">{{ 'tenant.users_edit_cancel'|trans }}</button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/validation/user-edit.js"></script>
+    <script src="/js/facility-assignment.js"></script>
+{% endblock %}

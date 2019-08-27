@@ -1,0 +1,183 @@
+{% set dataMaxConfigPosition = 1 %}
+
+<div class="default-configuration" data-config-position="{{dataMaxConfigPosition}}" hidden>
+    {%- for accountingPosition in routine.AccountingPositions -%}
+
+        {%- if ((accountingPosition.key == 'salesCategory') or (accountingPosition.key == 'questions')) -%}
+
+            <div class="col-12 {% if accountingPosition.key == 'salesCategory' %}default-sales-category{% endif %} {% if accountingPosition.key == 'questions' %}default-questions-content{% endif %}">
+                <table class="{% if accountingPosition.key == 'salesCategory' %}sales-category-table{% endif %} {% if accountingPosition.key == 'questions' %}questions-table{% endif %}">
+                    <thead>
+                        <th></th>
+                        <th>
+                            <div class="default-payment-method-title">
+                                {%- for parameter in accountingPosition.flexParameter -%}
+                                    {%- if parameter.view == 'backoffice' -%}
+                                        <p>{{parameter.key | trans }}</p>
+                                    {%- endif -%}
+                                {%- endfor -%}
+                            </div>
+                        </th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="draggable-icon"></div></td>
+                            <td>
+                                <div class="default-payment-method-content">
+                                    {%- for parameter in accountingPosition.flexParameter -%}
+                                        {%- if (parameter.view == 'backoffice') and (parameter.type != 'checkbox') -%}
+                                            <div class="payment-method-item {{accountingPosition.key}}">
+                                                <input
+                                                        type="text"
+                                                        id="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]"
+                                                        name="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]"
+                                                        class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                        data-method="{{-  accountingPosition.key -}}"
+                                                        data-type="{{-  parameter.key -}}"
+                                                        data-position="{{dataMaxConfigPosition}}"
+                                                >
+                                            </div>
+                                        {%- endif -%}
+
+                                        {%- if (parameter.view == 'backoffice') and (parameter.type == 'checkbox') -%}
+                                            <div class="payment-method-item">
+                                                <div class="fas-checkbox">
+                                                    <input
+                                                            type="checkbox"
+                                                            id="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]"
+                                                            name="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]"
+                                                            class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                            data-method="{{-  accountingPosition.key -}}"
+                                                            data-type="{{-  parameter.key -}}"
+                                                    >
+                                                    <label for="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]">
+                                                        <i class="far fa-square"></i>
+                                                        <i class="far fa-check-square"></i>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                    {%- endfor -%}
+                                </div>
+                            </td>
+                        <td>
+                            <div class="btn-remove-line">
+                                <i class="fas fa-minus-circle"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        {%- else -%}
+
+            <div id="{{accountingPosition.key}}">
+                <div class="default-payment-method">
+                    <div class="payment-method-header">
+                        <div class="payment-method-dropdown-arrow">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+                        <div class="payment-method-draggable-icon">
+                            <div class="draggable-icon"></div>
+                        </div>
+                        <div class="payment-method-title">
+                            <p>{{ accountingPosition.key |trans }}</p>
+                        </div>
+                        <div class="payment-method-remove-line" id="remove-{{accountingPosition.key}}">
+                            <div class="btn-remove-line">
+                                <i class="fas fa-minus-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-method-content">
+                        <table class="payment-method-table {{accountingPosition.key}}-table default-payment-method-row" data-method="{{accountingPosition.key}}">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <div class="default-payment-method-title">
+                                        {%- for parameter in accountingPosition.flexParameter -%}
+                                            {%- if parameter.view == 'backoffice' -%}
+                                                <p>{{parameter.key | trans }}</p>
+                                            {%- endif -%}
+                                        {%- endfor -%}
+                                    </div>
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="ui-sortable-handle">
+                                <td>
+                                    <div class="draggable-icon"></div>
+                                </td>
+                                <td>
+                                    <div class="default-payment-method-content">
+                                        {%- for parameter in accountingPosition.flexParameter -%}
+                                            {%- if (parameter.view == 'backoffice') and (parameter.type != 'checkbox') -%}
+                                                <div class="payment-method-item">
+                                                    <input
+                                                            type="text"
+                                                            id="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]"
+                                                            name="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]"
+                                                            class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                            data-method="{{-  accountingPosition.key -}}"
+                                                            data-type="{{-  parameter.key -}}"
+                                                            data-position="{{dataMaxConfigPosition}}"
+                                                    >
+                                                </div>
+                                            {%- endif -%}
+
+                                            {%- if (parameter.view == 'backoffice') and (parameter.type == 'checkbox') -%}
+                                                <div class="payment-method-item">
+                                                    <div class="fas-checkbox">
+                                                        <input
+                                                                type="checkbox"
+                                                                id="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]"
+                                                                name="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]"
+                                                                class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                data-method="{{-  accountingPosition.key -}}"
+                                                                data-type="{{-  parameter.key -}}"
+                                                        >
+                                                        <label for="{{accountingPosition.key}}[{{dataMaxConfigPosition}}][{{parameter.key}}]">
+                                                            <i class="far fa-square"></i>
+                                                            <i class="far fa-check-square"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        {%- endfor -%}
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    <div class="btn-remove-line">
+                                        <i class="fas fa-minus-circle"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        {%- if (accountingPosition.key == 'creditCard') or (accountingPosition.key == 'tip') or (accountingPosition.key == 'bill') -%}
+                            <div class="btn-add-line">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>{{ 'new'|trans }} {{accountingPosition.key | trans}}</span>
+                            </div>
+                        {%- endif -%}
+
+                    </div>
+                </div>
+            </div>
+
+        {%- endif -%}
+
+    {%- endfor -%}
+</div>
+
+

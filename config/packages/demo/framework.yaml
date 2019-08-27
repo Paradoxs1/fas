@@ -1,0 +1,5 @@
+framework:
+  cache:
+    default_memcached_provider: 'memcached://memcached:11211'
+    app: cache.adapter.memcached
+    system: cache.adapter.system

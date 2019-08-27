@@ -1,0 +1,615 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'accounting_interface.configuration.label'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/tenant-users-facility-configuration.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+        {% set routine = {
+            "AccountingPositions": [{
+                "key": "salesCategory",
+                "flexParameter": [{
+                    "key": "name",
+                    "type": "text",
+                    "value": "input.name",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "value",
+                        "type": "currency",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    }
+                ]
+            },
+                {
+                    "key": "creditCard",
+                    "flexParameter": [{
+                    "key": "name",
+                    "type": "text",
+                    "value": "input.name",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "value",
+                        "type": "currency",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    }
+                ]
+                },
+                {
+                    "key": "acceptedVoucher",
+                    "flexParameter": [{
+                    "key": "name",
+                    "type": "label",
+                    "value": "Accepted Voucher",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "number",
+                        "type": "text",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    },
+                    {
+                        "key": "amount",
+                        "type": "currency",
+                        "view": "frontoffice",
+                        "sequence": 2
+                    }
+                ]
+                },
+                {
+                    "key": "issuedVoucher",
+                    "flexParameter": [{
+                    "key": "name",
+                    "type": "label",
+                    "value": "Issued Voucher",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "addToTotalSalesAmount",
+                        "type": "checkbox",
+                        "value": "input.checkbox",
+                        "view": "backoffice",
+                        "sequence": 2
+                    },
+                    {
+                        "key": "number",
+                        "type": "text",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    },
+                    {
+                        "key": "amount",
+                        "type": "currency",
+                        "view": "frontoffice",
+                        "sequence": 2
+                    }
+                ]
+                },
+                {
+                    "key": "tip",
+                    "flexParameter": [{
+                    "key": "name",
+                    "type": "text",
+                    "value": "input.name",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "tipInPercentage",
+                        "type": "percentage",
+                        "value": "input.tipInPercentage",
+                        "view": "backoffice",
+                        "sequence": 2
+                    },
+                    {
+                        "key": "value",
+                        "type": "currency",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    }
+                ]
+                },
+                {
+                    "key": "bill",
+                    "flexParameter": [{
+                    "key": "name",
+                    "type": "text",
+                    "value": "input.name",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "receiver",
+                        "type": "text",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    },
+                    {
+                        "key": "amount",
+                        "type": "currency",
+                        "view": "frontoffice",
+                        "sequence": 2
+                    },
+                    {
+                        "key": "tip",
+                        "type": "currency",
+                        "view": "frontoffice",
+                        "sequence": 3
+                    },
+                    {
+                        "key": "billSelection",
+                        "type": "select",
+                        "defaultValue": "Default Bill",
+                        "view": "frontoffice",
+                        "sequence": 4
+                    }
+                ]
+                },
+                {
+                    "key": "expenses",
+                    "flexParameter": [{
+                    "key": "name",
+                    "type": "text",
+                    "value": "input.name",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "catalogNumber",
+                        "type": "text",
+                        "value": "Expenses",
+                        "view": "frontoffice",
+                        "sequence": 2
+                    },
+                    {
+                        "key": "name",
+                        "type": "text",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    },
+                    {
+                        "key": "amount",
+                        "type": "currency",
+                        "view": "frontoffice",
+                        "sequence": 2
+                    }
+                ]
+                },
+                {
+                    "key": "cigarettes",
+                    "flexParameter": [{
+                    "key": "name",
+                    "type": "text",
+                    "value": "input.name",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "amount",
+                        "type": "currency",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    }
+                ]
+                },
+                {
+                    "key": "cash",
+                    "flexParameter": [{
+                    "key": "name",
+                    "type": "label",
+                    "value": "Cash",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "cashier",
+                        "type": "dropdown",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    },
+                    {
+                        "key": "amount",
+                        "type": "label",
+                        "view": "frontoffice",
+                        "sequence": 2
+                    }
+                ]
+                },
+                {
+                    "key": "questions",
+                    "flexParameter": [{
+                    "key": "questionName",
+                    "type": "text",
+                    "value": "input.questionName",
+                    "view": "backoffice",
+                    "sequence": 1
+                },
+                    {
+                        "key": "answer",
+                        "type": "text",
+                        "view": "frontoffice",
+                        "sequence": 1
+                    }
+                ]
+                }
+            ]
+        } %}
+
+        {% block header %}
+            {% set current_tenant = tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {% set current_tenant = tenant %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="facility-configuration">
+            <div class="container">
+
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id' : 'facility-configuration-form'}}) }}
+
+                <div class="row fas-header">
+                    <div class="fas-title">
+                        <h1>{{ 'accounting_interface.configuration.label'|trans }}</h1>
+                    </div>
+                </div>
+                <div class="row fas-section facility-configuration-general">
+                    <div class="col-12 facility-configuration-title">
+                        <h2>{{ 'general.title'|trans }}</h2>
+                    </div>
+                    <div class="col-12 enable-shifts">
+                        <div class="fas-checkbox facility-configuration-checkbox shifts-switch">
+                            {{ form_widget(form.enableShiftsCheckbox, {'id':'enable-shifts-checkbox'}) }}
+
+                            <label for="enable-shifts-checkbox">
+                                <i class="far fa-square"></i>
+                                <i class="far fa-check-square"></i>
+                            </label>
+                            <label for="enable-shifts-checkbox">
+                                <span class="checkbox-title">{{ 'facility_layout.enable_shifts'|trans }}</span>
+                            </label>
+                        </div>
+                        <div class="enable-shifts-content shifts-switch-block collapsed">
+                            {{ form_label(form.shifts, null, {'label_attr' : {'class' : 'facility-configuration-section-title'}}) }}
+                            {{ form_widget(form.shifts, { 'attr': {'class': 'fas-select facility-configuration-select'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row fas-section facility-configuration-sales-category">
+                    <div class="col-12 sales-category-header">
+                        <div class="facility-configuration-title">
+                            <h2>{{ 'sales_category.title'|trans }}</h2>
+                        </div>
+                        <div class="btn-add-line">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>{{ 'new_category.title'|trans }}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 sales-category-content">
+                        {% set salesCategory = constant('App\\Service\\Facility\\Handler\\SalesCategoryHandler::CATEGORY_NAME') %}
+                        {% if data[salesCategory] is defined %}
+                            <table class="sales-category-table">
+                                <thead>
+                                <th></th>
+                                <th>
+                                    <div class="default-payment-method-title">
+                                        {%- for parameter in data[salesCategory]|first -%}
+                                            <p>{{parameter.key | normalCase}}</p>
+                                        {%- endfor -%}
+                                    </div>
+                                </th>
+                                <th></th>
+                                </thead>
+                                <tbody>
+                                {% for accountingPositionId, position in data[salesCategory] %}
+                                    <tr class="ui-sortable-handle">
+                                        <td>
+                                            <div class="draggable-icon"></div>
+                                        </td>
+                                        <td>
+                                            <div class="default-payment-method-content">
+                                                {%- for parameter in position -%}
+                                                    {%- if parameter.type != 'checkbox' -%}
+                                                        <div class="payment-method-item">
+                                                            <input
+                                                                    type="text"
+                                                                    id="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                    name="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                    value="{{ parameter.value }}"
+                                                                    class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                    data-method="{{ salesCategory }}"
+                                                                    data-type="{{-  parameter.key -}}"
+                                                                    data-position="{{accountingPositionId}}"
+                                                            >
+                                                        </div>
+                                                    {%- endif -%}
+
+                                                    {%- if parameter.type == 'checkbox' -%}
+                                                        <div class="payment-method-item">
+                                                            <div class="fas-checkbox">
+                                                                <input
+                                                                        type="checkbox"
+                                                                        id="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                        name="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                        class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                        data-method="{{- salesCategory -}}"
+                                                                        data-type="{{-  parameter.key -}}"
+                                                                        {% if parameter.value is defined %} checked {% endif %}
+                                                                >
+                                                                <label for="{{salesCategory}}[{{accountingPositionId}}][{{parameter.key}}]">
+                                                                    <i class="far fa-square"></i>
+                                                                    <i class="far fa-check-square"></i>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {%- endfor -%}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-remove-line">
+                                                <i class="fas fa-minus-circle"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row fas-section facility-configuration-payment-methods">
+                    <div class="col-12 payment-methods-header">
+                        <div class="facility-configuration-title">
+                            <h2>{{ 'payment_methods.title'|trans }}</h2>
+                        </div>
+                        <div class="payment-methods-link">
+                            <div class="btn-add-line"
+                                 data-translate-credit-cards="{{ 'category.credit_cards' | trans  }}"
+                                 data-translate-accepted-voucher="{{ 'category.accepted_voucher' | trans  }}"
+                                 data-translate-issued-voucher="{{ 'category.issued_voucher' | trans  }}"
+                                 data-translate-bills="{{ 'category.bills' | trans  }}"
+                                 data-translate-expenses="{{ 'category.expenses' | trans  }}"
+                                 data-translate-tip="{{ 'category.tip' | trans  }}"
+                                 data-translate-cash="{{ 'category.cash' | trans  }}"
+                                 data-translate-cigarettes="{{ 'category.cigarettes' | trans  }}"
+                            >
+                                <i class="fas fa-plus-circle"></i>
+                                <span>{{ 'payment_methods.new_method'|trans }}</span>
+                            </div>
+                            <div class="payment-methods-submenu not-active">
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 payment-methods-content">
+                        <div class="payment-methods-lines">
+                            {% for categoryName, categoryData in data %}
+                                {% if categoryName != constant('App\\Service\\Facility\\Handler\\SalesCategoryHandler::CATEGORY_NAME') and categoryName != constant('App\\Service\\Facility\\Handler\\QuestionsHandler::CATEGORY_NAME') %}
+                                    <div id="{{ categoryName }}">
+                                        <div class="default-payment-method">
+                                            <div class="payment-method-header">
+                                                <div class="payment-method-dropdown-arrow">
+                                                    <i class="fas fa-angle-down"></i>
+                                                </div>
+                                                <div class="payment-method-draggable-icon">
+                                                    <div class="draggable-icon"></div>
+                                                </div>
+                                                <div class="payment-method-title">
+                                                    <p>{{categoryName | normalCase}}</p>
+                                                </div>
+                                                <div class="payment-method-remove-line" id="remove-{{categoryName}}">
+                                                    <div class="btn-remove-line">
+                                                        <i class="fas fa-minus-circle"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="payment-method-content">
+                                                <table class="payment-method-table {{categoryName}}-table default-payment-method-row" data-method="{{categoryName}}">
+                                                    <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>
+                                                            <div class="default-payment-method-title">
+                                                                {%- for parameter in data[categoryName]|first -%}
+                                                                    <p>{{parameter.key | normalCase}}</p>
+                                                                {%- endfor -%}
+                                                            </div>
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for accountingPositionId, position in data[categoryName] %}
+                                                        <tr class="ui-sortable-handle">
+                                                            <td>
+                                                                <div class="draggable-icon"></div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="default-payment-method-content">
+                                                                    {%- for parameter in position -%}
+                                                                        {%- if parameter.type != 'checkbox' -%}
+                                                                            <div class="payment-method-item">
+                                                                                <input
+                                                                                        type="text"
+                                                                                        id="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                                        name="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                                        value="{{ parameter.value }}"
+                                                                                        class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                                        data-method="{{ categoryName }}"
+                                                                                        data-type="{{-  parameter.key -}}"
+                                                                                        data-position="{{accountingPositionId}}"
+                                                                                >
+                                                                            </div>
+                                                                        {%- endif -%}
+
+                                                                        {%- if parameter.type == 'checkbox' -%}
+                                                                            <div class="payment-method-item">
+                                                                                <div class="fas-checkbox">
+                                                                                    <input
+                                                                                            type="checkbox"
+                                                                                            id="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                                            name="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                                            class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                                            data-method="{{- categoryName -}}"
+                                                                                            data-type="{{-  parameter.key -}}"
+                                                                                            {% if parameter.value is defined and parameter.value != '' %} checked {% endif %}
+                                                                                    >
+                                                                                    <label for="{{categoryName}}[{{accountingPositionId}}][{{parameter.key}}]">
+                                                                                        <i class="far fa-square"></i>
+                                                                                        <i class="far fa-check-square"></i>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endif %}
+                                                                    {%- endfor -%}
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-remove-line">
+                                                                    <i class="fas fa-minus-circle"></i>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+
+                                                {%- if (categoryName == 'creditCard') or (categoryName == 'tip') or (categoryName == 'bill') -%}
+                                                    <div class="btn-add-line">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                        <span>New {{categoryName | normalCase}}</span>
+                                                    </div>
+                                                {%- endif -%}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row fas-section facility-configuration-questions">
+                    <div class="col-12 questions-header">
+                        <div class="facility-configuration-title">
+                            <h2>{{ 'questions.title'|trans }}</h2>
+                        </div>
+                        <div class="btn-add-line">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>{{ 'questions.new_question'|trans }}</span>
+                        </div>
+                    </div>
+                    <div class="col-12 questions-content">
+                        {% set questionCategory = constant('App\\Service\\Facility\\Handler\\QuestionsHandler::CATEGORY_NAME') %}
+                        {% if data[questionCategory] is defined %}
+                            <table class="questions-table">
+                                    <thead>
+                                    <th></th>
+                                    <th>
+                                        <div class="default-payment-method-title">
+                                            {%- for parameter in data[questionCategory]|first -%}
+                                                <p>{{parameter.key | normalCase}}</p>
+                                            {%- endfor -%}
+                                        </div>
+                                    </th>
+                                    <th></th>
+                                    </thead>
+                                    <tbody>
+                                    {% for accountingPositionId, position in data[questionCategory] %}
+                                        <tr class="ui-sortable-handle">
+                                            <td>
+                                                <div class="draggable-icon"></div>
+                                            </td>
+                                            <td>
+                                                <div class="default-payment-method-content">
+                                                    {%- for parameter in position -%}
+                                                        {%- if parameter.type != 'checkbox' -%}
+                                                            <div class="payment-method-item questions">
+                                                                <input
+                                                                        type="text"
+                                                                        id="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                        name="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                        value="{{ parameter.value }}"
+                                                                        class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                        data-method="{{ questionCategory }}"
+                                                                        data-type="{{-  parameter.key -}}"
+                                                                        data-position="{{accountingPositionId}}"
+                                                                >
+                                                            </div>
+                                                        {%- endif -%}
+
+                                                        {%- if parameter.type == 'checkbox' -%}
+                                                            <div class="payment-method-item">
+                                                                <div class="fas-checkbox">
+                                                                    <input
+                                                                            type="checkbox"
+                                                                            id="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                            name="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]"
+                                                                            class="fas-input facility-configuration-input flex-param {{parameter.type}}"
+                                                                            data-method="{{- questionCategory -}}"
+                                                                            data-type="{{-  parameter.key -}}"
+                                                                            {% if parameter.value is defined %} checked {% endif %}
+                                                                    >
+                                                                    <label for="{{questionCategory}}[{{accountingPositionId}}][{{parameter.key}}]">
+                                                                        <i class="far fa-square"></i>
+                                                                        <i class="far fa-check-square"></i>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    {%- endfor -%}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="btn-remove-line">
+                                                    <i class="fas fa-minus-circle"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row facility-configuration-buttons save-cancel-buttons">
+                    {{ form_widget(form.save) }}
+                </div>
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+    {%  include 'facility/includes/configuration/default-payment-methods.html.twig' %}
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script>
+        var global_shift = '{{ facilityLayout.shifts }}';
+    </script>
+    <script src="/js/jquery-ui-draggable.min.js"></script>
+    <script src="/js/facility-configuration.js"></script>
+    <script src="/js/jquery.formatCurrency.min.js"></script>
+{% endblock %}

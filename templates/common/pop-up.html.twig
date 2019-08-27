@@ -1,0 +1,48 @@
+<div class="overlay not-active">
+    <div class="popup">
+        <div class="popup-header">
+            <h2>
+                {% if title is defined %}
+                    {{ title }}
+                {% endif %}
+            </h2>
+        </div>
+        <div class="popup-text">
+            <p>
+                {% if message is defined %}
+                    {{ message }}
+                {% else %}
+                    {#TODO: pass this value from templates where needed, after that remove the condition !!!#}
+                    {{ 'popup.default_content'|trans }}
+                {% endif %}
+            </p>
+        </div>
+        <div class="popup-buttons save-cancel-buttons">
+            <button class="btn-submit {% if form_data is defined %}form-data{% endif %}">
+                <span class="btn-text">
+                    {% if button_continue is defined %}
+                        {{ button_continue }}
+                    {% elseif reopen is defined %}
+                        {{ 'reopen_button.title'|trans }}
+                    {% else %}
+                        {#TODO: pass this value from templates where needed, after that remove the condition !!!#}
+                        {{ 'delete_button.title'|trans }}
+                    {% endif %}
+                </span>
+                <div class="btn-preloader not-active">
+                    <div class="lds-spin">
+                        <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+                    </div>
+                </div>
+            </button>
+            <button class="btn-cancel">
+                {% if button_cancel is defined %}
+                    {{ button_cancel }}
+                {% else %}
+                    {#TODO: pass this value from templates where needed, after that remove the condition !!!#}
+                    {{ 'cancel_button.title'|trans }}
+                {% endif %}
+            </button>
+        </div>
+    </div>
+</div>

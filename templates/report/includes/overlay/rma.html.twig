@@ -1,0 +1,208 @@
+<div class="approve-sales not-active">
+    <div class="overlay">
+        <div class="approve-sales-popup">
+            <div class="approve-sales-popup-header">
+                <h4>{{ 'report.approve.sales'|trans }}</h4>
+                <div class="close-icon"></div>
+            </div>
+            <div class="approve-sales-popup-content">
+                <div class="approve-sales-message">
+                    <p>{{ 'report.you.are.going.approve.sales'|trans({ '%facilityName%': facility.name, '%date%': checkDate|date('Y-m-d') })|raw }}</p>
+                </div>
+
+                {% if overlayData['sales'] is defined or overlayData['bills'] is defined %}
+                    <div class="approve-sales-table">
+                        <h5>{{ 'report.sales'|trans }}</h5>
+                        <table>
+                            <tbody>
+                            {% if overlayData['sales'] is defined %}
+                                {% for saleName, row in overlayData['sales'] %}
+                                    <tr>
+                                        <td>{{ row['accountNo'] }}</td>
+                                        <td>{{ saleName }}</td>
+                                        <td>{{ row['amount'] | number_format(2, ".", "'") }}
+                                            <span class="approve-sales-table-beverages-val"></span>
+                                            <span>{{ currency }}</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            {% if overlayData['bills'] is defined %}
+                                {% for id, row in overlayData['bills'] %}
+                                    <tr>
+                                        <td>{{ row['accountNo'] }}</td>
+                                        <td>Bill '{{ row['receiver'] }}'</td>
+                                        <td>-{{ row['amount'] | number_format(2, ".", "'") }}
+                                            <span class="approve-sales-table-beverages-val"></span>
+                                            <span>{{ currency }}</span>
+                                        </td>
+                                    </tr>
+                                    {% if row['tip'] is defined %}
+                                        <tr>
+                                            <td>{{ row['tipAccountNo'] }}</td>
+                                            <td>Bill Tip '{{ row['receiver'] }}'</td>
+                                            <td>
+                                                -{{ row['tip'] | number_format(2, ".", "'") }}
+                                                <span class="approve-sales-table-beverages-val"></span>
+                                                <span>{{ currency }}</span>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if overlayData['addTotal'] is defined and overlayData['addTotal'] == true %}
+                                {% if overlayData['issued_vouchers'] is defined %}
+                                    {% for row in overlayData['issued_vouchers'] %}
+                                        <tr>
+                                            <td>{{ row['accountNo'] }}</td>
+                                            <td>Voucher No. {{ row['number'] }}</td>
+                                            <td>{{ row['amount'] | number_format(2, ".", "'") }}
+                                                <span class="approve-sales-table-beverages-val"></span>
+                                                <span>{{ currency }}</span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                            </tbody>
+                            <tbody class="approve-sales-table-bills"></tbody>
+                        </table>
+                    </div>
+                {% endif %}
+
+                {% if overlayData['addTotal'] is defined and overlayData['addTotal'] == false %}
+                    <div class="approve-sales-issued-vouchers-table">
+                        <h5>{{ 'report.issued.vouchers'|trans }}</h5>
+                        <table>
+                            <tbody>
+                            {% if overlayData['issued_vouchers'] is defined %}
+                                {% for row in overlayData['issued_vouchers'] %}
+                                    <tr>
+                                        <td>{{ row['accountNo'] }}</td>
+                                        <td>Voucher No. {{ row['number'] }}</td>
+                                        <td>{{ row['amount'] | number_format(2, ".", "'") }}
+                                            <span class="approve-sales-table-beverages-val"></span>
+                                            <span>{{ currency }}</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                            <tbody class="approve-sales-table-bills"></tbody>
+                        </table>
+                    </div>
+                {% endif %}
+
+                {% if overlayData['credit_cards'] is defined or overlayData['accepted_vouchers'] is defined or overlayData['expenses'] is defined or overlayData['cash'] is defined %}
+                    <div class="approve-sales-payments-table">
+                        <h5>{{ 'report.payments'|trans }}</h5>
+                        <table>
+                            <tbody>
+                            {% if overlayData['cash'] is defined %}
+                                <tr>
+                                    <td>{{ overlayData['cash']['accountNo'] }}</td>
+                                    <td>{{ overlayData['cash']['name'] }}</td>
+                                    <td>{{ overlayData['cash']['sum'] | number_format(2, ".", "'") }}
+                                        <span class="approve-sales-table-mastercard-val"></span>
+                                        <span>{{ currency }}</span>
+                                    </td>
+                                </tr>
+                            {% endif %}
+
+                            {% if overlayData['credit_cards'] is defined %}
+                                {% for cardName, row in overlayData['credit_cards'] %}
+                                    <tr>
+                                        <td>{{ row['accountNo'] }}</td>
+                                        <td>{{ cardName }}</td>
+                                        <td>{{ row['sum'] | number_format(2, ".", "'") }}
+                                            <span class="approve-sales-table-mastercard-val"></span>
+                                            <span>{{ currency }}</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if overlayData['accepted_vouchers'] is defined %}
+                                {% for row in overlayData['accepted_vouchers'] %}
+                                    <tr>
+                                        <td>{{ row['accountNo'] }}</td>
+                                        <td>Voucher No. {{ row['number'] }}</td>
+                                        <td>{{ row['amount'] | number_format(2, ".", "'") }}
+                                            <span class="approve-sales-table-beverages-val"></span>
+                                            <span>{{ currency }}</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if overlayData['expenses'] is defined %}
+                                {% for positionId, row in overlayData['expenses'] %}
+                                    <tr>
+                                        <td>{{ row['accountNo'] }}</td>
+                                        <td data-position-id="{{ positionId }}" class="approve-sales-expenses">Expense No. </td>
+                                        <td>{{ row['amount'] | number_format(2, ".", "'") }}
+                                            <span class="approve-sales-table-beverages-val"></span>
+                                            <span>{{ currency }}</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+
+                            </tbody>
+
+                            <tbody>
+                            <tr>
+                                <td>{{ params.custom.debitor_account_no }}</td>
+                                <td>{{ 'report.missing.income'|trans }}</td>
+                                <td>
+                                    <div class="currency-input-wrapper">
+                                        <input name="missing_income" id="approve-sales-payments-missing-income" type="text" class="fas-input report-input currency-input">
+                                        <span class="currency">{{ currency }}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <input name="debitor" id="approve-sales-popup-text-input" type="text" class="fas-input report-input">
+                    </div>
+                {% endif %}
+
+            </div>
+            <div class="approve-sales-popup-footer">
+                    <div class="popup-footer-left-content">
+                        <div class="approve-sales-popup-btn">
+                            <button type="submit" class="button-submit not-allow" disabled>{{ 'report.book'|trans }}</button>
+                        </div>
+                        <div class="approve-sales-popup-checkbox">
+                            <input type="checkbox" id="approve-sales-popup-checkbox">
+                            <label for="approve-sales-popup-checkbox">
+                                <i class="far fa-square"></i>
+                                <i class="far fa-check-square"></i>
+                            </label>
+                            <label for="approve-sales-popup-checkbox">
+                                <span class="checkbox-title">{{ 'report.know.what.doing'|trans }}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="approve-sales-popup-footer-additional-content">
+                        {% if overlayData['cigarettes'] is defined %}
+                            <p>
+                                <span>{{ 'report.cigarettes'|trans }}</span>
+                                <span class="approve-sales-footer-cigarettes-val">{{ overlayData['cigarettes']['sum'] | number_format(2, ".", "'") }}</span>
+                                <span>{{ currency }}</span>
+                            </p>
+                        {% endif %}
+                        {% if overlayData['tips'] is defined %}
+                            {% for tipName, amount in overlayData['tips'] %}
+                                <p>
+                                    <span>{{ tipName }}</span>
+                                    <span class="approve-sales-footer-kitchen-tip-val">{{ amount | number_format(2, ".", "'") }}</span>
+                                    <span>{{ currency }}</span>
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

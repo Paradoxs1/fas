@@ -1,0 +1,19 @@
+{% if tenantManagers %}
+    <tr>
+        <td id="title-tenant-managers">
+            <p>{{ 'tenant_managers.title'|trans }}</p>
+        </td>
+        <td>
+            {% for tenantManager in tenantManagers %}
+                <div class="checkbox-tenant-managers">
+                    <input type="checkbox" name="tenantData[manager][{{ tenantManager.id }}]" id="id-manager-{{ tenantManager.id }}">
+                    <label for="id-manager-{{ tenantManager.id }}">
+                        <i class="far fa-square"></i>
+                        <i class="far fa-check-square"></i>
+                    </label>
+                    <label for="id-manager-{{ tenantManager.id }}">{{ tenantManager.fullName }}</label>
+                </div>
+            {% endfor %}
+        </td>
+    </tr>
+{% endif %}

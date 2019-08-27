@@ -1,0 +1,185 @@
+/*---------------------setup---------------------*/
+
+.user-add-edit label:after{
+    display: inline-block;
+    content: '*';
+    padding-left: 5px;
+    color: #C90026;
+}
+
+td{
+    font-size: 14px;
+    font-weight: 300;
+    padding-bottom: 10px;
+}
+
+td:first-child{
+    width: 192px;
+}
+
+td:last-child{
+    padding-left: 10px;
+}
+
+input{
+    width: 360px;
+    font-weight: 300;
+}
+
+.not-required label:after{
+    content: " ";
+}
+
+.user-add-edit-personal-data tr:last-child label:after{
+    content: '';
+}
+
+.user-add-edit-personal-data,
+.user-add-edit-login-information{
+    margin-bottom: 12px;
+}
+
+.tenant-select, .country-select{
+    width: 360px;
+    background-position: 98% center;
+}
+
+/*--------------------user add/edit association--------------------*/
+
+.tenant-select-label{
+    padding-left: 10px;
+    width: 200px;
+}
+
+.tenant-select-label:after{
+    content: '' !important;
+}
+
+.tenant-select-label{
+    color: #3F4F5E;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 34px;
+    padding-right: 10px;
+}
+
+/*--------------------facility assignment--------------------*/
+
+.tenant-add-edit-content{
+    margin-left: 11px;
+}
+.facility-assignment{
+    margin: 100px 0 0 20px;
+}
+
+.facility-assignment input{
+    width: 20px;
+    height: 20px;
+}
+
+.facility-assignment th{
+    position: relative;
+    text-align: left;
+}
+
+.facility-assignment td{
+    text-align: right;
+}
+
+.facility-assignment th p{
+    position: absolute;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    font-size: 14px;
+    font-weight: 300;
+    left: 34px;
+    top: -70px;
+    width: 110px;
+}
+
+.facility-assignment td:first-child,
+.facility-assignment td:first-child{
+   max-width: 370px;
+}
+
+.remove-facility-row{
+    width: 160px;
+}
+
+.facility-assignment-checkbox{
+    width: 70px;
+}
+
+.facility-assignment-checkbox.error-name i{
+    color: inherit;
+}
+
+.facility-assignment-checkbox input{
+    display: none;
+}
+
+.fa-square,
+.fa-circle{
+    color: #D8D8D8;
+}
+
+.fa-check-square,
+.fa-check-circle{
+    color: #444;
+}
+
+.facility-assignment-checkbox input:not(checked) + label .fa-check-square{
+    display: none;
+}
+
+.facility-assignment-checkbox input:checked + label .fa-check-square{
+    display: inline-block;
+}
+
+.facility-assignment-checkbox input:checked + label .fa-square{
+    display: none;
+}
+
+.facility-assignment-checkbox input:not(checked) + label .fa-check-circle{
+    display: none;
+}
+
+.facility-assignment-checkbox input:checked + label .fa-check-circle{
+    display: inline-block;
+}
+
+.facility-assignment-checkbox input:checked + label .fa-circle{
+    display: none;
+}
+
+.facility-assignment-checkbox label{
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    margin-bottom: 0;
+}
+
+.facility-assignment-checkbox label:after{
+    content: '';
+}
+
+.facility-assignment-checkbox label .far{
+    font-size: 22px;
+}
+
+.sales-reports-show-approved label span{
+    line-height: 22px;
+    vertical-align: top;
+    padding-left: 7px;
+}
+
+/*--------------------user add/edit edit buttons--------------------*/
+
+.user-add-edit-buttons{
+    padding-top: 15px;
+    padding-bottom: 40px;
+}

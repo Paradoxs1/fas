@@ -1,0 +1,223 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'edit_account.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/add-edit-entity.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+
+        {% block header %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="user-add-edit">
+            <div class="container">
+                <form id="user-edit-form" action="">
+                    <div class="row fas-header">
+                        <div class="col-10 fas-title">
+                            <h1>{{ 'tenant.users_add_title'|trans }}</h1>
+                        </div>
+                        <div class="col-2 fas-required-message">
+                            <p><span class="red-color">*</span> {{ 'report.required'|trans }}</p>
+                        </div>
+                    </div>
+                    <div class="row fas-section user-add-edit-personal-data">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'tenant.users_edit_personal_data'|trans }}</h2>
+                        </div>
+
+                        <div class="col-12 tenant-add-edit-content">
+                            <table>
+                                <tr>
+                                    <td id="title-first-name">
+                                        <label for="first-name" class="red-stars-color">{{ 'account.first_name'|trans }}</label>
+                                    </td>
+                                    <td>
+                                        <input class="fas-input" type="text" id="form-first-name" name="first-name">
+                                    </td>
+                                    <td class="error-message">
+                                        <span id="error-first-name-message-required" class="not-active">{{ 'tenant.users_edit_first_name_not_blank'|trans }}</span>
+                                        <span id="error-first-name-message-must-contain" class="not-active">{{ 'tenant.users_edit_first_name_min_length'|trans }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="title-last-name">
+                                        <label for="last-name" class="red-stars-color" class="not-active">{{ 'tenant.users_edit_last_name_not_blank'|trans }}</label>
+                                    </td>
+                                    <td>
+                                        <input class="fas-input" type="text" id="form-last-name" name="last-name">
+                                    </td>
+                                    <td class="error-message">
+                                        <span id="error-last-name-message-required" class="not-active">{{ 'tenant.users_edit_last_name_not_blank'|trans }}</span>
+                                        <span id="error-last-name-message-must-contain" class="not-active">{{ 'tenant.users_edit_first_name_min_length'|trans }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="title-email">
+                                        <label for="email" class="red-stars-color">{{ 'mail.title'|trans }}</label>
+                                    </td>
+                                    <td>
+                                        <input class="fas-input" type="email" id="form-email" name="email">
+                                    </td>
+                                    <td class="error-message">
+                                        <span id="error-email-message-required" class="not-active" class="not-active">{{ 'tenant.users_edit_email_not_blank'|trans }}</span>
+                                        <span id="error-email-message" class="not-active" class="not-active">{{ 'tenant.users_edit_valid_email'|trans }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="title-tel">
+                                        <label for="telephone" class="red-stars-color">{{ 'account.telephone'|trans }}</label>
+                                    </td>
+                                    <td>
+                                        <input class="fas-input" type="tel" id="form-tel" name="telephone">
+                                    </td>
+                                    <td class="error-message" >
+                                        <span id="error-tel-message" class="not-active">{{ 'tenant.users_edit_valid_phone'|trans }}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="row fas-section user-add-edit-login-information">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'login_information.title'|trans }}</h2>
+                        </div>
+
+                        <div class="col-12 tenant-add-edit-content">
+                            <table>
+                                <tr>
+                                    <td id="title-user-name">
+                                        <label for="user-name" class="red-stars-color">{{ 'tenant.users.username'|trans }}</label>
+                                    </td>
+                                    <td>
+                                        <input class="fas-input" type="text" id="form-user-name" name="user-name">
+                                    </td>
+                                    <td class="error-message">
+                                        <span id="error-user-name-message-required" class="not-active">{{ 'tenant.users_edit_username_not_blank'|trans }}</span>
+                                        <span id="error-user-name-message-must-contain" class="not-active">{{ 'tenant.users_edit_username_length'|trans }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="title-password">
+                                        <label for="password" class="red-stars-color">Password</label>
+                                    </td>
+                                    <td>
+                                        <input class="fas-input" type="password" id="form-password" name="password">
+                                    </td>
+                                    <td class="error-message" id="error-password-message">
+                                        <span id="error-password-message-required" class="not-active">{{ 'tenant.users_edit_password_not_blank'|trans }}</span>
+                                        <span id="error-password-message-must-contain" class="not-active">{{ 'tenant.users_edit_password_length'|trans }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="title-confirm-password">
+                                        <label for="confirm-password" class="red-stars-color">Password confirm</label>
+                                    </td>
+                                    <td>
+                                        <input class="fas-input" type="password" id="form-confirm-password" name="confirm-password">
+                                    </td>
+                                    <td class="error-message">
+                                        <span id="error-password-confirm-message-required" class="not-active">{{ 'tenant.users_edit_password_confirm_not_blank'|trans }}</span>
+                                        <span id="error-password-confirm-message-must-contain" class="not-active">{{ 'tenant.users_edit_password_not_identical'|trans }}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="row fas-section user-add-edit-association">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'tenant.users_edit_facility_assignment'|trans }}</h2>
+                        </div>
+                        <table class="facility-assignment">
+                            <tr>
+                                <th></th>
+                                <th><p>{{ 'role.tenant_manager.title'|trans }}</p></th>
+                                <th><p>{{ 'role.tenant_user.title'|trans }}</p></th>
+                                <th><p>{{ 'role.stakeholder.title'|trans }}</p></th>
+                                <th><p>{{ 'role.facility_manager.title'|trans }}</p></th>
+                                <th><p>{{ 'role.facility_user.title'|trans }}</p></th>
+                                <th></th>
+                            </tr>
+                            <tr class="basic-facility-line">
+                                <td>
+                                    <select class="fas-select tenant-select" name="restaurant-select-line-1">
+                                        <option value="1">Restaurant 1</option>
+                                        <option value="2">Restaurant 2</option>
+                                        <option value="3">Restaurant 3</option>
+                                    </select>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="checkbox-line-1-value-1" type="checkbox" name="facility-checkbox-line-1-value-1">
+                                    <label for="checkbox-line-1-value-1">
+                                        <i class="far fa-square"></i>
+                                        <i class="far fa-check-square"></i>
+                                    </label>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="checkbox-line-1-value-2" type="checkbox" name="facility-checkbox-line-1-value-2">
+                                    <label for="checkbox-line-1-value-2">
+                                        <i class="far fa-square"></i>
+                                        <i class="far fa-check-square"></i>
+                                    </label>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="checkbox-line-1-value-3" type="checkbox" name="facility-checkbox-line-1-value-3">
+                                    <label for="checkbox-line-1-value-3">
+                                        <i class="far fa-square"></i>
+                                        <i class="far fa-check-square"></i>
+                                    </label>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="radio-line-1-value-1" type="radio" name="facility-radio-line-1" value="1">
+                                    <label for="radio-line-1-value-1">
+                                        <i class="far fa-circle"></i>
+                                        <i class="far fa-check-circle"></i>
+                                    </label>
+                                </td>
+                                <td class="facility-assignment-checkbox">
+                                    <input id="radio-line-1-value-2" type="radio" name="facility-radio-line-1" value="1">
+                                    <label for="radio-line-1-value-2">
+                                        <i class="far fa-circle"></i>
+                                        <i class="far fa-check-circle"></i>
+                                    </label>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <div class="col-12 btn-add-line">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>{{ 'tenant.users_edit_add_facility'|trans }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row user-add-edit-buttons save-cancel-buttons">
+                        <button type="submit" class="btn-submit">{{ 'report.save'|trans }}</button>
+                        <button class="btn-cancel">{{ 'cancel_button.title'|trans }}</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/validation/user-add.js"></script>
+    <script src="/js/facility-assignment.js"></script>
+{% endblock %}

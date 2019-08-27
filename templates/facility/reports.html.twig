@@ -1,0 +1,170 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'reports.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/sales-reports.css">
+{% endblock %}
+
+{% block body %}
+
+<div class="site-content">
+    {% block header %}
+        {% set current_facility = facility %}
+        {% set current_tenant = facility.tenant %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block menu %}
+        {% set current_facility = facility %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                <div class="container">{{ flash }}</div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% include 'common/pop-up.html.twig' with {'reopen': true} %}
+
+    {% if data is not null and data.currentPageResults %}
+        {% set reports = data.currentPageResults %}
+    {% endif %}
+
+    {% set date = get_not_approved_date(facility, daysInPast) %}
+
+    <div class="sales-reports reports-list">
+        <div class="container">
+            <div class="reopen-report-popup hide">
+                <i class="fa fa-times"></i>
+                <p class="reopen-error-message"></p>
+            </div>
+            <div class="row fas-header">
+                <div class="col-md-6 fas-title">
+                    <h1>{{ 'sales_reports.title'|trans }}</h1>
+                </div>
+                <div class="col-md-6 fas-add-search-nav">
+                    <div class="fas-add-item">
+                        <a href="{{ url('backofficer_report', {'id': facility.id, 'date': date }) }}">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>{{ 'report.add_title'|trans }}</span>
+                        </a>
+                    </div>
+                    <div class="sales-reports-show-approved">
+                        <input id="onlyApproved" type="checkbox">
+                        <label for="onlyApproved">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-check-square"></i>
+                            <span>{{ 'report.show_only_approved'|trans }}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fas-section">
+                <div class="col-12">
+
+                    <table class="fas-section-table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'report.date'|trans }}</th>
+                            <th>{{ 'reopen.restaurant'|trans }}</th>
+                            <th class="cashier-report-column">{{ 'report.cashier_reports'|trans }}</th>
+                            <th class="total-sales-column">{{ 'report.total.sales'|trans }}</th>
+                            <th class="approval-column">{{ 'report.approved'|trans }}</th>
+                            <th class="action-column">{{ 'tenant.users.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if reports is defined %}
+                            {% for item in reports %}
+                                {% set reportsData = get_reports_collected_data(item.report_data) %}
+                                    {% include 'includes/report-line.html.twig' %}
+                            {% endfor %}
+                        {% else %}
+                            <tr class="sales-report-empty-table">
+                                <td colspan="5">{{ 'facility.users.no_users'|trans }}</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+
+                    {% if data is not null and data.currentPageResults  %}
+                        <div class="row sales-reports-pagination">
+                            <div class="col-md-6 sales-reports-pagination-left-content">
+                                <p>
+                                    {{ 'tenant.users.show'|trans }}
+                                    <span class="pagination-pages-values">
+                                            {{ data.getCurrentPageOffsetStart }}-{{ data.getCurrentPageOffsetEnd }}
+                                        </span>
+                                    {{ 'tenant.users.of'|trans }}
+                                    <span class="pagination-pages-values">{{ data.count }}</span> {{ 'tenant.users.rows'|trans }}.
+                                </p>
+                            </div>
+                            <div class="col-md-6 sales-reports-pagination-right-content">
+                                {% if app.request.query.get('approved') != null %}
+                                    {{ pagerfanta(data, 'fas_pager', { 'omitFirstPage': true, 'routeParams': {'approved': 1} }) }}
+                                {% else %}
+                                    {{ pagerfanta(data, 'fas_pager', { 'omitFirstPage': true }) }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if categoryTips %}
+                <div class="row fas-section tipping-table">
+                    <div class="col-12">
+                        {% set lastMonth = 'month.' ~ 'last month'|date('F') | lower %}
+                        {% set currentMonth = 'month.' ~ 'now'|date('F') | lower %}
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>{{ 'tenant.tips'|trans }}</th>
+                                <th>{{ 'tenant.last_month'|trans }} ({{ lastMonth | trans }})</th>
+                                <th>{{ 'tenant.current_month'|trans }} ({{ currentMonth | trans }})</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for category in categoryTips %}
+                                <tr>
+                                    <td>{{ category }}</td>
+                                    <td>
+                                    {% if sumTips.lastMonth is defined and sumTips.lastMonth[category] is defined %}
+                                        <div class="tipping-table-money-box">
+                                            <span class="tip-value">{{ sumTips.lastMonth[category].sum }}</span>
+                                            <span class="currency">{% if sumTips.lastMonth[category].iso_code %}{{ sumTips.lastMonth[category].iso_code }}{% else %}CHF{% endif %}</span>
+                                        </div>
+                                    {% endif %}
+                                    </td>
+                                    <td>
+                                    {% if sumTips.currentMonth is defined and sumTips.currentMonth[category] is defined %}
+                                        <div class="tipping-table-money-box">
+                                            <span class="tip-value">{{ sumTips.currentMonth[category].sum }}</span>
+                                            <span class="currency">{% if sumTips.currentMonth[category].iso_code %}{{ sumTips.currentMonth[category].iso_code }}{% else %}CHF{% endif %}</span>
+                                        </div>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/jquery.formatCurrency.min.js"></script>
+    <script src="/js/report-list.js"></script>
+{% endblock %}

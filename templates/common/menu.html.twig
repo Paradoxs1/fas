@@ -1,0 +1,72 @@
+{% block menu %}
+    {% if
+        is_granted('ROLE_TENANT_MANAGER') or
+        is_granted('ROLE_TENANT_USER') or
+        is_granted('ROLE_FACILITY_STAKEHOLDER')
+    %}
+    <div class="fas-menu">
+        <div class="container">
+            <div class="row">
+                <label for="restaurant-select" class="restaurant-select-label">{{ 'facility.menu_name'|trans }}:</label>
+
+                    {% if app.user.accountFacilityRoles|length %}
+
+                    <select id="restaurant-select" class="fas-select" onchange="location = this.value;">
+                        <option value="">{{ 'dropdown.select_placeholder'|trans }}</option>
+                        {% for user_facility in app.user.accountFacilities %}
+                            <option
+                                    value="{{ path('facility_dashboard', {'id': user_facility.id }) }}"
+                                    {% if current_facility is defined and current_facility.id == user_facility.id %} selected="selected" {% endif %}
+                            >
+                                {{ user_facility.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    {% endif %}
+
+                    {% set _route = app.request.get('_route')%}
+
+                {% if current_facility is defined and current_facility != null %}
+                    <nav class="fas-menu-nav">
+                        <a href="{{ path('facility_dashboard', {'id': current_facility.id}) }}" class="{{ _route == 'facility_dashboard' ? 'active' }}">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>{{ 'dashboard.title'|trans }}</span>
+                        </a>
+
+                            {% if app.user.hasFacilityRole(current_facility.id, 'ROLE_TENANT_MANAGER') %}
+                                <a href="{{ path('facility_configuration', {'id': current_facility.id}) }}" class="{{ _route == 'facility_configuration' ? 'active' }}">
+                                    <i class="fas fa-wrench"></i>
+                                    <span>{{ 'accounting_interface.configuration.label'|trans }}</span>
+                                </a>
+
+                                <a href="{{ path('stakeholder_accounts', {'id': current_facility.id}) }}" class="{{ _route == 'stakeholder_accounts' or _route == 'stakeholder_account_add' or _route == 'stakeholder_account_edit' ? 'active' }}">
+                                    <i class="fas fa-rss"></i>
+                                    <span>{{ 'stakeholder.users'|trans }}</span>
+                                </a>
+                            {% endif %}
+
+                            {% if app.user.hasFacilityRole(current_facility.id, 'ROLE_TENANT_USER') %}
+                                <a href="{{ path('facility_accounts', {'id': current_facility.id}) }}" class="{{ _route == 'facility_accounts' or _route == 'facility_account_edit' or _route == 'facility_account_add' ? 'active' }}">
+                                    <i class="fas fa-users"></i>
+                                    <span>{{ 'facility.users'|trans }}</span>
+                                </a>
+                                <a href="{{ path('facility_reports', {'id': current_facility.id}) }}" class="{{ _route == 'facility_reports' or _route == 'check_report' or _route == 'report_overview' or _route == 'edit_cashier_report' or _route == 'backofficer_report' ? 'active' }}">
+                                    <i class="fas fa-book"></i>
+                                    <span>{{ 'reports.title'|trans }}</span>
+                                </a>
+                            {% endif %}
+
+                            {% if app.user.hasFacilityRole(current_facility.id, 'ROLE_FACILITY_STAKEHOLDER') %}
+                                <a href="{{ path('facility_statistics', {'id': current_facility.id}) }}" class="{{ _route == 'facility_statistics' ? 'active' }}">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>{{ 'statistics.title'|trans }}</span>
+                                </a>
+                            {% endif %}
+                        </nav>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

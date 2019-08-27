@@ -1,0 +1,19 @@
+{% if cash %}
+    <div class="row cash-report-cashiers-content">
+        <div class="col-12 title-with-line-box">
+            <div class="sales-report-title-with-line">
+                <p>{{ 'report_overview.received_cash'|trans }}</p>
+            </div>
+        </div>
+
+        <div class="col-12 cash-report-cashiers">
+            {% for item in cash %}
+                <div class="cash-report-item">
+                    <p class="cash-items-name">{{ item.account.person.firstName }} {{ item.account.person.lastName }}</p>
+                    <p class="cash-items-value">{{ item.amount | number_format(2, ".", "'") }}</p>
+                    <span>{{ currency }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

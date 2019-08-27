@@ -1,0 +1,1342 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+
+msgid "security.registration"
+msgstr "Registration"
+
+msgid "security.login"
+msgstr "Login"
+
+msgid "security.logout"
+msgstr "Logout"
+
+msgid "security.password"
+msgstr "Password"
+
+msgid "security.enter"
+msgstr "Enter"
+
+msgid "security.forgot.password"
+msgstr "Forgot password ?"
+
+msgid "tenant.users"
+msgstr "Users"
+
+msgid "tenant.users.add_user"
+msgstr "Add User"
+
+msgid "tenant.users.search"
+msgstr "Search"
+
+msgid "tenant.users.name"
+msgstr "Name"
+
+msgid "tenant.users.username"
+msgstr "Username"
+
+msgid "tenant.users.facilities"
+msgstr "Facilities"
+
+msgid "tenant.users.actions"
+msgstr "Actions"
+
+msgid "tenant.users.no_users"
+msgstr "No Users"
+
+msgid "tenant.users.show"
+msgstr "Show"
+
+msgid "tenant.users.of"
+msgstr "of"
+
+msgid "tenant.users.rows"
+msgstr "Rows"
+
+msgid "tenant.users_edit_title"
+msgstr "Edit User"
+
+msgid "tenant.users_add_title"
+msgstr "Create User"
+
+msgid "tenant.users_edit_required_fields"
+msgstr "Required fields"
+
+msgid "tenant.users_edit_personal_data"
+msgstr "Personal Data"
+
+msgid "tenant.users_edit_first_name_not_blank"
+msgstr "Please enter a first name."
+
+msgid "tenant.users_edit_first_name_min_length"
+msgstr "Must at least contain 2 characters."
+
+msgid "tenant.users_edit_last_name_not_blank"
+msgstr "Please enter a last name."
+
+msgid "tenant.users_edit_last_name_min_length"
+msgstr "Must at least contain 2 characters."
+
+msgid "tenant.users_edit_email_not_blank"
+msgstr "Please enter an email address."
+
+msgid "tenant.users_edit_valid_email"
+msgstr "Must be a valid email address."
+
+msgid "tenant.users_edit_valid_phone"
+msgstr "Please enter a valid phone number."
+
+msgid "tenant.users_edit_username_not_blank"
+msgstr "Please enter a username."
+
+msgid "tenant.users_edit_username_length"
+msgstr "Must at least contain 2 characters."
+
+msgid "tenant.users_edit_password_not_blank"
+msgstr "Please enter a password."
+
+msgid "tenant.users_edit_password_length"
+msgstr "The password has to be 6 characters long."
+
+msgid "tenant.users_edit_password_confirm_not_blank"
+msgstr "Please enter the password confirmation."
+
+msgid "tenant.users_edit_password_not_identical"
+msgstr "The password is not identical."
+
+msgid "tenant.users_edit_required_assigment"
+msgstr "Please assign at least one user to facility"
+
+msgid "tenant.users_edit_facility_assignment"
+msgstr "Facility assignment"
+
+msgid "tenant.users_edit_remove_facility"
+msgstr "Remove Facility"
+
+msgid "tenant.users_edit_add_facility"
+msgstr "Add Facility"
+
+msgid "tenant.users_edit_cancel"
+msgstr "Cancel"
+
+msgid "tenant.tips"
+msgstr "Tips"
+
+msgid "tenant.last_month"
+msgstr "Last month"
+
+msgid "tenant.current_month"
+msgstr "Current month"
+
+msgid "tenant.statistic_title"
+msgstr "Sales statistic"
+
+msgid "tenant.statistic_date_title"
+msgstr "7 DAYS"
+
+msgid "account.first_name"
+msgstr "First Name"
+
+msgid "account.last_name"
+msgstr "Last Name"
+
+msgid "account.email"
+msgstr "Email"
+
+msgid "account.telephone"
+msgstr "Telephone"
+
+msgid "account.password"
+msgstr "Password"
+
+msgid "account.password_confirm"
+msgstr "Pasword confirm"
+
+msgid "account.username"
+msgstr "Username"
+
+
+msgid "security.forgot_password_title"
+msgstr "Forgot password"
+
+msgid "security.forgot_password_text"
+msgstr "Enter your username and we send you a link to reset your password to the assigned e-mail address."
+
+msgid "security.account.username"
+msgstr "Username *"
+
+msgid "security.account.username_not_blank"
+msgstr "Please enter an username."
+
+msgid "security.account.username_min_length"
+msgstr "Must at least contain 2 characters."
+
+msgid "security.send_button.title"
+msgstr "Send"
+
+msgid "security.account.username_placeholder"
+msgstr "Enter username"
+
+msgid "security.account.login"
+msgstr "Login"
+
+msgid "security.forgot_password_link"
+msgstr "The link to reset the forgotten password was sent to the aasigen e-mail address."
+
+msgid "security.forgot_password_inbox"
+msgstr "It might take few minutes until the email appears in your inbox."
+
+msgid "security.back_to_login"
+msgstr "Back to Login"
+
+msgid "security.invalid_token_title"
+msgstr "Invalid token"
+
+msgid "security.invalid_token_message"
+msgstr "The passed reset password token is invalid. Please request a new token."
+
+msgid "security.request_new_token"
+msgstr "Request new token"
+
+msgid "security.set_password_title"
+msgstr "Set new password"
+
+msgid "security.set_password_tip"
+msgstr "Please enter your new password and confirm it."
+
+msgid "security.enter_new_password_placeholder"
+msgstr "Enter a new password"
+
+msgid "security.new_password_not_blank"
+msgstr "Please enter a password"
+
+msgid "security.new_password_min_length"
+msgstr "The password has to be 6 characters long"
+
+msgid "security.password_required_label"
+msgstr "Password *"
+
+msgid "security.confirm_password_required_label"
+msgstr "Confirm password *"
+
+msgid "security.enter_new_confirm_password_placeholder"
+msgstr "Confirm new password"
+
+msgid "security.new_confirm_password_not_blank"
+msgstr "Please enter the password confirmation"
+
+msgid "security.new_confirm_password_not_identical"
+msgstr "The password is not identical"
+
+msgid "security.reset_password_button_title"
+msgstr "Reset password"
+
+msgid "security.new_password_set_title"
+msgstr "New password set"
+
+msgid "security.new_password_set_message"
+msgstr "Password was successfully reseted."
+
+msgid "security.password_expired"
+msgstr "Password expired"
+
+msgid "security.password_reset"
+msgstr "Password reset"
+
+msgid "security.login.blocked"
+msgstr "Login blocked"
+
+msgid "security.login.blocked_message"
+msgstr "Due to too many login attempts the login was blocked. Please try again later."
+
+msgid "security.login.blocked_remaining_time"
+msgstr "Remaining Time:"
+
+msgid "report.add.sales.report"
+msgstr "Add Sales Report"
+
+msgid "report.edit.sales.report"
+msgstr "Edit Sales Report"
+
+msgid "report.required"
+msgstr "required"
+
+msgid "report.data.successfully.saved"
+msgstr "Data successfully saved"
+
+msgid "report.report.details"
+msgstr "Report details"
+
+msgid "report.approved"
+msgstr "Approved"
+
+msgid "report.not.approved"
+msgstr "Not Approved"
+
+msgid "report.send.report"
+msgstr "Send report"
+
+msgid "report.send.report.message"
+msgstr "Do you really want to send the report? Once the report has been sent, it can't be changed or reset."
+
+msgid "report.button.send"
+msgstr "Send"
+
+msgid "report.button.cancel"
+msgstr "Cancel"
+
+msgid "report.questionnaire"
+msgstr "Questionnaire"
+
+msgid "report.save"
+msgstr "Save"
+
+msgid "report.transact.anyway"
+msgstr "Transact anyway"
+
+msgid "report.some.entries.incorrect"
+msgstr "Some entries seem to be incorrect"
+
+msgid "report.comment"
+msgstr "Comment"
+
+msgid "report.enter.comment.shift"
+msgstr "Enter a comment on the shift"
+
+msgid "report.total.dues"
+msgstr "Total dues"
+
+msgid "report.shifts"
+msgstr "Shifts"
+
+msgid "report.date"
+msgstr "Date"
+
+msgid "report.sales"
+msgstr "Sales"
+
+msgid "report.sales.report"
+msgstr "Sales Report"
+
+msgid "report.total.sales"
+msgstr "Total sales"
+
+msgid "report.total.pos"
+msgstr "Total sales from POS"
+
+msgid "report.credit.cards"
+msgstr "Credit Cards"
+
+msgid "report.add.terminal"
+msgstr "Add Terminal"
+
+msgid "report.delete.terminal"
+msgstr "Delete Terminal"
+
+msgid "report.terminal"
+msgstr "Terminal"
+
+msgid "report.visa"
+msgstr "Visa"
+
+msgid "report.mastercard"
+msgstr "Mastercard"
+
+msgid "report.postcard"
+msgstr "Postcard"
+
+msgid "report.total"
+msgstr "Total"
+
+msgid "report.total.all.cards"
+msgstr "Total of all Cards"
+
+msgid "report.accepted.voucher"
+msgstr "Accepted voucher"
+
+msgid "report.accepted.vouchers"
+msgstr "Accepted vouchers"
+
+msgid "report.issued.voucher"
+msgstr "Issued voucher"
+
+msgid "report.issued.vouchers"
+msgstr "Issued vouchers"
+
+msgid "report.new.voucher"
+msgstr "New Voucher"
+
+msgid "report.issued.vouchers.total"
+msgstr "Total issued vouchers"
+
+msgid "report.accepted.vouchers.total"
+msgstr "Total accepted vouchers"
+
+msgid "report.expenses"
+msgstr "Expenses"
+
+msgid "report.new.expense"
+msgstr "New Expense"
+
+msgid "report.total.expenses"
+msgstr "Total expenses"
+
+msgid "report.bills"
+msgstr "Bills"
+
+msgid "report.new.bill"
+msgstr "New Bill"
+
+msgid "report.total.accepted.bills"
+msgstr "Total accepted bills"
+
+msgid "report.cigarettes"
+msgstr "Cigarettes"
+
+msgid "report.summary"
+msgstr "Summary"
+
+msgid "report.card.payments"
+msgstr "Card Payments"
+
+msgid "report.vouchers"
+msgstr "Vouchers"
+
+msgid "report.cash.income"
+msgstr "Cash income"
+
+msgid "report.dues"
+msgstr "Dues"
+
+msgid "report.number"
+msgstr "Number"
+
+msgid "report.amount"
+msgstr "Amount"
+
+msgid "report.name"
+msgstr "Name"
+
+msgid "report.receiver"
+msgstr "Receiver"
+
+msgid "report.calculate.total"
+msgstr "Calculate total"
+
+msgid "report.tip.bill"
+msgstr "Tip (Bill)"
+
+msgid "report.tip.sales"
+msgstr "(%percent%% of the sales)"
+
+msgid "report.calculating.cash"
+msgstr "Calculating cash"
+
+msgid "report.coins"
+msgstr "Coins"
+
+msgid "report.enter.amount.coins"
+msgstr "Enter amount of coins"
+
+msgid "report.total.cash"
+msgstr "Total Cash"
+
+msgid "report.approve.sales"
+msgstr "Approve Sales"
+
+msgid "report.payments"
+msgstr "Payments"
+
+msgid "report.missing.income"
+msgstr "Missing income"
+
+msgid "report.book"
+msgstr "Book"
+
+msgid "report.know.what.doing"
+msgstr "I know what i am doing"
+
+msgid "report.kitchen.tip"
+msgstr "Kitchen Tip"
+
+msgid "report.add.edit.sales.report"
+msgstr "Add/Edit sales report"
+
+msgid "report.tip"
+msgstr "Tip"
+
+msgid "report.cash"
+msgstr "Cash"
+
+msgid "report.difference"
+msgstr "Difference"
+
+msgid "report.cash.bill.1000"
+msgstr "cash bill 1000"
+
+msgid "report.cash.bill.500"
+msgstr "cash bill 500"
+
+msgid "report.cash.bill.200"
+msgstr "cash bill 200"
+
+msgid "report.cash.bill.100"
+msgstr "cash bill 100"
+
+msgid "report.cash.bill.50"
+msgstr "cash bill 50"
+
+msgid "report.cash.bill.20"
+msgstr "cash bill 20"
+
+msgid "report.cash.bill.10"
+msgstr "cash bill 10"
+
+msgid "report.cash.bill.5"
+msgstr "cash bill 5"
+
+msgid "report.cash.coins"
+msgstr "cash coins"
+
+msgid "report.cash.coin.5"
+msgstr "cash coin 5"
+
+msgid "report.cash.coin.2"
+msgstr "cash coin 2"
+
+msgid "report.cash.coin.1"
+msgstr "cash coin 1"
+
+msgid "report.cash.coin.0.50"
+msgstr "cash coin 0.50"
+
+msgid "report.cash.coin.0.20"
+msgstr "cash coin 0.20"
+
+msgid "report.cash.coin.0.10"
+msgstr "cash coin 0.10"
+
+msgid "report.cash.coin.0.05"
+msgstr "cash coin 0.05"
+
+msgid "report.cash.coin.0.02"
+msgstr "cash coin 0.02"
+
+msgid "report.cash.coin.0.01"
+msgstr "cash coin 0.01"
+
+msgid "report.you.are.going.approve.sales"
+msgstr ""
+    "You are going to approve the sales report of the\n"
+    "<span class='approve-sales-data'>%date%</span>\n"
+    "for the facility „<span>%facilityName%</span>“\n"
+    "as it’s showed in the form. Please confirm this action and creation\n"
+    "of the book-keepings (this action can not be reverted)."
+
+msgid "report.unsaved.data.getting.lost"
+msgstr "Unsaved data getting lost"
+
+msgid "report.load.new.report"
+msgstr ""
+    "You're going to load a new report. All entered data will be lost.\n"
+    "Are you sure that you want to load another report date?"
+
+msgid "report.button.yes"
+msgstr "Yes"
+
+msgid "facility.users.name"
+msgstr "Name"
+
+msgid "facility.users.username"
+msgstr "Username"
+
+msgid "facility.users.service_chef"
+msgstr "Chef of Service"
+
+msgid "facility.users.actions"
+msgstr "Actions"
+
+msgid "facility.delete"
+msgstr "Delete Facility"
+
+msgid "tenant.users.show"
+msgstr "Show"
+
+msgid "tenant.users.of"
+msgstr "of"
+
+msgid "tenant.users.rows"
+msgstr "Rows"
+
+msgid "facility.users"
+msgstr "Cashiers"
+
+msgid "facility.users.no_users"
+msgstr "No Reports created yet"
+
+msgid "facility.users.add_user"
+msgstr "Add Cashier"
+
+msgid "facility.users.search"
+msgstr "Suche"
+
+msgid "facility.users_add_title"
+msgstr "Create Cashier"
+
+msgid "facility.users_edit_required_fields"
+msgstr "Required fields"
+
+msgid "facility.users_edit_title"
+msgstr "Edit Cashier"
+
+msgid "stakeholder.users"
+msgstr "Stakeholders"
+
+msgid "stakeholder.users.name"
+msgstr "Name"
+
+msgid "stakeholder.users.username"
+msgstr "Username"
+
+msgid "stakeholder.users.actions"
+msgstr "Actions"
+
+msgid "stakeholder.users.add_user"
+msgstr "Add Stakeholder"
+
+msgid "stakeholder.users.search"
+msgstr "Search"
+
+msgid "stakeholder.users_add_title"
+msgstr "Create Stakeholder"
+
+msgid "stakeholder.users_edit_required_fields"
+msgstr "Required fields"
+
+msgid "stakeholder.users_edit_title"
+msgstr "Edit Stakeholder"
+
+msgid "account.users_edit_title"
+msgstr "Edit Profile"
+
+msgid "accounting_interface.configuration.label"
+msgstr "Configuration"
+
+msgid "accounting_interface.accounting_provider.label"
+msgstr "Accounting Provider"
+
+msgid "address.street_label"
+msgstr "Street"
+
+msgid "address.zip_label"
+msgstr "ZIP"
+
+msgid "address.city_label"
+msgstr "City"
+
+msgid "country.street_label"
+msgstr "Street"
+
+msgid "country.iso_code_label"
+msgstr "ISO Code"
+
+msgid "default_facility_layout.enable_shifts"
+msgstr "Enable Shifts"
+
+msgid "facility_layout.days_in_past"
+msgstr "Day(s) in past"
+
+msgid "facility_layout.count"
+msgstr "Count"
+
+msgid "facility_layout.different_reporting_window"
+msgstr "Different Reporting window ('X' days)"
+
+msgid "facility_layout.different_reporting_window_short"
+msgstr "Different Reporting window"
+
+msgid "facility_layout.enable_shifts"
+msgstr "Enable Shifts"
+
+msgid "facility_layout.enable_interface"
+msgstr "Enable Interface"
+
+msgid "facility.name"
+msgstr "Name"
+
+msgid "facility.routine_template"
+msgstr "Routine template"
+
+msgid "facility.country"
+msgstr "Country"
+
+msgid "tenant.name"
+msgstr "Name"
+
+msgid "add_account.title"
+msgstr "Edit Account"
+
+msgid "add_account.create_tenant_manager"
+msgstr "Create Tenant Manager"
+
+msgid "add_account.required"
+msgstr "required"
+
+msgid "add_account.association"
+msgstr "Association"
+
+msgid "add_account.cancel"
+msgstr "Cancel"
+
+msgid "edit_account.title"
+msgstr "Users Edit"
+
+msgid "edit_account.required"
+msgstr "required"
+
+msgid "edit_account.association"
+msgstr "Association"
+
+msgid "edit_account.cancel"
+msgstr "Cancel"
+
+msgid "list_account.title"
+msgstr "Users"
+
+msgid "list_account.add_tenant_manager"
+msgstr "Add Tenant Manager"
+
+msgid "list_account.search"
+msgstr "Search"
+
+msgid "list_account.name"
+msgstr "Name"
+
+msgid "list_account.email"
+msgstr "Email"
+
+msgid "list_account.tenant_name"
+msgstr "Tenant Name"
+
+msgid "list_account.actions"
+msgstr "Actions"
+
+msgid "list_account.no_tenant_managers"
+msgstr "No Tenant Managers"
+
+msgid "error_page.info"
+msgstr "The above error (404) occurred while the Web server was processing your request."
+
+msgid "error_page.contact_us"
+msgstr "Please contact us if you think this error persists."
+
+msgid "error_page.thank_you"
+msgstr "Thank you."
+
+msgid "tenants.title"
+msgstr "Tenants"
+
+msgid "default_config.title"
+msgstr "Default Configuration"
+
+msgid "facilities.title"
+msgstr "Facilities"
+
+msgid "users.admin"
+msgstr "Admin"
+
+msgid "profile.title"
+msgstr "Profile"
+
+msgid "facility.menu_name"
+msgstr "Facility"
+
+msgid "dropdown.select_placeholder"
+msgstr "Please select"
+
+msgid "dashboard.title"
+msgstr "Dashboard"
+
+msgid "reports.title"
+msgstr "Reports"
+
+msgid "statistics.title"
+msgstr "Statistics"
+
+msgid "popup.default_content"
+msgstr "Are you sure you want to delete this record ? This action cannot be undone."
+
+msgid "delete_button.title"
+msgstr "Delete"
+
+msgid "cancel_button.title"
+msgstr "Cancel"
+
+msgid "reopen_button.title"
+msgstr "Reopen"
+
+msgid "facility_add.title"
+msgstr "Facility Add"
+
+msgid "create_facility.title"
+msgstr "Create Facility"
+
+msgid "facility_details.title"
+msgstr "Facility details"
+
+msgid "facility.currency"
+msgstr "Currency"
+
+msgid "tenant_name.required"
+msgstr "Please enter a tenant name"
+
+msgid "tenant_name.min_length"
+msgstr "Must at least contain 2 characters"
+
+msgid "street.required"
+msgstr "Please enter a street"
+
+msgid "street.min_length"
+msgstr "Must at least contain 3 characters"
+
+msgid "zip.required"
+msgstr "Please enter a ZIP code"
+
+msgid "zip.min_length"
+msgstr "Must contain between 4 and 8 characters"
+
+msgid "city.required"
+msgstr "Please enter a city"
+
+msgid "city.min_length"
+msgstr "Must at least contain 2 characters"
+
+msgid "user_assignment.title"
+msgstr "User assignment"
+
+msgid "role.tenant_manager.title"
+msgstr "Tenant Manager"
+
+msgid "role.tenant_user.title"
+msgstr "Tenant User"
+
+msgid "role.stakeholder.title"
+msgstr "Stakeholder"
+
+msgid "role.facility_manager.title"
+msgstr "Facility Manager"
+
+msgid "role.facility_user.title"
+msgstr "Facility User"
+
+msgid "popup.delete_content"
+msgstr "Are you sure you want to delete this user? This action cannot be undone."
+
+msgid "general.title"
+msgstr "General"
+
+msgid "report.window.days"
+msgstr "{1} 1 day|]1,Inf] %count% days"
+
+msgid "json_not_valid"
+msgstr "JSON is not valid"
+
+msgid "json_chars_limit"
+msgstr "You exceeded the number of allowed chars. Please adapt the JSON"
+
+msgid "test_connection.title"
+msgstr "Test connection"
+
+msgid "estimated_cost_day.title"
+msgstr "Estimated costs per day"
+
+msgid "personal_cost.title"
+msgstr "Personal costs"
+
+msgid "operating_cost.title"
+msgstr "Operating costs"
+
+msgid "ware_costs.title"
+msgstr "Ware costs"
+
+msgid "sales_category.title"
+msgstr "Sales category"
+
+msgid "new_category.title"
+msgstr "New Category"
+
+msgid "account_no.title"
+msgstr "Account No"
+
+msgid "payment_methods.title"
+msgstr "Payment methods"
+
+msgid "payment_methods.new_method"
+msgstr "New Payment Methods"
+
+msgid "payment_methods.credit_card"
+msgstr "Credit Card"
+
+msgid "payment_methods.new_credit_card"
+msgstr "New Credit Card"
+
+msgid "tip.title"
+msgstr "Tip"
+
+msgid "tip_percent.title"
+msgstr "Tip in %"
+
+msgid "tip.new_tip"
+msgstr "New Tip"
+
+msgid "add_total_amount.text"
+msgstr "Add to total sales amount"
+
+msgid "tip_account_no.title"
+msgstr "Tip Account No"
+
+msgid "questions.title"
+msgstr "Questions"
+
+msgid "questions.new_question"
+msgstr "New Question"
+
+msgid "questions.question"
+msgstr "Question"
+
+msgid "facility_edit.title"
+msgstr "Facility Edit"
+
+msgid "facility_edit_reverse.title"
+msgstr "Edit Facility"
+
+msgid "remove_user.title"
+msgstr "Remove User"
+
+msgid "address.title"
+msgstr "Address"
+
+msgid "delete_facility.text"
+msgstr "Are you sure you want to delete this facility? By deleting this facility, all its users will be unassigned! This action cannot be undone."
+
+msgid "no_facilities.text"
+msgstr "No Facilities"
+
+msgid "steakholders.title"
+msgstr "Steakholders"
+
+msgid "sales_report.title"
+msgstr "Sales Report"
+
+msgid "report_check.title"
+msgstr "Report Check"
+
+msgid "sales_reports.title"
+msgstr "Sales Reports"
+
+msgid "report.earnings"
+msgstr "Earnings"
+
+msgid "report.beverages"
+msgstr "Beverages"
+
+msgid "report.food"
+msgstr "Food"
+
+msgid "report.alcoholic_beverages"
+msgstr "Alcoholic Beverages"
+
+msgid "report.received_cash"
+msgstr "Received cash (from cashier)"
+
+msgid "report.next"
+msgstr "Next"
+
+msgid "report.yes"
+msgstr "Yes"
+
+msgid "report.no"
+msgstr "No"
+
+msgid "tenant_users.title"
+msgstr "Tenant Users"
+
+msgid "user.title"
+msgstr "User"
+
+msgid "mail.title"
+msgstr "Mail"
+
+msgid "login_information.title"
+msgstr "Login information"
+
+msgid "add_tenant.title"
+msgstr "Add Tenant"
+
+msgid "delete_tenant.text"
+msgstr "Are you sure you want to delete this tenant? By deleting this tenant, all his facilities and users get deleted as well! This action cannot be undone."
+
+msgid "no_tenants.title"
+msgstr "No Tenants"
+
+msgid "tenants_edit.title"
+msgstr "Tenants Edit"
+
+msgid "edit_tenant.title"
+msgstr "Edit Tenant"
+
+msgid "facility.name.required"
+msgstr "Please enter a facility name"
+
+msgid "country.required"
+msgstr "Please select a country"
+
+msgid "tenant_managers.title"
+msgstr "Tenant Managers"
+
+msgid "tenants_add.title"
+msgstr "Tenants Add"
+
+msgid "create_tenant.title"
+msgstr "Create Tenant"
+
+msgid "report.reopen_header"
+msgstr "Reopen report from %date%"
+
+msgid "report.reopen_text"
+msgstr "Do you really want to reopen the sales report for %date%. This action can’t be undone."
+
+msgid "report.add_title"
+msgstr "Add report"
+
+msgid "report.show_only_approved"
+msgstr "Show only not approved"
+
+msgid "reopen.restaurant"
+msgstr "Restaurant"
+
+msgid "report.cashier_reports"
+msgstr "Cashier Reports"
+
+msgid "report_overview.title"
+msgstr "Reports Overview"
+
+msgid "report_overview.sales_reports"
+msgstr "Sales Reports"
+
+msgid "report_overview.cash_report"
+msgstr "Cash Report"
+
+msgid "report_overview.edit"
+msgstr "Edit"
+
+msgid "report_overview.cash"
+msgstr "Cash"
+
+msgid "report_overview.earnings"
+msgstr "Earnings"
+
+msgid "report_overview.total"
+msgstr "Total"
+
+msgid "report_overview.credit_cards"
+msgstr "Credit Cards"
+
+msgid "report_overview.terminal"
+msgstr "Terminal"
+
+msgid "report_overview.received_cash"
+msgstr "Received Cash (from Cashier)"
+
+msgid "report_overview.cashier_reports"
+msgstr "Reports from cashier"
+
+msgid "report_overview.backofficer_reports"
+msgstr "Reports from backofficer"
+
+msgid "report_overview.shift"
+msgstr "Shift"
+
+msgid "report_overview.comment"
+msgstr "Comment from"
+
+msgid "report_overview.difference"
+msgstr "Difference"
+
+msgid "report_overview.all"
+msgstr "All"
+
+msgid "report_overview.sales"
+msgstr "Sales"
+
+msgid "report_overview.card_payments"
+msgstr "Card Payments"
+
+msgid "report_overview.vouchers"
+msgstr "Vouchers"
+
+msgid "report_overview.issued_voucher"
+msgstr "Issued Voucher (#"
+
+msgid "report_overview.accepted_voucher"
+msgstr "Accepted Voucher (#"
+
+msgid "report_overview.bills"
+msgstr "Bills"
+
+msgid "report_overview.tip"
+msgstr "Tip"
+
+msgid "report_overview.expenses"
+msgstr "Expenses"
+
+msgid "report_overview.dues"
+msgstr "Dues"
+
+msgid "report_overview.income_cash"
+msgstr "Income Cash"
+
+msgid "report_overview.control"
+msgstr "Control"
+
+msgid "report_overview.approve"
+msgstr "Approve & Book"
+
+msgid "report_overview.question_by"
+msgstr "Question by"
+
+msgid "report_overview.chef_service"
+msgstr "(CHEF DE SERVICE)"
+
+msgid "report_overview.included_issued"
+msgstr "Included Issued Vouchers:"
+
+msgid "report_reopen_error.not_data"
+msgstr "Error getting data for reopening report"
+
+msgid "report_reopen_error.database"
+msgstr "Database error connection failed"
+
+msgid "gelf_logger.login"
+msgstr "User '%name%' successfully logged in"
+
+msgid "gelf_logger.failed_login"
+msgstr "User '%name%' failed to login"
+
+msgid "gelf_logger.logout"
+msgstr "User '%name%' successfully logged out"
+
+msgid "gelf_logger.create"
+msgstr "User '%username%' successfully created %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.failed_create"
+msgstr "User '%username%' failed to create a new %entity%"
+
+msgid "gelf_logger.edit"
+msgstr "User '%username%' updated %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.failed_edit"
+msgstr "User '%username%' failed to update %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.delete"
+msgstr "User '%username%' deleted %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.facility_configuration"
+msgstr "User '%username%' updated configuration of %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.tenant_configuration"
+msgstr "User '%username%' updated default configuration of %entity% '%name%' (#%id%)"
+
+msgid "gelf_logger.cashier_report_create"
+msgstr "User '%username%' created new cashier report (#%id%) on facility '%name%' (#%facility_id%) for '%date%'"
+
+msgid "gelf_logger.exception"
+msgstr "User '%username%' has an error on the page '%url%'"
+
+msgid "user.required"
+msgstr "Please assign a user to the facility"
+
+msgid "report_api.voucher_no"
+msgstr "Voucher No."
+
+msgid "report_api.bill"
+msgstr "Bill"
+
+msgid "report_api.bill_tip"
+msgstr "Bill Tip"
+
+msgid "report_api.success"
+msgstr "Data has been saved in accounting service."
+
+msgid "report_api.forbidden"
+msgstr "You do not have access to this resource."
+
+msgid "report_api.test_call_success"
+msgstr "Connection successful. Code: "
+
+msgid "report_api.test_call_trouble"
+msgstr "Connection could not be established, please check your input. Code: "
+
+msgid "report_api.test_popup_button"
+msgstr "Close"
+
+msgid "report_api.test_popup_title"
+msgstr "Test connection with "
+
+msgid "report_period_closed_title"
+msgstr "Reporting period closed"
+
+msgid "report_period_closed_text"
+msgstr "The today reports were already close and approve. No further reports can be added digitally. Please fill out the paper form and hand it with the receipts and the cash."
+
+msgid "kind_regards"
+msgstr "Kind Regards"
+
+msgid "bbc_team"
+msgstr "The BBC-Team"
+
+msgid "report_created_successful_title"
+msgstr "Report created successful"
+
+msgid "report_created_successful_text"
+msgstr "Thank you, your report has been submitted. Please submit all the receipts and invoices together with the %total% %currency%."
+
+msgid "report_created_kind_regards"
+msgstr "Thank you and a nice evening"
+
+msgid "cashup_team"
+msgstr "The CashUp Team"
+
+msgid "button.save"
+msgstr "Save"
+
+msgid "dashboard.monday"
+msgstr "Monday"
+
+msgid "dashboard.tuesday"
+msgstr "Tuesday"
+
+msgid "dashboard.wednesday"
+msgstr "Wednesday"
+
+msgid "dashboard.thursday"
+msgstr "Thursday"
+
+msgid "dashboard.friday"
+msgstr "Friday"
+
+msgid "dashboard.saturday"
+msgstr "Saturday"
+
+msgid "dashboard.sunday"
+msgstr "Sunday"
+
+msgid "category.credit_cards"
+msgstr "Credit Card"
+
+msgid "category.accepted_voucher"
+msgstr "Accepted Voucher"
+
+msgid "category.issued_voucher"
+msgstr "Issued Voucher"
+
+msgid "category.bills"
+msgstr "Bills"
+
+msgid "category.expenses"
+msgstr "Expenses"
+
+msgid "category.tip"
+msgstr "Tip"
+
+msgid "category.cash"
+msgstr "Cash"
+
+msgid "category.cigarettes"
+msgstr "Cigarettes"
+
+msgid "button.check_report.delete"
+msgstr "Delete Cashier"
+
+msgid "month.january"
+msgstr "January"
+
+msgid "month.february"
+msgstr "February"
+
+msgid "month.march"
+msgstr "March"
+
+msgid "month.april"
+msgstr "April"
+
+msgid "month.may"
+msgstr "May"
+
+msgid "month.june"
+msgstr "June"
+
+msgid "month.july"
+msgstr "July"
+
+msgid "month.august"
+msgstr "August"
+
+msgid "month.september"
+msgstr "September"
+
+msgid "month.october"
+msgstr "October"
+
+msgid "month.november"
+msgstr "November"
+
+msgid "month.december"
+msgstr "December"
+
+msgid "creditCard"
+msgstr "Credit Card"
+
+msgid "acceptedVoucher"
+msgstr "Accepted Voucher"
+
+msgid "issuedVoucher"
+msgstr "Issued Voucher"
+
+msgid "bill"
+msgstr "Bill"
+
+msgid "expenses"
+msgstr "Expenses"
+
+msgid "tip"
+msgstr "Tip"
+
+msgid "cash"
+msgstr "Cash"
+
+msgid "cigarettes"
+msgstr "Cigarettes"
+
+msgid "name"
+msgstr "Name"
+
+msgid "addToTotalSalesAmount"
+msgstr "Add to total sales amount"
+
+msgid "tipInPercentage"
+msgstr "Tip in percentage"
+
+msgid "questionName"
+msgstr "Question name"
+
+msgid "new"
+msgstr "New"
+
+msgid "accountNo"
+msgstr "Account No"
+
+msgid "report_api_abaninja.success"
+msgstr "The report has been approved and is ready to be fetched by AbaNinja"

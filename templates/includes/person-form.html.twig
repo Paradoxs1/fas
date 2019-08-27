@@ -1,0 +1,60 @@
+<div class="row fas-section user-add-edit-personal-data">
+    <div class="col-12 fas-section-title">
+        <h2>{{ 'tenant.users_edit_personal_data'|trans }}</h2>
+    </div>
+    <div class="col-12 tenant-add-edit-content">
+        <table>
+            <tr>
+                <td id="title-first-name">
+                    {{ form_label(form.person.firstName) }}
+                </td>
+                <td class="form-row">
+                    {{ form_widget(form.person.firstName, {'id' : 'form-first-name', 'attr': {'class': 'fas-input'}}) }}
+                </td>
+                <td class="error-message">
+                    <span>{{ get_unique_errors(form_errors(form.person.firstName)) }}</span>
+                    <span id="error-first-name-message-required" class="not-active">{{ 'tenant.users_edit_first_name_not_blank'|trans }}</span>
+                    <span id="error-first-name-message-must-contain" class="not-active">{{ 'tenant.users_edit_first_name_min_length'|trans }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td id="title-last-name">
+                    {{ form_label(form.person.lastName) }}
+                </td>
+                <td class="form-row">
+                    {{ form_widget(form.person.lastName, {'id' : 'form-last-name', 'attr': {'class': 'fas-input'}}) }}
+                </td>
+                <td class="error-message">
+                    <span>{{ get_unique_errors(form_errors(form.person.lastName)) }}</span>
+                    <span id="error-last-name-message-required" class="not-active">{{ 'tenant.users_edit_last_name_not_blank'|trans }}</span>
+                    <span id="error-last-name-message-must-contain" class="not-active">{{ 'tenant.users_edit_last_name_min_length'|trans }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td id="title-email">
+                    {{ form_label(form.accountEmail.email) }}
+                </td>
+                <td class="form-row">
+                    {{ form_widget(form.accountEmail.email, {'id' : 'form-email', 'attr': {'class': 'fas-input'}}) }}
+                </td>
+                <td class="error-message">
+                    <span>{{ get_unique_errors(form_errors(form.accountEmail.email)) }}</span>
+                    <span id="error-email-message-required" class="not-active" class="not-active">{{ 'tenant.users_edit_email_not_blank'|trans }}</span>
+                    <span id="error-email-message" class="not-active" class="not-active">{{ 'tenant.users_edit_valid_email'|trans }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td id="title-tel">
+                    {{ form_label(form.person.telephone) }}
+                </td>
+                <td class="form-row">
+                    {{ form_widget(form.person.telephone, {'id' : 'form-tel', 'attr': {'class': 'fas-input'}}) }}
+                </td>
+                <td class="error-message" >
+                    <span>{{ get_unique_errors(form_errors(form.person.telephone)) }}</span>
+                    <span id="error-tel-message" class="not-active">{{ 'tenant.users_edit_valid_phone'|trans }}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+{% extends "base.html.twig" %}
+
+{% use "common/header.html.twig" %}
+{% use "common/menu.html.twig" %}
+
+{% block title %}{{ 'edit_account.title'|trans }}{% endblock %}
+
+{% block stylesheets_additional %}
+    <link rel="stylesheet" href="/css/add-edit-entity.css">
+{% endblock %}
+
+{% block body %}
+    <div class="site-content">
+
+        {% block header %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block menu %}
+            {{ parent() }}
+        {% endblock %}
+
+        <div class="user-add-edit">
+            <div class="container">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'id' : 'user-edit-form'}}) }}
+                    <div class="row fas-header">
+                        <div class="col-10 fas-title">
+                            <h1>
+                                Edit Tenant Manager:
+                                <span id="tenant-manager-first-name">{{ account.person.firstName }}</span>
+                                <span id="tenant-manager-last-name">{{ account.person.lastName }}</span>
+                            </h1>
+                        </div>
+
+                        <div class="col-2 fas-required-message">
+                            <p><span class="red-color">*</span> {{ 'edit_account.required'|trans }}</p>
+                        </div>
+                    </div>
+
+                    {% include 'includes/person-form.html.twig' with {'form' : form } %}
+                    {% include 'includes/username-password-form.html.twig' with {'form' : form, 'required': false } %}
+
+                    <div class="row fas-section user-add-edit-association">
+                        <div class="col-12 fas-section-title">
+                            <h2>{{ 'edit_account.association'|trans }}</h2>
+                        </div>
+
+                        <div class="col-12 tenant-add-edit-content">
+                            {{ form_label(form.tenant, null, {'label_attr' : {'class' : 'tenant-select-label'}}) }}
+
+                            {{ form_widget(form.tenant, {'id' : 'tenant-select', 'attr': {'class': 'fas-select tenant-select'}}) }}
+                        </div>
+
+                    </div>
+
+                    <div class="row user-add-edit-buttons save-cancel-buttons">
+                        {{ form_widget(form.save) }}
+                        <button onclick=location.href='{{ path("admin_users") }}' type="button" class="btn-cancel">{{ 'edit_account.cancel'|trans }}</button>
+                    </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts_additional %}
+    <script src="/js/validation/user-edit.js"></script>
+
+    <script>
+        var global_user_edit_id = {{ account.id }};
+    </script>
+{% endblock %}

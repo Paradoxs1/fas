@@ -1,0 +1,99 @@
+{% if assignedUsers %}
+    <div class="row fas-section user-add-edit-association">
+        <div class="col-12 fas-section-title">
+            <h2>{{ 'user_assignment.title'|trans }}</h2>
+        </div>
+        <table class="facility-assignment facility-assignment-edit">
+            <tr>
+                <th></th>
+                <th><p>{{ 'role.tenant_manager.title'|trans }}</p></th>
+                <th><p>{{ 'role.tenant_user.title'|trans }}</p></th>
+                <th><p>{{ 'role.stakeholder.title'|trans }}</p></th>
+                <th><p>{{ 'role.facility_manager.title'|trans }}</p></th>
+                <th><p>{{ 'role.facility_user.title'|trans }}</p></th>
+                <th></th>
+            </tr>
+            {% for key, assignedUser in assignedUsers %}
+                <tr class="basic-facility-line">
+                    <td>
+                        <select id="{% if loop.first %}restaurant-user-select{% endif %}" class="fas-select tenant-select" name="user-to-assign[{{ key }}]">
+                            {% for accountToAssign in accountsToAssign %}
+                                <option {% if assignedUser['id'] == accountToAssign.id %} selected="selected" {% endif %}
+                                        value="{{ accountToAssign.id }}">{{ accountToAssign.fullName }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td class="facility-assignment-checkbox">
+                        <input id="tenant-manager-{{ key }}" type="checkbox" name="roles[tenant-manager][{{ key }}]"
+                                {% if assignedUser['tenant-manager'] is defined %} checked="checked" {% endif %}>
+                        <label for="tenant-manager-{{ key }}">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-check-square"></i>
+                        </label>
+                    </td>
+                    <td class="facility-assignment-checkbox">
+                        <input id="tenant-user-{{ key }}" type="checkbox" name="roles[tenant-user][{{ key }}]"
+                                {% if assignedUser['tenant-user'] is defined %} checked="checked" {% endif %}>
+                        <label for="tenant-user-{{ key }}">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-check-square"></i>
+                        </label>
+                    </td>
+                    <td class="facility-assignment-checkbox">
+                        <input id="stakeholder-{{ key }}" type="checkbox" name="roles[stakeholder][{{ key }}]"
+                                {% if assignedUser['stakeholder'] is defined %} checked="checked" {% endif %}>
+                        <label for="stakeholder-{{ key }}">
+                            <i class="far fa-square"></i>
+                            <i class="far fa-check-square"></i>
+                        </label>
+                    </td>
+                    <td class="facility-assignment-checkbox">
+                        <input id="facility-manager-{{ key }}" type="radio" name="roles[facility-manager-user][{{ key }}]" value="fm"
+                                {% if assignedUser['facility-manager'] is defined %} checked="checked" {% endif %}>
+                        <label for="facility-manager-{{ key }}">
+                            <i class="far fa-circle"></i>
+                            <i class="far fa-check-circle"></i>
+                        </label>
+                    </td>
+                    <td class="facility-assignment-checkbox">
+                        <input id="facility-user-{{ key }}" type="radio" name="roles[facility-manager-user][{{ key }}]" value="fu"
+                                {% if assignedUser['facility-user'] is defined %} checked="checked" {% endif %}>
+                        <label for="facility-user-{{ key }}">
+                            <i class="far fa-circle"></i>
+                            <i class="far fa-check-circle"></i>
+                        </label>
+                    </td>
+                    <td class="error-message">
+                        <span class="not-active">
+                            {{ 'tenant.users_edit_required_assigment'|trans }}
+                        </span>
+                    </td>
+                    {% if loop.length > 1 %}
+                        <td>
+                            <div class="btn-remove-line">
+                                <i class="fas fa-minus-circle"></i>
+                                <span>{{ 'remove_user.title'|trans }}</span>
+                            </div>
+                        </td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if loop.first %}
+                        <td class="error-message">
+                            <span id="error-user-assignment-message-required" class="not-active">{{ 'user.required'|trans }}</span>
+                            {% if not validAssignUsers %}
+                                <span>{{ 'user.required'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="col-12 btn-add-line">
+            <i class="fas fa-plus-circle"></i>
+            <span>{{ 'tenant.users.add_user'|trans }}</span>
+        </div>
+    </div>
+
+{% endif %}
